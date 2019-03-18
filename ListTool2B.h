@@ -14,6 +14,7 @@
  |>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
  */
 
+
 #ifndef __LISTTOOL2B_H                  //  Ensures that this file will be
 #define __LISTTOOL2B_H                  //    included only ONCE in each file.
 
@@ -128,3 +129,5 @@ public:
     bool displayElement(const char* text); //                             X
     void displayList();                    //      X          X           X
 }; 
+
+#endif
