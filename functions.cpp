@@ -5,6 +5,11 @@
 //  Created by Sindre Hjelle on 18/03/2019.
 //  Copyright © 2019 Sindre Hjelle. All rights reserved.
 //
+
+#ifdef _MSC_VER
+#define _CRT_SECURE_NO_WARNINGS
+#endif 
+
 #include "functions.h"
 #include <iostream>
 #include <cstring>              //  strlen
