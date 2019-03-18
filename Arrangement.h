@@ -1,14 +1,19 @@
-//
-//  Arrangement.hpp
-//  ProsjektFil
-//
-//  Created by Sindre Hjelle on 18/03/2019.
-//  Copyright © 2019 Sindre Hjelle. All rights reserved.
-//
 
-#ifndef Arrangement_hpp
-#define Arrangement_hpp
+#ifndef Arrangement_h
+#define Arrangement_h
 
-#include <stdio.h>
+#include <fstream>
+#include "ListTool2B.h"
 
-#endif /* Arrangement_hpp */
+class arrangement : TextElement {
+private:
+    char* name;
+    int eventNumber;
+    
+    
+};
+
+
+
+
+#endif
