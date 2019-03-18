@@ -60,3 +60,19 @@ bool leapyear(int yy) {
     //Leapyear?
     return ((yy % 400 == 0) || ((yy % 4 == 0) && (yy % 100) != 0));
 }
+void printMenu() {
+    cout << "\n\nFLGENDE KOMMANDOER ER TILGJENGELIGE:";
+    cout << "\n\tK D - Kunde Display";
+    cout << "\n\tK N - Kunde Ny";
+    cout << "\n\tK E - Kunde Endre";
+    cout << "\n\tS D - Sted Diplay";
+    cout << "\n\tS N - Sted Nytt";
+    cout << "\n\tO D - Oppsett Display";
+    cout << "\n\tO N - Oppsett Nytt";
+    cout << "\n\tO E - Oppsett Endre";
+    cout << "\n\tA D - Arrangement Display";
+    cout << "\n\tA N - Arrangement Nytt";
+    cout << "\n\tA S - Arrangement Slett";
+    cout << "\n\tA K - Arrangement Kjop";
+    cout << "\n\tQ  - Quit / avslutt";
+}
