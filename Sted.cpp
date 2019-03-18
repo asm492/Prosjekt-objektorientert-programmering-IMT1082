@@ -1,10 +1,12 @@
 
 #include <iostream>
 #include <fstream>
-#include "sted.h"
+#include "Sted.h"
 
 using namespace std;
 
-void display(){
-    cout << "\n" << name;
+void Sted::display(){
+    cout << '\n' << "Venue: " << name;
+    cout << '\n' << "Layout: " << numberOfLayouts;
+    cout << '\n';
 }
