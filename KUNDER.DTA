@@ -1,0 +1,8 @@
+<ant kunder>		int
+<kundenr>		int
+<navn>			char*
+<gateadresse>		char*
+<postnummer>		int
+<poststed>		char*
+<telefon>		int
+<mail>			char*
