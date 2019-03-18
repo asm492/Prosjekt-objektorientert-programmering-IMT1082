@@ -74,5 +74,5 @@ void printMenu() {
     cout << "\n\tA N - Arrangement Nytt";
     cout << "\n\tA S - Arrangement Slett";
     cout << "\n\tA K - Arrangement Kjop";
-    cout << "\n\tQ - Quit / avslutt";
+    cout << "\n\tQ  - Quit / avslutt";
 }
