@@ -4,11 +4,17 @@
 
 #include <fstream>
 #include "ListTool2B.h"
+#include "enums.h"
 
 class arrangement : TextElement {
 private:
     char* name;
     int eventNumber;
+    int date, hh, mm;
+    eventType eventType;
+    
+public:
+    void display();
     
     
 };
