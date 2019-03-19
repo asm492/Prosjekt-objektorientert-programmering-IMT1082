@@ -14,6 +14,7 @@ private:
     char* name;
     int lastUsedLayout;
 	Stoler* layouts[MAXLAYOUTS + 1];		//	Init to 1;  Pointers to all the different seat layouts
+	List* zoneList;						
 
 public:
     void display();

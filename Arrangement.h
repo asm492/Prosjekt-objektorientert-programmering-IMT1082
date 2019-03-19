@@ -9,7 +9,7 @@
 class arrangement : TextElement {
 private:
     char* name;
-    int eventNumber;
+    int eventNumber;			//	Excess?? Listtool index
     int date, hh, mm;
     eventType eventType;
     

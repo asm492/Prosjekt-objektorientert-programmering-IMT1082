@@ -5,9 +5,23 @@
 #include <iostream>
 #include "conster.h"					//	Test
 #include "functions.h"
+#include "ListTool2B.h"
+
+List* customerList;
+List* eventList;
+List* layoutList;
+List* venueList;
+
 
 int main(int argc, const char * argv[]) {
-    char command;                //  Brukerens ›nske/valg.
+								
+										//	Should these be outside main?
+	customerList = new List(Sorted);
+	eventList = new List(Sorted);
+	layoutList = new List(Sorted);		//	THIS IS WRONG
+	venueList = new List(Sorted);
+
+	char command;                //  Brukerens ›nske/valg.
     
     
     printMenu();                  //  Meny av brukerens valg.
@@ -15,13 +29,15 @@ int main(int argc, const char * argv[]) {
     command = read();             //  Leser brukerens ›nske/valg.
     while (command != 'Q')  {
         switch(command)  {
-            case 'K':        break;   //  Legg inn (om mulig) ny ansatt.
-            case 'S':        break;   //  Endre data om partner.
-            case 'O':        break;   //  Legg inn (om mulig) nytt barn.
-            case 'A':        break;   //  Skriv alle data om en ansatt.
-            default:  printMenu();      break;   //  Meny av brukerens valg.
+			case 'K': customerMenu();   break;   
+			case 'S': venueMenu();      break;   
+            case 'O': layoutMenu();		break;   
+			case 'A': eventMenu();		break;   
+            default:  printMenu();      break;   
         }
         command = read();           //  Leser brukerens ›nske/valg.
     }
+
+
     return 0;
 }

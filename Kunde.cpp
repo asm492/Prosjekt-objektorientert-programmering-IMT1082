@@ -42,6 +42,44 @@ Kunde::Kunde() {
 	email = new char[strlen(bufferEmail) + 1];			//Allocating enough space
 	strcpy(email, bufferEmail);							//for string + '\0'
 }
+Kunde::Kunde(ifstream & inn){
+
+	char bufferName[STRLEN];
+	char bufferEmail[STRLEN];
+	char bufferAddress[STRLEN];
+	char bufferArea[STRLEN];
+
+														//Name:
+	inn.getline(bufferName, STRLEN);
+	name = new char[strlen(bufferName) + 1];			//Allocating enough space
+	strcpy(name, bufferName);							//for string + '\0'
+
+														//Address:
+	inn.getline(bufferName, STRLEN);
+	streetAddress = new char[strlen(bufferAddress) + 1];//Allocating enough space
+	strcpy(streetAddress, bufferAddress);				//for string + '\0'
+
+	inn >> postalCode;  
+	inn.ignore();									//TEST
+
+														//Postal area / city:
+	inn.getline(bufferArea, STRLEN);
+	postalArea = new char[strlen(bufferArea) + 1];		//Allocating enough space
+	strcpy(postalArea, bufferArea);						//for string + '\0'
+
+	inn >> phoneNumber;
+	inn.ignore();									//TEST
+
+														//Email:
+	inn.getline(bufferEmail, STRLEN);
+	email = new char[strlen(bufferEmail) + 1];			//Allocating enough space
+	strcpy(email, bufferEmail);							//for string + '\0'
+
+
+	/************/
+	inn.ignore();
+	/************/
+}
 void Kunde::display() {
 	cout << "Name:           " << name << endl;
 	cout << "Street address: " << streetAddress << endl;

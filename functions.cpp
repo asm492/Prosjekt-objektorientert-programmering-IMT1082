@@ -84,3 +84,69 @@ void printError(char t[]) {
 	}
 	cout << "\n\n\t\t" << t << "\n\n";		//	Prints stirng
 }
+void customerMenu() {
+	char command;
+
+	command = read();
+
+	switch (command)
+	{
+	case 'D':	break;			//	Display
+	case 'N':	break;			//	New
+	case 'E':	break;			//	Edit
+	case 'S':	break;			//	Delete
+	
+	default: 
+		printError("INPUT NOT VALID! GOING BACK TO MAIN MENU");	break;
+	}
+}
+void venueMenu() {
+	char command;
+
+	command = read();
+
+	switch (command)
+	{
+	case 'D':	break;			//	Display
+	case 'N':	break;			//	New
+	case 'S':	break;			//	Delete
+
+	default:
+		printError("INPUT NOT VALID! GOING BACK TO MAIN MENU");	break;
+	}
+}
+void layoutMenu() {
+	char command;
+
+	command = read();
+
+	switch (command)
+	{
+	case 'D':	break;			//	Display
+	case 'N':	break;			//	New
+	case 'E':	break;			//	Edit
+	case 'S':	break;			//	Delete
+
+	default:
+		printError("INPUT NOT VALID! GOING BACK TO MAIN MENU");	break;
+	}
+}
+void eventMenu() {
+	char command;
+
+	command = read();
+
+	switch (command)
+	{
+	case 'D':	break;			//	Display
+	case 'N':	break;			//	New
+	case 'E':	break;			//	Edit
+	case 'S':	break;			//	Delete
+	case 'K':	break;			//	Purchase
+	case 'R':	break;			//	Return
+
+	default:
+		printError("INPUT NOT VALID! GOING BACK TO MAIN MENU");	break;
+	}
+}
+

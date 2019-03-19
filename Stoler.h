@@ -11,9 +11,13 @@ private:
 
 
 public:
+	
 	Stoler();
+	
+	void display();
 	void configureSeats();
 	void printSeatMap();
+
 };
 
 #endif 

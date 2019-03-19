@@ -11,8 +11,11 @@ private:
     int ticketsForSale, ticketsSold, ticketPrice;
 public:
     Sone();
-    
     ~Sone();
+
+	void display();
+
+	
 };
 
 #endif

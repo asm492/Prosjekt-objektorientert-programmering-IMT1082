@@ -6,6 +6,7 @@
 #include <fstream>
 #include <cstring>
 #include "Stoler.h"
+//#include "Sted.h"			/***********/
 
 using namespace std;
 
@@ -72,5 +73,13 @@ delete [] ary;
 	*/
 
 void Stoler::configureSeats() {
+
+}
+
+void Stoler::printSeatMap() {
+
+}
+
+void Stoler::display() {
 
 }

@@ -5,6 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include "Sted.h"
+#include "Stoler.h"
 
 using namespace std;
 

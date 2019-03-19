@@ -7,7 +7,15 @@
 #include <iostream>
 
 using namespace std;
-/*
-Sone::Sone(){
 
-*/
+Sone::Sone() {
+
+}
+
+Sone::~Sone() {
+
+}
+
+void Sone::display() {
+
+}
