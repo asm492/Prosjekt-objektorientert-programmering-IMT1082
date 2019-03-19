@@ -9,22 +9,24 @@
 
 using namespace std;
 
-/*************  2D dynamic array  - DON'T DELETE: ***********/
-	/*
-	cout << "Hvor mange? Sete pr rad * Rad "; cin >> seatPrRow >> rows;
+Stoler::Stoler() {
+	
+	
+	cout << "\nNumber of seats per row?: "; cin >> seatPrRow;
+	cout << "Number of rows?: "; cin >> rows;
 
-	int** A = new int*[seatPrRow];
+	int** temp = new int*[seatPrRow];
 
 	for (int i = 0; i < seatPrRow; i++)
 	{
-		A[i] = new int[rows];
+		temp[i] = new int[rows];
 	}
 
-	for (int i = 0; i < seatPrRow; i++)					//	REMOVE, FILLS RANDOM
+	for (int i = 0; i < seatPrRow; i++)					//	Fills with 0
 	{
 		for (int j = 0; j < rows; j++)
 		{
-			A[i][j] = (rand() % 100) + 1;
+			temp[i][j] = 0;
 		}
 
 	}
@@ -32,17 +34,23 @@ using namespace std;
 	for (int i = 0; i < seatPrRow; i++)
 	{
 		for (int j = 0; j < rows; j++)
-			std::cout << A[i][j] << " ";
+			std::cout << temp[i][j] << " ";
 
 		cout << endl;
 	}
 
 	// deallocate memory using delete[] operator
-	for (int i = 0; i < seatPrRow; i++)
-		delete[] A[i];
+	//for (int i = 0; i < seatPrRow; i++)
+		//delete[] temp[i];
 
-	delete[] A;
-	*/
+	//delete[] temp;
+	
+
+
+
+}
+
+
 
 
 	/*

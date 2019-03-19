@@ -35,15 +35,10 @@ void read(const char t[], char s[], const int LEN) {
         cout << '\t' << t << ": "; cin.getline(s, LEN); // Ledetekst og leser.
     } while (strlen(s) == 0);                    //  Sjekker at tekstlengden er ulik 0.
 }
-void printText(char t[]) {
-    int n = strlen(t);                        //    Tar i mot en char array
-    for (int i = 0; i < n; i++)                //    Gj¯r hele array til uprcase
-    {
-        t[i] = toupper(t[i]);
-    }
-    cout << "\n\n\t\t" << t << "\n\n";        //    Hopper 2x linjer og tab
-    //    Skriver ut melding i uprcase
-    //    Hopper 2x linjer
+void printError(const char t[]) {
+    
+    cout << "\n\n\t\t" << t << "\n\n";        
+    
 }
 int dayNumber(int dd, int mm, int yyyy) {
     int daysPrMonth[12] = { 31, 0, 31, 30, 31, 30, 31, 31, 30, 31, 30,
@@ -80,4 +75,12 @@ void printMenu() {
     cout << "\n\tA S - Arrangement Slett";
     cout << "\n\tA K - Arrangement Kjop";
     cout << "\n\tQ  - Quit / avslutt";
+}
+void printError(char t[]) {
+	int n = strlen(t);						
+	for (int i = 0; i < n; i++)				//	Uppercases the whole string
+	{
+		t[i] = toupper(t[i]);
+	}
+	cout << "\n\n\t\t" << t << "\n\n";		//	Prints stirng
 }

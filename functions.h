@@ -12,7 +12,7 @@
 
 void read(const char t[], char s[], const int LEN);
 char read();
-void printError(char t[]);
+void printError(const char t[]);
 int  read(const char t[], const int min, const int max);
 void printMenu();
 int dayNumber(int dd, int mm, int yyyy);

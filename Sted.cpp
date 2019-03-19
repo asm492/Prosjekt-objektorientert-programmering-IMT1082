@@ -15,5 +15,46 @@ void Sted::display(){
 }
 
 void Sted::newSeatLayout() {
+	
+	if (lastUsedLayout < 5)
+	{													//	To do: copy
+		cout << "\nCreating new layout:" << endl;
+		layouts[++lastUsedLayout] = new Stoler();
+														
+	}
+	else
+	{
+		printError("MAXIMUM NUMBER OF CONFIGURATIONS ARE ALREADY MADE!");
+		
+
+	}
+
+}
+void Sted::printSeatLayout() {
+	int nr;
+
+	if (lastUsedLayout > 0)
+	{
+		nr = read("Which layout do you want to display? Press '0' for all:", 0, lastUsedLayout);
+		cout << '\n';
+		if (nr != 0)
+		{
+			layouts[nr]->printSeatMap();
+		}
+		else
+		{
+			for (int i = 1; i <= lastUsedLayout; i++)
+			{
+				layouts[nr]->printSeatMap();
+			}
+		}
+	}
+	else
+	{
+		printError("NO LAYOUTS IN THE DATABASE");
+	}
+	
+	
+	
 
 }

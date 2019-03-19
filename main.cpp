@@ -4,7 +4,8 @@
 
 #include <iostream>
 #include "conster.h"					//	Test
-#include "functions.cpp"
+#include "functions.h"
+
 int main(int argc, const char * argv[]) {
     char command;                //  Brukerens ›nske/valg.
     
