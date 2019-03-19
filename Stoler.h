@@ -6,13 +6,12 @@
 
 class Stoler : public Sone {
 private:
-	int seatConfig[MAXCONFIG + 1][MAXCONFIG + 1];
+	int seatConfig[MAXLAYOUTS + 1][MAXLAYOUTS + 1];			//	Usikker på om denne faktisk skal med
 	int seatPrRow, rows;
-	
-	
+
+
 public:
 	void configureSeats();
 };
 
 #endif 
-
