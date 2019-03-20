@@ -6,22 +6,27 @@
 #include "conster.h"					//	Test
 #include "functions.h"
 #include "ListTool2B.h"
+#include "Kunder.h"
 
-List* customerList;
-List* eventList;
-List* layoutList;
-List* venueList;
+//List* customerList;
+//List* eventList;
+//List* layoutList;
+//List* venueList;
 
 
-int main(int argc, const char * argv[]) {
-								
+int main() {
+	
+	Kunder customerDatabase;
+	
+	char command;                					
 										//	Should these be outside main?
-	customerList = new List(Sorted);
-	eventList = new List(Sorted);
-	layoutList = new List(Sorted);		//	THIS IS WRONG
-	venueList = new List(Sorted);
+	
+	//customerList = new List(Sorted);
+	//eventList = new List(Sorted);
+	//layoutList = new List(Sorted);		//	THIS IS WRONG
+	//venueList = new List(Sorted);
 
-	char command;                //  Brukerens ›nske/valg.
+	
     
     
     printMenu();                  //  Meny av brukerens valg.
@@ -29,12 +34,13 @@ int main(int argc, const char * argv[]) {
     command = read();             //  Leser brukerens ›nske/valg.
     while (command != 'Q')  {
         switch(command)  {
-			case 'K': customerMenu();   break;   
-			case 'S': venueMenu();      break;   
-            case 'O': layoutMenu();		break;   
-			case 'A': eventMenu();		break;   
-            default:  printMenu();      break;   
+		case 'K': customerDatabase.customersMenu();		break;
+			case 'S': venueMenu();						break;   
+            case 'O': layoutMenu();						break;   
+			case 'A': eventMenu();						break;   
+			default:  printError("INPUT NOT VALID!");	break;
         }
+		printMenu();
         command = read();           //  Leser brukerens ›nske/valg.
     }
 

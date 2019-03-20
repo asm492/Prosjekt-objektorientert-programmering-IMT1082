@@ -18,8 +18,9 @@ private:
 public:
 	Kunde(int n);
 	Kunde(int n, ifstream & inn);
+	
 	void display();
-
+	void writeToFile(int custNumber, ofstream & out);
 };
 
 #endif Kunde_h

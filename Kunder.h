@@ -6,13 +6,15 @@
 
 class Kunder {
 private:
-	List* customersList;
+	List* customersList;			//	KundeR
 	int lastCustomer;
 
 public:
 	Kunder();
 	void newCustomer();
 	void customersMenu();
+	void display();
+	void writeCustomersToFile();
 };
 
 #endif 

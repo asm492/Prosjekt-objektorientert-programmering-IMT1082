@@ -12,12 +12,14 @@
 
 using namespace std;
 
-Kunde::Kunde(int n) {
+Kunde::Kunde(int n) : NumElement(n) {		//	Passes parameter on to base-class
+	
 	char bufferName[STRLEN];
 	char bufferEmail[STRLEN];
 	char bufferAddress[STRLEN];
 	char bufferArea[STRLEN];
-
+		
+	cout << "\n\tCustomer number: " << n << endl;
 														//Name:
 	read("Enter customer name", bufferName, STRLEN);
 	name = new char[strlen(bufferName) + 1];			//Allocating enough space
@@ -31,7 +33,7 @@ Kunde::Kunde(int n) {
 	postalCode = read("Enter postal code", MINZIP, MAXZIP);
 
 														//Postal area / city:
-	read("Enter street address", bufferArea, STRLEN);
+	read("Enter postal area (City)", bufferArea, STRLEN);
 	postalArea = new char[strlen(bufferArea) + 1];		//Allocating enough space
 	strcpy(postalArea, bufferArea);						//for string + '\0'
 
@@ -60,7 +62,7 @@ Kunde::Kunde(int n, ifstream & inn){
 	strcpy(streetAddress, bufferAddress);				//for string + '\0'
 
 	inn >> postalCode;  
-	inn.ignore();									//TEST
+	inn.ignore();									
 
 														//Postal area / city:
 	inn.getline(bufferArea, STRLEN);
@@ -68,7 +70,7 @@ Kunde::Kunde(int n, ifstream & inn){
 	strcpy(postalArea, bufferArea);						//for string + '\0'
 
 	inn >> phoneNumber;
-	inn.ignore();									//TEST
+	inn.ignore();									
 
 														//Email:
 	inn.getline(bufferEmail, STRLEN);
@@ -76,14 +78,22 @@ Kunde::Kunde(int n, ifstream & inn){
 	strcpy(email, bufferEmail);							//for string + '\0'
 
 
-	/************/
-	inn.ignore();
-	/************/
+	//inn.ignore();
+	
 }
 void Kunde::display() {
 	cout << "Name:           " << name << endl;
 	cout << "Street address: " << streetAddress << endl;
-	cout << "ZIP, Area:      " << postalCode << ", " << postalArea << endl;
+	cout << "ZIP / Area:      " << postalCode << ' ' << postalArea << endl;
 	cout << "Phone:          " << phoneNumber << endl;
-	cout << "Email:          " << email;
+	cout << "Email:          " << email << endl;
+}
+void Kunde::writeToFile(int custNumber, ofstream & out) {
+		out << custNumber << '\n';
+		out << name << '\n';
+		out << streetAddress << '\n';
+		out << postalCode << '\n';
+		out << postalArea << '\n';
+		out << phoneNumber << '\n';
+		out << email << '\n';
 }

@@ -7,6 +7,7 @@
 #include "functions.h"
 #include "ListTool2B.h"
 #include "Kunde.h"
+#include "conster.h"
 
 using namespace std;
 
@@ -17,13 +18,15 @@ void Kunder::customersMenu() {
 
 	switch (command)
 	{
-	case 'D':	break;			//	Display
-	case 'N':	break;			//	New
+	case 'D':	display();		break;			//	Display
+	case 'N':	newCustomer();	break;			//	New
 	case 'E':	break;			//	Edit
 	case 'S':	break;			//	Delete
 
 	default:
-		printError("INPUT NOT VALID! GOING BACK TO MAIN MENU");	break;
+		printError("INPUT NOT VALID! GOING BACK TO MAIN MENU");	
+		printMenu(); 
+		break;
 	}
 }
 
@@ -32,11 +35,52 @@ Kunder::Kunder() {
 	
 }
 void Kunder::newCustomer() {
-	int custNumber;
+	
+	customersList->add(new Kunde(++lastCustomer));
+	writeCustomersToFile();
 
-	custNumber = 1000 + (++lastCustomer);
+}
+void Kunder::display() {
+	int custNr;
 
-	customersList->add(new Kunde(custNumber));
+	if (lastCustomer > 0)
+	{
+		custNr = read("Customer number to display? 0 for all", 0, lastCustomer);
+		
+		if (custNr != 0) {
+			customersList->displayElement(custNr);
+		}
+		else
+			customersList->displayList();
+			
+	}
+	else
+		printError("NO CUSTOMERS IN DATABASE!");
+}
+void Kunder::writeCustomersToFile() {
+	
+	int noOfCustomers;
+	Kunde* tempKunde;
+	
+	
+	ofstream out("KUNDER_TEST.DTA");						//CHANGE TO KUNDER.DTA
+
+	noOfCustomers = customersList->noOfElements();			
+	
+	
+	if (lastCustomer > 0)
+	{
+		for (int i = 1; i <= lastCustomer; i++)
+		{
+			tempKunde = (Kunde*)customersList->removeNo(i);		//	Removes from list
+			tempKunde->writeToFile(i, out);						//	Makes the object write it self out
+			customersList->add(tempKunde);						//	Puts the object back inn the list 
+		}
+	}
+	else
+		printError("NO CUSTOMERS IN DATABASE!");
+	
+
 }
 
 
