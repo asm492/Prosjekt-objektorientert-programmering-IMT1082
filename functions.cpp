@@ -88,22 +88,6 @@ void printError(char t[]) {
 
 
 /*TROR DISSE SKAL FJERNES:    HUSK Å FJERN FRA xxxxx.h også*/
-void customerMenu() {
-	char command;
-
-	command = read();
-
-	switch (command)
-	{
-	case 'D':	break;			//	Display
-	case 'N':	break;			//	New
-	case 'E':	break;			//	Edit
-	case 'S':	break;			//	Delete
-	
-	default: 
-		printError("INPUT NOT VALID! GOING BACK TO MAIN MENU");	break;
-	}
-}
 void venueMenu() {
 	char command;
 
