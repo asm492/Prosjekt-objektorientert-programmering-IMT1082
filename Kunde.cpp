@@ -12,7 +12,7 @@
 
 using namespace std;
 
-Kunde::Kunde() {
+Kunde::Kunde(int n) {
 	char bufferName[STRLEN];
 	char bufferEmail[STRLEN];
 	char bufferAddress[STRLEN];
@@ -42,7 +42,7 @@ Kunde::Kunde() {
 	email = new char[strlen(bufferEmail) + 1];			//Allocating enough space
 	strcpy(email, bufferEmail);							//for string + '\0'
 }
-Kunde::Kunde(ifstream & inn){
+Kunde::Kunde(int n, ifstream & inn){
 
 	char bufferName[STRLEN];
 	char bufferEmail[STRLEN];

@@ -11,12 +11,12 @@
 using namespace std;
 
 Stoler::Stoler() {
-	
+	int** temp;
 	
 	cout << "\nNumber of seats per row?: "; cin >> seatPrRow;
 	cout << "Number of rows?: "; cin >> rows;
 
-	int** temp = new int*[seatPrRow];
+	temp = new int*[seatPrRow];
 
 	for (int i = 0; i < seatPrRow; i++)
 	{

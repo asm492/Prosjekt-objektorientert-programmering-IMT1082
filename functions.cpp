@@ -84,6 +84,10 @@ void printError(char t[]) {
 	}
 	cout << "\n\n\t\t" << t << "\n\n";		//	Prints stirng
 }
+
+
+
+/*TROR DISSE SKAL FJERNES:    HUSK Å FJERN FRA xxxxx.h også*/
 void customerMenu() {
 	char command;
 

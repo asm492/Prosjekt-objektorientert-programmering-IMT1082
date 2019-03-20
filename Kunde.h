@@ -16,8 +16,8 @@ private:
 	char* email;
 
 public:
-	Kunde();
-	Kunde(ifstream & inn);
+	Kunde(int n);
+	Kunde(int n, ifstream & inn);
 	void display();
 
 };
