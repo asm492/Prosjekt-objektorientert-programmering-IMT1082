@@ -11,10 +11,9 @@ int dayNumber(int dd, int mm, int yyyy);
 
 bool leapyear(int yy);
 
-void customerMenu();
-void venueMenu();
-void layoutMenu();
-void eventMenu();
+void venueMenu();			// Skal fjernes når vi lager Steder
+void layoutMenu();			//
+void eventMenu();			// Skal fjernes når vi lager Arrangementer
 void read(const char t[], char s[], const int LEN);
 void printError(const char t[]);
 void printMenu();
