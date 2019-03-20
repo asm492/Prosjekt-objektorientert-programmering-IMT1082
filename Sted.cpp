@@ -54,7 +54,7 @@ void Sted::printSeatLayout() {
 	{
 		printError("NO LAYOUTS IN THE DATABASE");
 	}
-	
+ 
 	
 	
 
