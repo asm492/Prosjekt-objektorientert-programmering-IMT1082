@@ -76,12 +76,12 @@ Kunde::Kunde(int n, ifstream & inn) : NumElement(n) {
 	inn.getline(bufferName, STRLEN);
 	name = new char[strlen(bufferName) + 1];			//Allocating enough space
 	strcpy(name, bufferName);							//for string + '\0'
-	inn.ignore();
+	//inn.ignore();
 														//Address:
-	inn.getline(bufferName, STRLEN);
+	inn.getline(bufferAddress, STRLEN);
 	streetAddress = new char[strlen(bufferAddress) + 1];//Allocating enough space
 	strcpy(streetAddress, bufferAddress);				//for string + '\0'
-	inn.ignore();
+	//inn.ignore();
 
 	inn >> postalCode;
 	inn.ignore();
@@ -90,7 +90,7 @@ Kunde::Kunde(int n, ifstream & inn) : NumElement(n) {
 	inn.getline(bufferArea, STRLEN);
 	postalArea = new char[strlen(bufferArea) + 1];		//Allocating enough space
 	strcpy(postalArea, bufferArea);						//for string + '\0'
-	inn.ignore();
+	
 
 	inn >> phoneNumber;
 	inn.ignore();

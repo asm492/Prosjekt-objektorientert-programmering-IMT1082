@@ -25,8 +25,8 @@ int main() {
 	
 	
 	                					
-	//Doesnt work yet:
-	//customerDatabase.readCustomersFromFile();
+	
+	customerDatabase.readCustomersFromFile();
 	
 	//	Should these be outside main?
 	

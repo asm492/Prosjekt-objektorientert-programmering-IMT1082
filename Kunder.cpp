@@ -64,13 +64,14 @@ void Kunder::writeCustomersToFile() {
 	Kunde* tempKunde;
 	
 	/********************************************************************************/
-	ofstream out("KUNDER_TEST.DTA");							//CHANGE TO KUNDER.DTA
+	ofstream out("KUNDER_TEST.DTA");							//JUST FOR TESTING. CHANGE TO KUNDER.DTA 
 
 	noOfCustomers = customersList->noOfElements();			
 	
 	
 	if (lastCustomer > 0)
 	{
+		
 		out << noOfCustomers << '\n';
 		for (int i = 1; i <= lastCustomer; i++)
 		{
@@ -93,7 +94,7 @@ void Kunder::readCustomersFromFile() {
 		//inn >> tempCustNo;
 		for (int i = 1; i <= lastCustomer; i++)
 		{
-			temp = new Kunde(i, inn);
+			temp = (Kunde*)customersList->add(new Kunde(i, inn));
 		}
 	}
 	else
