@@ -3,6 +3,7 @@
 
 #include "Kunde.h"
 #include "ListTool2B.h"
+#include <fstream>
 
 class Kunder {
 private:
@@ -15,6 +16,7 @@ public:
 	void customersMenu();
 	void display();
 	void writeCustomersToFile();
+	void readCustomersFromFile();
 };
 
 #endif 

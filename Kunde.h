@@ -21,6 +21,8 @@ public:
 	
 	void display();
 	void writeToFile(int custNumber, ofstream & out);
+	void readFromFile(ifstream & inn);
+
 };
 
 #endif Kunde_h

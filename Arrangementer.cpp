@@ -30,7 +30,7 @@ void Arrangementer::eventsMenu() {
 	case 'R':	break;			//	Return
 
 	default:
-		printError("INPUT NOT VALID! GOING BACK TO MAIN MENU");	break;
+		printError("INVALID INPUT! GOING BACK TO MAIN MENU");	break;
 	}
 }
 

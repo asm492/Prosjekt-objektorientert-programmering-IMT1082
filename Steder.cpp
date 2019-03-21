@@ -13,7 +13,7 @@ void Steder::customerMenu(){
     switch (command) {
         case 'D':          break;
         case 'N':          break;
-        default: printError("INPUT NOT VALID! GOING BACK TO MAIN MENU");
+        default: printError("INVALID INPUT! GOING BACK TO MAIN MENU");
             break;
     }
 }

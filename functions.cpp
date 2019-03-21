@@ -100,7 +100,7 @@ void venueMenu() {
 	case 'S':	break;			//	Delete
 
 	default:
-		printError("INPUT NOT VALID! GOING BACK TO MAIN MENU");	break;
+		printError("INVALID INPUT! GOING BACK TO MAIN MENU");	break;
 	}
 }
 void layoutMenu() {
@@ -116,7 +116,7 @@ void layoutMenu() {
 	case 'S':	break;			//	Delete
 
 	default:
-		printError("INPUT NOT VALID! GOING BACK TO MAIN MENU");	break;
+		printError("INVALID INPUT! GOING BACK TO MAIN MENU");	break;
 	}
 }
 

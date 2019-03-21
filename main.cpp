@@ -18,11 +18,17 @@
 
 int main() {
 	
+	char command;
+
 	Kunder customerDatabase;
 	Arrangementer eventDatabase;
 	
-	char command;                					
-										//	Should these be outside main?
+	
+	                					
+	//Doesnt work yet:
+	//customerDatabase.readCustomersFromFile();
+	
+	//	Should these be outside main?
 	
 	//customerList = new List(Sorted);
 	//eventList = new List(Sorted);
@@ -38,9 +44,9 @@ int main() {
     while (command != 'Q')  {
         switch(command)  {
 		case 'K': customerDatabase.customersMenu();		break;
+		case 'A': eventDatabase.eventsMenu();			break;
 			case 'S': venueMenu();						break;   
             case 'O': layoutMenu();						break;   
-			case 'A': eventMenu();						break;   
 			default:  printError("INPUT NOT VALID!");	break;
         }
 		printMenu();

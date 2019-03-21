@@ -44,49 +44,15 @@ Kunde::Kunde(int n) : NumElement(n) {		//	Passes parameter on to base-class
 	email = new char[strlen(bufferEmail) + 1];			//Allocating enough space
 	strcpy(email, bufferEmail);							//for string + '\0'
 }
-Kunde::Kunde(int n, ifstream & inn){
-
-	char bufferName[STRLEN];
-	char bufferEmail[STRLEN];
-	char bufferAddress[STRLEN];
-	char bufferArea[STRLEN];
-
-														//Name:
-	inn.getline(bufferName, STRLEN);
-	name = new char[strlen(bufferName) + 1];			//Allocating enough space
-	strcpy(name, bufferName);							//for string + '\0'
-
-														//Address:
-	inn.getline(bufferName, STRLEN);
-	streetAddress = new char[strlen(bufferAddress) + 1];//Allocating enough space
-	strcpy(streetAddress, bufferAddress);				//for string + '\0'
-
-	inn >> postalCode;  
-	inn.ignore();									
-
-														//Postal area / city:
-	inn.getline(bufferArea, STRLEN);
-	postalArea = new char[strlen(bufferArea) + 1];		//Allocating enough space
-	strcpy(postalArea, bufferArea);						//for string + '\0'
-
-	inn >> phoneNumber;
-	inn.ignore();									
-
-														//Email:
-	inn.getline(bufferEmail, STRLEN);
-	email = new char[strlen(bufferEmail) + 1];			//Allocating enough space
-	strcpy(email, bufferEmail);							//for string + '\0'
-
-
-	//inn.ignore();
-	
-}
 void Kunde::display() {
-	cout << "Name:           " << name << endl;
-	cout << "Street address: " << streetAddress << endl;
+	cout << "Customer number: " << number << endl;
+	cout << "Name:            " << name << endl;
+	cout << "Street address:  " << streetAddress << endl;
 	cout << "ZIP / Area:      " << postalCode << ' ' << postalArea << endl;
-	cout << "Phone:          " << phoneNumber << endl;
-	cout << "Email:          " << email << endl;
+	cout << "Phone:           " << phoneNumber << endl;
+	cout << "Email:           " << email << endl;
+	
+	cout << '\n';											//	Leaves one blank between each customer
 }
 void Kunde::writeToFile(int custNumber, ofstream & out) {
 		out << custNumber << '\n';
@@ -97,3 +63,48 @@ void Kunde::writeToFile(int custNumber, ofstream & out) {
 		out << phoneNumber << '\n';
 		out << email << '\n';
 }
+Kunde::Kunde(int n, ifstream & inn) : NumElement(n) {
+
+	char bufferName[STRLEN];
+	char bufferEmail[STRLEN];
+	char bufferAddress[STRLEN];
+	char bufferArea[STRLEN];
+
+	inn >> number; inn.ignore();
+
+	//Name:
+	inn.getline(bufferName, STRLEN);
+	name = new char[strlen(bufferName) + 1];			//Allocating enough space
+	strcpy(name, bufferName);							//for string + '\0'
+	inn.ignore();
+														//Address:
+	inn.getline(bufferName, STRLEN);
+	streetAddress = new char[strlen(bufferAddress) + 1];//Allocating enough space
+	strcpy(streetAddress, bufferAddress);				//for string + '\0'
+	inn.ignore();
+
+	inn >> postalCode;
+	inn.ignore();
+
+	//Postal area / city:
+	inn.getline(bufferArea, STRLEN);
+	postalArea = new char[strlen(bufferArea) + 1];		//Allocating enough space
+	strcpy(postalArea, bufferArea);						//for string + '\0'
+	inn.ignore();
+
+	inn >> phoneNumber;
+	inn.ignore();
+
+	//Email:
+	inn.getline(bufferEmail, STRLEN);
+	email = new char[strlen(bufferEmail) + 1];			//Allocating enough space
+	strcpy(email, bufferEmail);							//for string + '\0'
+
+
+	//inn.ignore();
+
+}
+/*
+void Kunde::readFromFile(ifstream & inn) {
+	inn >> number; inn.ignore();
+}*/
