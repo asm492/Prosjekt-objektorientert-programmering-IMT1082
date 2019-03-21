@@ -7,6 +7,8 @@
 #include "functions.h"
 #include "ListTool2B.h"
 #include "Kunder.h"
+#include "Arrangement.h"
+#include "Arrangementer.h"
 
 //List* customerList;
 //List* eventList;
@@ -17,6 +19,7 @@
 int main() {
 	
 	Kunder customerDatabase;
+	Arrangementer eventDatabase;
 	
 	char command;                					
 										//	Should these be outside main?
