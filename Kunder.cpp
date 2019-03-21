@@ -69,11 +69,11 @@ void Kunder::writeCustomersToFile() {
 	noOfCustomers = customersList->noOfElements();			
 	
 	
-	if (lastCustomer > 0)
+	if (noOfCustomers > 0)
 	{
 		
 		out << noOfCustomers << '\n';
-		for (int i = 1; i <= lastCustomer; i++)
+		for (int i = 1 + CUSTNOSTART; i <= lastCustomer; i++)
 		{
 			tempKunde = (Kunde*)customersList->removeNo(i);		//	Removes from list
 			tempKunde->writeToFile(i, out);						//	Makes the object write it self out
@@ -86,13 +86,14 @@ void Kunder::writeCustomersToFile() {
 void Kunder::readCustomersFromFile() {
 	ifstream inn("KUNDER.DTA");
 	Kunde* temp;
-	int tempCustNo;
+	int noOfCustomers;
 
 	if (inn)
 	{
-		inn >> lastCustomer; inn.ignore();						//	Reads number of customers
-		//inn >> tempCustNo;
-		for (int i = 1; i <= lastCustomer; i++)
+		inn >> noOfCustomers; inn.ignore();						//	Reads number of customers
+		lastCustomer = noOfCustomers + CUSTNOSTART;
+		
+		for (int i = 1 + CUSTNOSTART; i <= noOfCustomers + CUSTNOSTART; i++)
 		{
 			temp = (Kunde*)customersList->add(new Kunde(i, inn));
 		}
