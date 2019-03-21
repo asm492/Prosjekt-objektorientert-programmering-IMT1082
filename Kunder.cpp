@@ -19,10 +19,10 @@ void Kunder::customersMenu() {
 
 	switch (command)
 	{
-	case 'D':	display();		break;			//	Display
-	case 'N':	newCustomer();	break;			//	New
-	case 'E':	break;			//	Edit
-	case 'S':	break;			//	Delete
+	case 'D':	display();			break;			//	Display
+	case 'N':	newCustomer();		break;			//	New
+	case 'E':	editCustomer();		break;			//	Edit
+	case 'S':	deleteCustomer();	break;			//	Delete
 
 	default:
 		printError("INVALID INPUT! GOING BACK TO MAIN MENU");	
@@ -69,11 +69,11 @@ void Kunder::writeCustomersToFile() {
 	noOfCustomers = customersList->noOfElements();			
 	
 	
-	if (noOfCustomers > 0)
+	if (lastCustomer > 0)
 	{
 		
 		out << noOfCustomers << '\n';
-		for (int i = 1 + CUSTNOSTART; i <= lastCustomer; i++)
+		for (int i = 1; i <= noOfCustomers; i++)
 		{
 			tempKunde = (Kunde*)customersList->removeNo(i);		//	Removes from list
 			tempKunde->writeToFile(i, out);						//	Makes the object write it self out
@@ -86,20 +86,74 @@ void Kunder::writeCustomersToFile() {
 void Kunder::readCustomersFromFile() {
 	ifstream inn("KUNDER.DTA");
 	Kunde* temp;
-	int noOfCustomers;
+	//int noOfCustomers;
 
 	if (inn)
 	{
-		inn >> noOfCustomers; inn.ignore();						//	Reads number of customers
-		lastCustomer = noOfCustomers + CUSTNOSTART;
+		inn >> lastCustomer; inn.ignore();						//	Reads number of customers
+		//lastCustomer = noOfCustomers + CUSTNOSTART;
 		
-		for (int i = 1 + CUSTNOSTART; i <= noOfCustomers + CUSTNOSTART; i++)
+		for (int i = 1; i <= lastCustomer; i++)
 		{
 			temp = (Kunde*)customersList->add(new Kunde(i, inn));
 		}
 	}
 	else
 		printError("FILE 'KUNDER.DTA' COULD NOT BE LOCATED!");
+}
+void Kunder::editCustomer() {
+	int tempNumber;
+	char ch;
+
+	if (lastCustomer > 0)
+	{
+		tempNumber = read("Customer number you want to edit?: ", 1, lastCustomer);
+		
+		cout << "\nCurrent details on customer number " << tempNumber << ": ";
+		customersList->displayElement(tempNumber);
+		
+		cout << "\nAre you sure you want to edit? (Y/N): ";
+		ch = read();
+
+		if (ch == 'Y')
+		{
+			customersList->removeNo(tempNumber);
+			customersList->add(new Kunde(tempNumber));
+
+			cout << "\nNew details on customer number " << tempNumber << ": ";
+			customersList->displayElement(tempNumber);
+			writeCustomersToFile();
+		}
+
+	}
+	else
+		printError("NO CUSTOMERS IN DATABASE!"); 
+}
+void Kunder::deleteCustomer() {
+	int tempNumber;
+	char ch;
+
+	if (lastCustomer > 0)
+	{
+		tempNumber = read("Customer number you want to delete?: ", 1, lastCustomer);
+
+		
+		customersList->displayElement(tempNumber);
+
+		cout << "\nAre you sure you want to DELETE? (Y/N): ";
+		ch = read();
+
+		if (ch == 'Y')
+		{
+			customersList->removeNo(tempNumber);
+			cout << "\nCustomer " << tempNumber << " deleted!" << endl;
+			--lastCustomer;														
+			writeCustomersToFile();
+		}
+
+	}
+	else
+		printError("NO CUSTOMERS IN DATABASE!");
 }
 
 
