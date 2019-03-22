@@ -15,7 +15,8 @@ private:
     
 public:
     void display();
-    
+    void searchChoice();
+    void printMenu();
     
 };
 
