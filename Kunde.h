@@ -23,6 +23,8 @@ public:
 	void display();
 	void writeToFile(int custNumber, ofstream & out);
 	void readFromFile(ifstream & inn);
+	bool compareName(char query[]);
+	void updateCustomerNumber(int newCustomerNr);			// Used to fill the void when a customer is deleted
 
 };
 

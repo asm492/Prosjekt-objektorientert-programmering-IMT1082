@@ -109,3 +109,11 @@ Kunde::~Kunde() {
 	delete[] postalArea;
 	delete[] email;
 }
+bool Kunde::compareName(char query[]) {
+
+	return strstr(name, query);
+	//return strcmp(name, query);
+}
+void Kunde::updateCustomerNumber(int newCustomerNr) {
+	number = newCustomerNr;
+}
