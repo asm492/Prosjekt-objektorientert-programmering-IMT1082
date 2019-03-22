@@ -12,6 +12,8 @@ private:
 
 public:
 	Kunder();
+	void editCustomer();
+	void deleteCustomer();
 	void newCustomer();
 	void customersMenu();
 	void display();

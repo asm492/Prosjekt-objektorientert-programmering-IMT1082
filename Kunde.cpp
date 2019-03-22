@@ -45,14 +45,13 @@ Kunde::Kunde(int n) : NumElement(n) {		//	Passes parameter on to base-class
 	strcpy(email, bufferEmail);							//for string + '\0'
 }
 void Kunde::display() {
-	cout << "Customer number: " << number << endl;
+	cout << "\nCustomer number: " << number << endl;
 	cout << "Name:            " << name << endl;
 	cout << "Street address:  " << streetAddress << endl;
 	cout << "ZIP / Area:      " << postalCode << ' ' << postalArea << endl;
 	cout << "Phone:           " << phoneNumber << endl;
 	cout << "Email:           " << email << endl;
 	
-	cout << '\n';											//	Leaves one blank between each customer
 }
 void Kunde::writeToFile(int custNumber, ofstream & out) {
 		out << custNumber << '\n';
@@ -104,7 +103,9 @@ Kunde::Kunde(int n, ifstream & inn) : NumElement(n) {
 	//inn.ignore();
 
 }
-/*
-void Kunde::readFromFile(ifstream & inn) {
-	inn >> number; inn.ignore();
-}*/
+Kunde::~Kunde() {
+	delete[] name;
+	delete[] streetAddress;
+	delete[] postalArea;
+	delete[] email;
+}

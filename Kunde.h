@@ -18,6 +18,7 @@ private:
 public:
 	Kunde(int n);
 	Kunde(int n, ifstream & inn);
+	~Kunde();
 	
 	void display();
 	void writeToFile(int custNumber, ofstream & out);
