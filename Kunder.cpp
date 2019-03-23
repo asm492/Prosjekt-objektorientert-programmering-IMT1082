@@ -43,17 +43,44 @@ void Kunder::newCustomer() {
 }
 void Kunder::display(){
 	int custNr;
+	char command;
+	char input[STRLEN];
 
 	if (lastCustomer > 0)
 	{
-		custNr = read("Customer number to display? 0 for all", 0, lastCustomer);
-		
-		if (custNr != 0) {														//	Displays one 
-			customersList->displayElement(custNr);
-		}
-		else
-			customersList->displayList();					//	Display whole list if input = 0
+		do
+		{
+			cout << "\nCustomer dislpay:" << endl;
+			cout << "Type cusomer name" << endl;
+			cout << "or customer index" << endl;
+			cout << "or leave blank for all\n" << endl;
+
+			cout << "\nYour command: "; 
+			cin.getline(input, STRLEN);
 			
+			if (strlen(input) == 0)							//Dislays all
+			{
+				customersList->displayList();
+			}
+
+
+			//	Lag en funksjon som sjekker isdigit og atoi/sprintf
+			
+			
+			command = read();
+
+			switch (command)
+			{
+			case 'A': customersList->displayList();		break;
+			case 'N': customerSearch();					break;
+			case 'I':
+				custNr = read("Customer number to display? 0 for all", 1, lastCustomer);
+				customersList->displayElement(custNr);	break;
+
+			default:
+				break;
+			}
+		} while (command != 'A' && command != 'N' && command != 'I');
 	}
 	else
 		printError("NO CUSTOMERS IN DATABASE!");
@@ -117,7 +144,7 @@ void Kunder::editCustomer() {
 
 		if (ch == 'Y')
 		{
-			customersList->removeNo(tempNumber);
+			customersList->destroy(tempNumber);
 			customersList->add(new Kunde(tempNumber));
 
 			cout << "\nNew details on customer number " << tempNumber << ": ";
@@ -130,30 +157,70 @@ void Kunder::editCustomer() {
 		printError("NO CUSTOMERS IN DATABASE!"); 
 }
 void Kunder::deleteCustomer() {
+	Kunde* buffer;
 	int tempNumber;
 	char ch;
 
 	if (lastCustomer > 0)
 	{
-		tempNumber = read("Customer number you want to delete?: ", 1, lastCustomer);
+		tempNumber = read("Customer number you want to delete? 0 to abort", 0, lastCustomer);
 
-		
-		customersList->displayElement(tempNumber);
-
-		cout << "\nAre you sure you want to DELETE? (Y/N): ";
-		ch = read();
-
-		if (ch == 'Y')
+		if (tempNumber != 0)
 		{
-			customersList->removeNo(tempNumber);
-			cout << "\nCustomer " << tempNumber << " deleted!" << endl;
-			--lastCustomer;														
-			writeCustomersToFile();
-		}
+			customersList->displayElement(tempNumber);
 
+			cout << "\nAre you sure you want to DELETE? (Y/N): ";
+			ch = read();
+
+			if (ch == 'Y')
+			{
+				buffer = (Kunde*)customersList->removeNo(lastCustomer);		//Copies last customer 
+				customersList->destroy(tempNumber);							//Deletes customer with index = tempNumber
+
+
+				if (tempNumber != lastCustomer)
+				{
+					buffer->updateCustomerNumber(tempNumber);		//Puts last customer in the 
+					customersList->add(buffer);						//gap left by the deleted customer
+				}
+
+
+				cout << "\nCustomer " << tempNumber << " deleted!" << endl;
+
+				lastCustomer = customersList->noOfElements();			//Updates lastCustomer														
+				writeCustomersToFile();
+			}
+		}
+		else
+			printError("NO CUSTOMER DELETED!");
 	}
 	else
 		printError("NO CUSTOMERS IN DATABASE!");
+}
+void Kunder::customerSearch() {
+	
+	Kunde* tempCust;
+	char searchName[STRLEN];
+	bool searchResult;
+	int numberOfResults = 0;
+
+	read("Type the name you are searching for", searchName, STRLEN);
+
+	for (int i = 1; i <= lastCustomer; i++)
+	{
+		tempCust = (Kunde*)customersList->removeNo(i);		//	Takes customer out if list
+		searchResult = tempCust->compareName(searchName);	//	Does a strstr comparison on customer
+		customersList->add(tempCust);						//	Adds it back to the list
+		
+		if (searchResult == 1)								//	Displays if partial match
+		{
+			customersList->displayElement(i);
+			numberOfResults++;
+		}
+	}
+
+	cout << "\n\tSearch: '" << searchName << "' returned " << numberOfResults
+		<< " result(s)" << endl;
 }
 
 

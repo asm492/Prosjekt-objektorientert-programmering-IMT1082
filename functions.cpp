@@ -65,6 +65,7 @@ void printMenu() {
     cout << "\n\tK D - Kunde Display";
     cout << "\n\tK N - Kunde Ny";
     cout << "\n\tK E - Kunde Endre";
+	cout << "\n\tK S - Kunde Slette";
     cout << "\n\tS D - Sted Diplay";
     cout << "\n\tS N - Sted Nytt";
     cout << "\n\tO D - Oppsett Display";
