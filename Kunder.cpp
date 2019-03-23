@@ -44,16 +44,29 @@ void Kunder::newCustomer() {
 void Kunder::display(){
 	int custNr;
 	char command;
+	char input[STRLEN];
 
 	if (lastCustomer > 0)
 	{
 		do
 		{
-			cout << "\nCUSTOMER DISPLAY:";
-			cout << "\n\tA\tDisplay all " << lastCustomer << " customers";
-			cout << "\n\tN\tSearch by name";
-			cout << "\n\tI\tSearch by customer number " << endl;
+			cout << "\nCustomer dislpay:" << endl;
+			cout << "Type cusomer name" << endl;
+			cout << "or customer index" << endl;
+			cout << "or leave blank for all\n" << endl;
 
+			cout << "\nYour command: "; 
+			cin.getline(input, STRLEN);
+			
+			if (strlen(input) == 0)							//Dislays all
+			{
+				customersList->displayList();
+			}
+
+
+			//	Lag en funksjon som sjekker isdigit og atoi/sprintf
+			
+			
 			command = read();
 
 			switch (command)
