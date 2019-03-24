@@ -9,9 +9,22 @@
 
 using namespace std;
 
+Sted::Sted(char n[]) : TextElement(n) {
+	
+	lastUsedLayout = 0;
+	
+	name = new char[strlen(n) + 1];
+	strcpy(name, n);
+
+
+}
+Sted::Sted(char n[], ifstream & inn) {
+
+}
+
 void Sted::display(){
-    cout << '\n' << "Venue: " << name;
-    cout << '\n' << "Number of layout's: " << lastUsedLayout;
+    cout << '\n' << "Venue:             " << name;
+    cout << '\n' << "Number of layouts: " << lastUsedLayout;
     cout << '\n';
 }
 
@@ -54,8 +67,4 @@ void Sted::printSeatLayout() {
 	{
 		printError("NO LAYOUTS IN THE DATABASE");
 	}
- 
-	
-	
-
 }

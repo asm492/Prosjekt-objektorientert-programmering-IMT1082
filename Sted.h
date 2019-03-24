@@ -1,6 +1,6 @@
+#ifndef Sted_h
+#define Sted_h
 
-#ifndef Steder_h
-#define Steder_h
 #include <fstream>
 #include "ListTool2B.h"
 #include "conster.h"
@@ -17,6 +17,8 @@ private:
 	List* zoneList;						
 
 public:
+	Sted(char n[]);
+	Sted(char n[], ifstream & inn);
     void display();
 	void newSeatLayout();
 	void printSeatLayout();
