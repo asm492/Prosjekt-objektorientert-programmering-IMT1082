@@ -16,7 +16,7 @@ void Sted::display(){
 }
 
 void Sted::displayName(){
-    cout << '\n' << "Venue: " << name;
+    cout << "Venue: " << name;
 }
 
 void Sted::newSeatLayout() {
