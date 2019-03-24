@@ -9,6 +9,7 @@
 #include "ListTool2B.h"
 #include "Kunde.h"
 #include "conster.h"
+#include <stdlib.h>		//	Iota, atoi
 
 using namespace std;
 
@@ -42,45 +43,53 @@ void Kunder::newCustomer() {
 
 }
 void Kunder::display(){
-	int custNr;
-	char command;
-	char input[STRLEN];
+	
+	Kunde* tempCust;
+	int custNr, numberOfResults = 0;
+	char query[STRLEN];
+	bool searchResult;
 
 	if (lastCustomer > 0)
 	{
-		do
+		cout << "\nCUSTOMER DISPLAY:" << endl;
+		cout << "\nType name, customer number or leave blank to display all:\n\n";
+		cin.getline(query, STRLEN);
+
+		if (strlen(query) == 0)										//	Dislays all
 		{
-			cout << "\nCustomer dislpay:" << endl;
-			cout << "Type cusomer name" << endl;
-			cout << "or customer index" << endl;
-			cout << "or leave blank for all\n" << endl;
+			customersList->displayList();
+		}
 
-			cout << "\nYour command: "; 
-			cin.getline(input, STRLEN);
-			
-			if (strlen(input) == 0)							//Dislays all
+		if (checkDigit(query) == true && strlen(query) > 0)			//	Input only digits & lenght 
+		{															//	greater than 0.
+			custNr = atoi(query);									//	Converts cstring to int
+			if (custNr <= lastCustomer)
 			{
-				customersList->displayList();
+				customersList->displayElement(custNr);				//	Displays that customer
+			}
+			else
+				printError("CUSTOMER NUMBER NOT IN USE!");
+		}
+
+		if (checkDigit(query) == false && strlen(query) > 0)				//	Input not only digits &
+		{															//	lenght greater than 0
+			for (int i = 1; i <= lastCustomer; i++)
+			{
+				tempCust = (Kunde*)customersList->removeNo(i);		//	Takes customer out if list
+				searchResult = tempCust->compareName(query);		//	Does a strstr comparison on customer
+				customersList->add(tempCust);						//	Adds it back to the list
+
+				if (searchResult == true)							//	Displays if partial match
+				{
+					customersList->displayElement(i);
+					numberOfResults++;
+				}
 			}
 
+			cout << "\n\tSearch: '" << query << "' returned " << numberOfResults
+				<< " result(s)" << endl;
+		}
 
-			//	Lag en funksjon som sjekker isdigit og atoi/sprintf
-			
-			
-			command = read();
-
-			switch (command)
-			{
-			case 'A': customersList->displayList();		break;
-			case 'N': customerSearch();					break;
-			case 'I':
-				custNr = read("Customer number to display? 0 for all", 1, lastCustomer);
-				customersList->displayElement(custNr);	break;
-
-			default:
-				break;
-			}
-		} while (command != 'A' && command != 'N' && command != 'I');
 	}
 	else
 		printError("NO CUSTOMERS IN DATABASE!");
@@ -129,28 +138,46 @@ void Kunder::readCustomersFromFile() {
 		printError("FILE 'KUNDER.DTA' COULD NOT BE LOCATED!");
 }
 void Kunder::editCustomer() {
-	int tempNumber;
+
+	int nr = 0;
+	char query[STRLEN];
 	char ch;
 
 	if (lastCustomer > 0)
 	{
-		tempNumber = read("Customer number you want to edit?: ", 1, lastCustomer);
+		cout << "\nCUSTOMER EDIT:" << endl;
+		read("NAME or CUSTOMER NUMBER", query, STRLEN);
 		
-		cout << "\nCurrent details on customer number " << tempNumber << ": ";
-		customersList->displayElement(tempNumber);
 		
-		cout << "\nAre you sure you want to edit? (Y/N): ";
-		ch = read();
-
-		if (ch == 'Y')
-		{
-			customersList->destroy(tempNumber);
-			customersList->add(new Kunde(tempNumber));
-
-			cout << "\nNew details on customer number " << tempNumber << ": ";
-			customersList->displayElement(tempNumber);
-			writeCustomersToFile();
+		if(checkDigit(query) == true && strlen(query) != 0){
+			nr = atoi(query);
+			customersList->displayElement(nr);
+			
 		}
+		
+		if(checkDigit(query) == false && strlen(query) > 0){
+			nr = customerNameSearch(query);
+			
+			/*if(nr != 0){
+				//customersList->destroy(nr);
+				//customersList->add(new Kunde(nr));
+			}*/
+			
+			if(nr == 0){
+				cin >> nr;
+				cout << "\nNOW EDITING CUSTOMER NO. " << nr << ": " << endl;
+				customersList->displayElement(nr);
+				//customersList->destroy(nr);
+				//customersList->add(new Kunde(nr));				
+			}
+		}
+		
+		customersList->destroy(nr);
+		customersList->add(new Kunde(nr));			//	To do: find out why it asks for name twice
+		
+		cout << "\nNew details on customer number " << nr << ": ";
+		customersList->displayElement(nr);
+		writeCustomersToFile();
 
 	}
 	else
@@ -197,30 +224,41 @@ void Kunder::deleteCustomer() {
 	else
 		printError("NO CUSTOMERS IN DATABASE!");
 }
-void Kunder::customerSearch() {
-	
+int Kunder::customerNameSearch(char name[]){
 	Kunde* tempCust;
-	char searchName[STRLEN];
-	bool searchResult;
-	int numberOfResults = 0;
-
-	read("Type the name you are searching for", searchName, STRLEN);
-
-	for (int i = 1; i <= lastCustomer; i++)
-	{
-		tempCust = (Kunde*)customersList->removeNo(i);		//	Takes customer out if list
-		searchResult = tempCust->compareName(searchName);	//	Does a strstr comparison on customer
-		customersList->add(tempCust);						//	Adds it back to the list
+	int resultCounter = 0;
+	int customerNr;
+	
+	for(int i = 1; i <= lastCustomer; i++){
+		tempCust = (Kunde*)customersList->removeNo(i);
+		customersList->add(tempCust);
 		
-		if (searchResult == 1)								//	Displays if partial match
-		{
+		if(tempCust->compareName(name) == true){
 			customersList->displayElement(i);
-			numberOfResults++;
+			++resultCounter;
+			
+			if(resultCounter == 1){
+				customerNr = i;
+			}
 		}
+
+		
 	}
-
-	cout << "\n\tSearch: '" << searchName << "' returned " << numberOfResults
-		<< " result(s)" << endl;
+	
+	cout << "\n\n\t";
+	cout << resultCounter << " RESULT(S) FOR: '" << name << "'\n\n";
+	
+	if(resultCounter > 1){
+		cout << "\nMULTIPLE RESULTS FOR QUERY. PLEASE ENTER CUSTOMER INDEX MANUALLY:        ";
+		
+	}
+	
+	if(resultCounter == 1){
+		return customerNr;
+	}
+	else{
+		return 0;	
+	}
+	
 }
-
 

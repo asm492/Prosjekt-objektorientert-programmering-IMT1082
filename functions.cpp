@@ -120,5 +120,13 @@ void layoutMenu() {
 		printError("INVALID INPUT! GOING BACK TO MAIN MENU");	break;
 	}
 }
+bool checkDigit(const char t[]) {	
+	for (int i = 0; i < strlen(t); i++)		
+	{
+		if (!isdigit(t[i]))
+			return false;
+	}
+	return true;
+}
 
 
