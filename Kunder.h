@@ -19,7 +19,6 @@ public:
 	void display();
 	void writeCustomersToFile();
 	void readCustomersFromFile();
-	void customerSearch();
 };
 
 #endif 
