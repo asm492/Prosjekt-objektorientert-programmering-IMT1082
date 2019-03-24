@@ -5,6 +5,7 @@
 //Sort by type:
 
 char read();
+const char* getTypeName(enum eventType type);
 
 int  read(const char t[], const int min, const int max);
 int dayNumber(int dd, int mm, int yyyy);

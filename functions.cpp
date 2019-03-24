@@ -10,6 +10,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #endif 
 
+#include "enums.h"
 #include "functions.h"
 #include <iostream>
 #include <cstring>              //  strlen
@@ -129,4 +130,18 @@ bool checkDigit(const char t[]) {
 	return true;
 }
 
+
+const char* getTypeName(enum eventType type)
+{
+    switch (type)
+    {
+        case Musikk: return "Music";
+        case Sport: return "Sport";
+        case Teater: return "Theater";
+        case Show: return "Show";
+        case Kino: return "Cinema";
+        case Familie: return "Family";
+        case Festival: return "Festival";
+    }
+}
 

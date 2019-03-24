@@ -5,15 +5,19 @@
 #include <fstream>
 #include "ListTool2B.h"
 #include "enums.h"
+#include "Sted.h"
 
 class Arrangement : TextElement {
 private:
+    char* artist;
     char* name;
     int eventNumber;			
     int date, hh, mm;
     eventType eventType;
+    Sted* sted;
     
 public:
+    Arrangement();
     void display();
     bool compareEvent(char query[]);
     

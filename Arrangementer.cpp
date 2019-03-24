@@ -75,7 +75,7 @@ void Arrangementer::eventSearch() {
         tempEvent = (Arrangement*)eventList->removeNo(i);        //    Takes customer out if list
         searchResult = tempEvent->compareEvent(searchName);    //    Does a strstr comparison on customer
 //        eventList->add(tempEvent);                        //    Adds it back to the list
-//        Bruke ListTool til å compare???
+//          compare(<#Element *element#>)
         if (searchResult == 1)                                //    Displays if partial match
         {
             eventList->displayElement(i);
