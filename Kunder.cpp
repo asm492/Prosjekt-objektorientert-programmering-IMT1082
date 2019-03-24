@@ -9,6 +9,7 @@
 #include "ListTool2B.h"
 #include "Kunde.h"
 #include "conster.h"
+#include <stdlib.h>		//	Iota, atoi
 
 using namespace std;
 
@@ -144,47 +145,39 @@ void Kunder::editCustomer() {
 
 	if (lastCustomer > 0)
 	{
-		read("NAME OR CUSTOMER INDEX FOR CUSTOMER YOU WANT TO EDIT", query, STRLEN);
-		cin.getline(query, STRLEN);
+		cout << "\nCUSTOMER EDIT:" << endl;
+		read("NAME or CUSTOMER NUMBER", query, STRLEN);
+		
 		
 		if(checkDigit(query) == true && strlen(query) != 0){
 			nr = atoi(query);
+			customersList->displayElement(nr);
+			
 		}
-		/*
+		
 		if(checkDigit(query) == false && strlen(query) > 0){
 			nr = customerNameSearch(query);
 			
-			if(nr != 0){
-				customersList->destroy(nr);
-				customersList->add(new Kunde(nr));
-			}
+			/*if(nr != 0){
+				//customersList->destroy(nr);
+				//customersList->add(new Kunde(nr));
+			}*/
 			
 			if(nr == 0){
-				
+				cin >> nr;
+				cout << "\nNOW EDITING CUSTOMER NO. " << nr << ": " << endl;
+				customersList->displayElement(nr);
+				//customersList->destroy(nr);
+				//customersList->add(new Kunde(nr));				
 			}
-		}*/
+		}
 		
-		cout << "\nCurrent details on customer number " << nr << ": ";
+		customersList->destroy(nr);
+		customersList->add(new Kunde(nr));			//	To do: find out why it asks for name twice
+		
+		cout << "\nNew details on customer number " << nr << ": ";
 		customersList->displayElement(nr);
-		
-		
-			
-		
-		
-		
-		
-		/*cout << "\nAre you sure you want to edit? (Y/N): ";
-		ch = read();
-
-		if (ch == 'Y')
-		{
-			customersList->destroy(tempNumber);
-			customersList->add(new Kunde(tempNumber));
-
-			cout << "\nNew details on customer number " << tempNumber << ": ";
-			customersList->displayElement(tempNumber);
-			writeCustomersToFile();
-		}*/
+		writeCustomersToFile();
 
 	}
 	else
@@ -238,7 +231,7 @@ int Kunder::customerNameSearch(char name[]){
 	
 	for(int i = 1; i <= lastCustomer; i++){
 		tempCust = (Kunde*)customersList->removeNo(i);
-		
+		customersList->add(tempCust);
 		
 		if(tempCust->compareName(name) == true){
 			customersList->displayElement(i);
@@ -249,14 +242,15 @@ int Kunder::customerNameSearch(char name[]){
 			}
 		}
 
-		customersList->add(tempCust);
+		
 	}
 	
 	cout << "\n\n\t";
 	cout << resultCounter << " RESULT(S) FOR: '" << name << "'\n\n";
 	
 	if(resultCounter > 1){
-		cout << "\nMULTIPLE RESULTS FOR QUERY. PLEASE ENTER CUSTOMER INDEX MANUALLY: ";
+		cout << "\nMULTIPLE RESULTS FOR QUERY. PLEASE ENTER CUSTOMER INDEX MANUALLY:        ";
+		
 	}
 	
 	if(resultCounter == 1){
