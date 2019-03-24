@@ -18,6 +18,7 @@ private:
 
 public:
     void display();
+    void displayName();
 	void newSeatLayout();
 	void printSeatLayout();
 };

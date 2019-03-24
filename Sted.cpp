@@ -15,6 +15,10 @@ void Sted::display(){
     cout << '\n';
 }
 
+void Sted::displayName(){
+    cout << '\n' << "Venue: " << name;
+}
+
 void Sted::newSeatLayout() {
 	
 	if (lastUsedLayout < 5)
