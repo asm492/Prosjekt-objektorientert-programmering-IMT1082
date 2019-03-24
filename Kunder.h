@@ -12,6 +12,7 @@ private:
 
 public:
 	Kunder();
+	
 	void editCustomer();
 	void deleteCustomer();
 	void newCustomer();
@@ -19,6 +20,8 @@ public:
 	void display();
 	void writeCustomersToFile();
 	void readCustomersFromFile();
+	
+	int customerNameSearch(char name[]);
 };
 
 #endif 

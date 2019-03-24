@@ -6,16 +6,16 @@
 #include "ListTool2B.h"
 #include "enums.h"
 
-class arrangement : TextElement {
+class Arrangement : TextElement {
 private:
     char* name;
-    int eventNumber;			//	Excess?? Listtool index
+    int eventNumber;			
     int date, hh, mm;
     eventType eventType;
     
 public:
     void display();
-    
+    bool compareEvent(char query[]);
     
 };
 

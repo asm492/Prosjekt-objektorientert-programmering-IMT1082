@@ -137,17 +137,43 @@ void Kunder::readCustomersFromFile() {
 		printError("FILE 'KUNDER.DTA' COULD NOT BE LOCATED!");
 }
 void Kunder::editCustomer() {
-	int tempNumber;
+
+	int nr = 0;
+	char query[STRLEN];
 	char ch;
 
 	if (lastCustomer > 0)
 	{
-		tempNumber = read("Customer number you want to edit?: ", 1, lastCustomer);
+		read("NAME OR CUSTOMER INDEX FOR CUSTOMER YOU WANT TO EDIT", query, STRLEN);
+		cin.getline(query, STRLEN);
 		
-		cout << "\nCurrent details on customer number " << tempNumber << ": ";
-		customersList->displayElement(tempNumber);
+		if(checkDigit(query) == true && strlen(query) != 0){
+			nr = atoi(query);
+		}
+		/*
+		if(checkDigit(query) == false && strlen(query) > 0){
+			nr = customerNameSearch(query);
+			
+			if(nr != 0){
+				customersList->destroy(nr);
+				customersList->add(new Kunde(nr));
+			}
+			
+			if(nr == 0){
+				
+			}
+		}*/
 		
-		cout << "\nAre you sure you want to edit? (Y/N): ";
+		cout << "\nCurrent details on customer number " << nr << ": ";
+		customersList->displayElement(nr);
+		
+		
+			
+		
+		
+		
+		
+		/*cout << "\nAre you sure you want to edit? (Y/N): ";
 		ch = read();
 
 		if (ch == 'Y')
@@ -158,7 +184,7 @@ void Kunder::editCustomer() {
 			cout << "\nNew details on customer number " << tempNumber << ": ";
 			customersList->displayElement(tempNumber);
 			writeCustomersToFile();
-		}
+		}*/
 
 	}
 	else
@@ -205,5 +231,40 @@ void Kunder::deleteCustomer() {
 	else
 		printError("NO CUSTOMERS IN DATABASE!");
 }
+int Kunder::customerNameSearch(char name[]){
+	Kunde* tempCust;
+	int resultCounter = 0;
+	int customerNr;
+	
+	for(int i = 1; i <= lastCustomer; i++){
+		tempCust = (Kunde*)customersList->removeNo(i);
+		
+		
+		if(tempCust->compareName(name) == true){
+			customersList->displayElement(i);
+			++resultCounter;
+			
+			if(resultCounter == 1){
+				customerNr = i;
+			}
+		}
 
+		customersList->add(tempCust);
+	}
+	
+	cout << "\n\n\t";
+	cout << resultCounter << " RESULT(S) FOR: '" << name << "'\n\n";
+	
+	if(resultCounter > 1){
+		cout << "\nMULTIPLE RESULTS FOR QUERY. PLEASE ENTER CUSTOMER INDEX MANUALLY: ";
+	}
+	
+	if(resultCounter == 1){
+		return customerNr;
+	}
+	else{
+		return 0;	
+	}
+	
+}
 

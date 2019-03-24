@@ -121,14 +121,12 @@ void layoutMenu() {
 	}
 }
 bool checkDigit(const char t[]) {	
-	for (int i = 0; i < strlen(t); i++)		//	+1 for \0?
+	for (int i = 0; i < strlen(t); i++)		
 	{
 		if (!isdigit(t[i]))
 			return false;
 	}
 	return true;
 }
-
-
 
 

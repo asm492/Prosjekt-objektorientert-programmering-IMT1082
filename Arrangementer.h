@@ -11,6 +11,9 @@ private:
 
 public:
 	void eventsMenu();
+    void searchChoice();
+    void eventSearch();
+    void searchMenu();
 	Arrangementer();
 	~Arrangementer();
 };
