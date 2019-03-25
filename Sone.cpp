@@ -8,7 +8,11 @@
 
 using namespace std;
 
-Sone::Sone() {
+Sone::Sone(char n[]) {
+
+	zoneName = new char[strlen(n) + 1];
+	strcpy(zoneName, n);
+
 	swarmList = new List(Sorted);
 	seatList = new List(Sorted);
 }
@@ -18,5 +22,8 @@ Sone::~Sone() {
 }
 
 void Sone::display() {
-
+	cout << "\nZone name:        " << zoneName << endl;
+	cout << "Tickets for sale: " << ticketsForSale << endl;
+	cout << "Ticket price:     " << ticketPrice << endl;
+	
 }

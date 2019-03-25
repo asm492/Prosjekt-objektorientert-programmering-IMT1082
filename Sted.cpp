@@ -6,6 +6,8 @@
 #include <fstream>
 #include "Sted.h"
 #include "Stoler.h"
+#include "Vrimle.h"
+#include "Sone.h"
 
 using namespace std;
 
@@ -36,10 +38,10 @@ Sted::Sted(char n[], ifstream & inn) : TextElement(n) {
 		inn.getline(zoneType, STRLEN); inn.ignore();
 		
 		if(strcmp("Stoler", zoneName) == 0){
-			(Oppsett*)layouts[i] = new Stoler(zoneName, inn);  
+			//tempSeat = (Oppsett*)layouts[i] = new Stoler(zoneName, inn);  
 		}
 		else if(strcmp("Vrimle", zoneName) == 0){
-			(Oppsett*)layouts[i] = new Vrimle(zoneName, inn);
+			//tempSwarm = (Oppsett*)layouts[i] = new Vrimle(zoneName, inn);
 		}
 		else{
 			printError("AN ERROR OCCURED WHILE READING FROM 'STEDER.DTA'!");
@@ -54,11 +56,13 @@ void Sted::display(){
 }
 
 void Sted::newSeatLayout() {
-	
+	char buffer[STRLEN];
+	Oppsett* tmp;
 	if (lastUsedLayout < 5)
 	{													//	To do: copy
 		cout << "\nCreating new layout:" << endl;
-		layouts[++lastUsedLayout] = new Stoler();
+		read("Enter name for zone", buffer, STRLEN);
+		//layouts[++lastUsedLayout] = new Stoler(buffer);
 														
 	}
 	else

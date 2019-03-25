@@ -13,7 +13,7 @@ using namespace std;
 class Steder {
 private:
     List* venueList;
-	
+	int lastUsedVenue;
 public:
     Steder();
     void venuesMenu();

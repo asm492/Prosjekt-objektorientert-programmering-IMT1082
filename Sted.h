@@ -7,7 +7,7 @@
 #include "Stoler.h"
 #include "functions.h"
 #include "Oppsett.h"
-
+#include "Sone.h"
 using namespace std;
 
 class Sted : public TextElement {
@@ -15,7 +15,9 @@ private:
     char* name;
     int lastUsedLayout;
 	Oppsett* layouts[MAXLAYOUTS + 1];		//	Init to 1;  Pointers to all the different seat layouts
-	//List* zoneList;						
+	//	Tror vi må ha dynamic array eller liste her
+											
+											//List* zoneList;						
 
 public:
 	Sted(char n[]);

@@ -13,7 +13,7 @@ private:
 	List* seatList;										//	Stoler
 	List* swarmList;									//	Vrimle
 public:
-    Sone();
+    Sone(char n[]);
     ~Sone();
 
 	void display();

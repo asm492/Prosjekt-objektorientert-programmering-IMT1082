@@ -11,7 +11,7 @@
 
 using namespace std;
 
-Stoler::Stoler(char name[]) : Sone(n) {
+Stoler::Stoler(char name[]) : Sone(name) {
 	int** temp;
 	
 	cout << "\nNumber of seats per row?:  "; cin >> seatPrRow;
