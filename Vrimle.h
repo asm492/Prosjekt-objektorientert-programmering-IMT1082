@@ -10,8 +10,9 @@ class Vrimle : public Sone {
 private:
     int numbOfSpots, ticketPrice, soldTickets;
     int** space;
+	int soldToCustNo[ticketsForSale + 1];
 public:
-    Vrimle();
+    Vrimle(char n[]);
     void display();
     void configVrimle();
 };

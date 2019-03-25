@@ -6,15 +6,16 @@
 #include <fstream>
 #include <cstring>
 #include "Stoler.h"
+#include "Sone.h"
 //#include "Sted.h"			/***********/
 
 using namespace std;
 
-Stoler::Stoler() {
+Stoler::Stoler(char name[]) : Sone(n) {
 	int** temp;
 	
-	cout << "\nNumber of seats per row?: "; cin >> seatPrRow;
-	cout << "Number of rows?: "; cin >> rows;
+	cout << "\nNumber of seats per row?:  "; cin >> seatPrRow;
+	cout << "Number of rows?:           "; cin >> rows;
 
 	temp = new int*[seatPrRow];
 

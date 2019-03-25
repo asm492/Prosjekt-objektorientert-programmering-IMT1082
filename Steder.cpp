@@ -70,7 +70,27 @@ void Steder::writeVenuesToFile() {
 
 }
 void Steder::readVenuesFromFile() {
+	
+	Sted* temp;
+	char bufferName[STRLEN];
+	
+	ifstream inn("STEDER.DTA");
+	
+	if (inn)
+	{
+		inn >> lastUsedVenue; inn.ignore();
+		
+		for(int i = 1; i <= lastUsedVenue; i++){
+			inn.getline(bufferName, STRLEN);
+			temp = (Sted*)venueList->add(new Sted(bufferName, inn));
+		}
+	}
+	else
+		printError("FILE 'STEDER.DTA' NOT FOUND!");
+
 	//++lastUsedVenue;
+	
+
 }
 void Steder::layoutMenu() {
 	Sted* tempVenue;

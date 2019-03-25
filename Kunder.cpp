@@ -127,7 +127,7 @@ void Kunder::readCustomersFromFile() {
 	if (inn)
 	{
 		inn >> lastCustomer; inn.ignore();						//	Reads number of customers
-		//lastCustomer = noOfCustomers + CUSTNOSTART;
+		
 		
 		for (int i = 1; i <= lastCustomer; i++)
 		{

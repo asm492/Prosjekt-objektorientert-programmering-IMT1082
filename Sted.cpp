@@ -15,11 +15,36 @@ Sted::Sted(char n[]) : TextElement(n) {
 	
 	name = new char[strlen(n) + 1];
 	strcpy(name, n);
-
+	
+	
 
 }
-Sted::Sted(char n[], ifstream & inn) {
-
+Sted::Sted(char n[], ifstream & inn) : TextElement(n) {
+	Stoler* tempSeat;
+	Vrimle* tempSwarm;
+	char zoneName[STRLEN];
+	char zoneType[STRLEN];
+	
+	name = new char[strlen(n) + 1];
+	strcpy(name, n);
+	
+	inn >> lastUsedLayout; inn.ignore();
+	
+	for(int i = 1; i <= lastUsedLayout; i++){
+		
+		inn.getline(zoneName, STRLEN); inn.ignore();
+		inn.getline(zoneType, STRLEN); inn.ignore();
+		
+		if(strcmp("Stoler", zoneName) == 0){
+			(Oppsett*)layouts[i] = new Stoler(zoneName, inn);  
+		}
+		else if(strcmp("Vrimle", zoneName) == 0){
+			(Oppsett*)layouts[i] = new Vrimle(zoneName, inn);
+		}
+		else{
+			printError("AN ERROR OCCURED WHILE READING FROM 'STEDER.DTA'!");
+		}
+	}
 }
 
 void Sted::display(){

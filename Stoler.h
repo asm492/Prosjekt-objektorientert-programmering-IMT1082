@@ -12,7 +12,7 @@ private:
 
 public:
 	
-	Stoler();
+	Stoler(char );
 	
 	void display();
 	void configureSeats();
