@@ -26,6 +26,7 @@ int main() {
 	Steder venueDatabase;
 	
 	
+	
 	                					
 	
 	customerDatabase.readCustomersFromFile();
@@ -48,7 +49,7 @@ int main() {
 		case 'K': customerDatabase.customersMenu();		break;
 		case 'A': eventDatabase.eventsMenu();			break;
 		case 'S': venueDatabase.venuesMenu();			break;
-            case 'O': layoutMenu();						break;   
+		case 'O': venueDatabase.layoutMenu(); /*layoutMenu();*/						break;   
 			default:  printError("INPUT NOT VALID!");	break;
         }
 		printMenu();

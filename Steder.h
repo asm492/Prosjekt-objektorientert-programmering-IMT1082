@@ -8,15 +8,21 @@
 #include "ListTool2B.h"
 #include "Sted.h"
 
+using namespace std;
 
 class Steder {
 private:
     List* venueList;
+	
 public:
     Steder();
     void venuesMenu();
+	void layoutMenu();
 	void newVenue();
 	void venueDisplay();
+	void readVenuesFromFile();
+	void writeVenuesToFile();
+
 };
 
 

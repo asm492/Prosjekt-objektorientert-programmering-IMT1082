@@ -53,13 +53,13 @@ void Sted::printSeatLayout() {
 		cout << '\n';
 		if (nr != 0)
 		{
-			layouts[nr]->printSeatMap();
+			//layouts[nr]->printSeatMap();
 		}
 		else
 		{
 			for (int i = 1; i <= lastUsedLayout; i++)
 			{
-				layouts[nr]->printSeatMap();
+				//layouts[nr]->printSeatMap();
 			}
 		}
 	}
@@ -67,4 +67,22 @@ void Sted::printSeatLayout() {
 	{
 		printError("NO LAYOUTS IN THE DATABASE");
 	}
+}
+void Sted::writeToFile(ofstream & out) {
+	out << name << '\n';
+	out << lastUsedLayout << '\n';
+
+	for (int i = 1; i <= lastUsedLayout; i++)
+	{
+		layouts[i]->writeToFile(out);
+	}
+}
+void Sted::newLayout() {
+
+	if (lastUsedLayout < 5)
+	{
+		layouts[++lastUsedLayout] = new Oppsett();
+	}
+	else
+		printError("THIS VENUE HAS REACHED ITS MAX NO. OF LAYOUTS!");
 }

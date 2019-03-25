@@ -9,6 +9,8 @@ class Sone : public TextElement {
 private:
     char* zoneName;
     int ticketsForSale, ticketsSold, ticketPrice;
+	List* seatList;										//	Stoler
+	List* swarmList;									//	Vrimle
 public:
     Sone();
     ~Sone();

@@ -51,3 +51,39 @@ void Steder::venueDisplay() {
 	
 	/************************/
 }
+void Steder::writeVenuesToFile() {
+	
+	int lastUsedVenue;
+	Sted* tempVenue;
+
+	ofstream out("STEDER_TEST.DTA");
+	
+	lastUsedVenue = venueList->noOfElements();
+
+	out << lastUsedVenue << '\n';
+	for (int i = 1; i <= lastUsedVenue; i++)
+	{
+		tempVenue = (Sted*)venueList->removeNo(i);
+		tempVenue->writeToFile(out);
+		venueList->add(tempVenue);
+	}
+
+}
+void Steder::readVenuesFromFile() {
+	//++lastUsedVenue;
+}
+void Steder::layoutMenu() {
+	Sted* tempVenue;
+	char venueName[STRLEN];
+	read("ENTER NAME OF VENUE", venueName, STRLEN);
+
+	if (venueList->inList(venueName))
+	{
+		tempVenue = (Sted*)venueList->remove(venueName);
+		tempVenue->newLayout();
+		venueList->add(tempVenue);
+	}
+	else
+		printError("DIDN'T FIND ANY VENUES WITH THAT NAME");
+	
+}

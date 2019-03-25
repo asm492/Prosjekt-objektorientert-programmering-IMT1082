@@ -9,7 +9,8 @@
 using namespace std;
 
 Sone::Sone() {
-
+	swarmList = new List(Sorted);
+	seatList = new List(Sorted);
 }
 
 Sone::~Sone() {

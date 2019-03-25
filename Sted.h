@@ -6,6 +6,7 @@
 #include "conster.h"
 #include "Stoler.h"
 #include "functions.h"
+#include "Oppsett.h"
 
 using namespace std;
 
@@ -13,15 +14,18 @@ class Sted : public TextElement {
 private:
     char* name;
     int lastUsedLayout;
-	Stoler* layouts[MAXLAYOUTS + 1];		//	Init to 1;  Pointers to all the different seat layouts
-	List* zoneList;						
+	Oppsett* layouts[MAXLAYOUTS + 1];		//	Init to 1;  Pointers to all the different seat layouts
+	//List* zoneList;						
 
 public:
 	Sted(char n[]);
 	Sted(char n[], ifstream & inn);
-    void display();
+    
+	void display();
+	void newLayout();
 	void newSeatLayout();
 	void printSeatLayout();
+	void writeToFile(ofstream & out);
 };
     
 
