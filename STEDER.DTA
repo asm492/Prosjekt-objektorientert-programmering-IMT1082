@@ -2,6 +2,8 @@
 ABC		Navn
 
 2		Antall oppsett
+
+2		Antall soner for dette oppsettet
 A1		Navn Sone
 Stoler		Type sone
 100		Pris
@@ -13,6 +15,7 @@ Stoler		Type sone
 10		#rader
 30		#seter
 
+3		Antall soner for dette oppsettet
 B1		Navn sone
 Stoler		Type sone
 300		Pris
