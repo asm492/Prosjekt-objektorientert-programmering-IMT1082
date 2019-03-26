@@ -24,6 +24,7 @@ public:
     Sted(char n[], ifstream & inn);
     
     void display();
+    void displayName();
     void newLayout();
     void newSeatLayout();
     void printSeatLayout();

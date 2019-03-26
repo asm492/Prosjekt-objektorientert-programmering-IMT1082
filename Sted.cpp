@@ -55,6 +55,10 @@ void Sted::display(){
     cout << '\n';
 }
 
+void Sted::displayName(){
+    cout << name;
+}
+
 void Sted::newSeatLayout() {
     char buffer[STRLEN];
     Oppsett* tmp;

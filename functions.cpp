@@ -15,6 +15,7 @@
 #include <cstring>              //  strlen
 #include <cctype>               //  toupper
 
+
 using namespace std;
 // *******************   DEFINISJON AV GLOBALE FUNKSJONER:    ******************
 char read() {                                    //    Henter ett ikke-blankt upcaset tegn:

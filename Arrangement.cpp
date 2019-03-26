@@ -7,6 +7,7 @@
 #include "Arrangement.h"
 #include "conster.h"
 #include "Sted.h"
+#include "enums.h"
 
 using namespace std;
 
@@ -61,6 +62,34 @@ Arrangement::Arrangement(int eNr, char eventName[]) {
     }
     
 }
+
+void Arrangement::display(){
+    int temp, day, month, year;
+    
+    day = date/1000000;
+    temp = date%1000000;
+    month = temp/10000;
+    year = temp%10000;
+    
+    
+    cout << "\nEvent name:        " << eventName << endl;
+    cout << "Venue:               "; venue->displayName(); cout << endl;
+    cout << "Artist:              " << artistName << endl;
+    cout << "Event Type:          "; enumDisplay(eventType);
+    cout << "Event date and time: ";
+   
+    if (day < 10)
+     cout << "0";
+    
+    cout << day << "/";
+    
+    if (month < 10)
+        cout << "0";
+    
+    cout << month << " - " << year << endl;
+    
+}
+
 bool Arrangement::compareEvent(char query[]) {
     
     return strstr(eventName, query);
@@ -79,4 +108,18 @@ void Arrangement::printEventTypeMenu() {
     cout << "\n\t4\tCinema";
     cout << "\n\t5\tFamily";
     cout << "\n\t6\tFestival";
+}
+
+const char* Arrangement::enumDisplay(enum eventType type){
+    
+    switch (type) {
+        case Musikk: return "Music";
+        case Sport: return "Sport";
+        case Teater: return "Theatre";
+        case Show: return "Show";
+        case Kino: return "Cinema";
+        case Familie: return "Family";
+        case Festival: return "Festival";
+    }
+    
 }

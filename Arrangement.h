@@ -19,6 +19,9 @@ public:
     
     Arrangement(int eNr, char eventName[]);
     
+    const char* enumDisplay(enum eventType type);
+    
+    void display();
     void printEventTypeMenu();
     bool compareEvent(char query[]);
     int compare(Arrangement* arr);                //    Virtual fra listtool

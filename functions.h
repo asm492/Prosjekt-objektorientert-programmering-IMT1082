@@ -12,6 +12,7 @@ int dayNumber(int dd, int mm, int yyyy);
 bool leapyear(int yy);
 bool checkDigit(const char t[]);
 
+
 void venueMenu();            // Skal fjernes nŒr vi lager Steder
 void layoutMenu();            //
 void read(const char t[], char s[], const int LEN);
