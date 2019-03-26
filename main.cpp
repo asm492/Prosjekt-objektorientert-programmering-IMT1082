@@ -9,6 +9,7 @@
 #include "Kunder.h"
 #include "Arrangement.h"
 #include "Arrangementer.h"
+#include "Steder.h"
 
 //List* customerList;
 //List* eventList;
@@ -22,6 +23,8 @@ int main() {
 
 	Kunder customerDatabase;
 	Arrangementer eventDatabase;
+	Steder venueDatabase;
+	
 	
 	
 	                					
@@ -45,8 +48,8 @@ int main() {
         switch(command)  {
 		case 'K': customerDatabase.customersMenu();		break;
 		case 'A': eventDatabase.eventsMenu();			break;
-			case 'S': venueMenu();						break;   
-            case 'O': layoutMenu();						break;   
+		case 'S': venueDatabase.venuesMenu();			break;
+		case 'O': venueDatabase.layoutMenu(); /*layoutMenu();*/						break;   
 			default:  printError("INPUT NOT VALID!");	break;
         }
 		printMenu();

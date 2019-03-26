@@ -6,10 +6,11 @@
 #include <iostream>
 #include "Vrimle.h"
 #include "ListTool2B.h"
+#include "Sone.h"
 
 using namespace std;
 
-Vrimle::Vrimle() {
+Vrimle::Vrimle(char n[]) : Sone(n){
     
 }
 

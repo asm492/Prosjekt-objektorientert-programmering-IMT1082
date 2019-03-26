@@ -7,23 +7,24 @@
 #include "enums.h"
 #include "Sted.h"
 
-class Arrangement : TextElement {
+class Arrangement : public TextElement {
 private:
-    char* artist;
-    char* name;
-    int eventNumber;			
+    char* eventName;
+    char* artistName;
+    Sted* venue;
+    int eventNumber;
     int date, hh, mm;
     eventType eventType;
-    Sted* sted;
     
 public:
-    Arrangement();
-    void display();
+    
+    Arrangement(int eNr, char eventName[]);
+    
+    void printEventTypeMenu();
     bool compareEvent(char query[]);
+    int compare(Arrangement* arr);                //    Virtual fra listtool
     
 };
 
 
 
-
-#endif
