@@ -8,9 +8,8 @@
 
 #ifdef _MSC_VER
 #define _CRT_SECURE_NO_WARNINGS
-#endif 
+#endif
 
-#include "enums.h"
 #include "functions.h"
 #include <iostream>
 #include <cstring>              //  strlen
@@ -38,7 +37,7 @@ void read(const char t[], char s[], const int LEN) {
 }
 void printError(const char t[]) {
     
-    cout << "\n\n\t\t" << t << "\n\n";        
+    cout << "\n\n\t\t" << t << "\n\n";
     
 }
 int dayNumber(int dd, int mm, int yyyy) {
@@ -66,7 +65,7 @@ void printMenu() {
     cout << "\n\tK D - Kunde Display";
     cout << "\n\tK N - Kunde Ny";
     cout << "\n\tK E - Kunde Endre";
-	cout << "\n\tK S - Kunde Slette";
+    cout << "\n\tK S - Kunde Slette";
     cout << "\n\tS D - Sted Diplay";
     cout << "\n\tS N - Sted Nytt";
     cout << "\n\tO D - Oppsett Display";
@@ -79,69 +78,53 @@ void printMenu() {
     cout << "\n\tQ   - Quit / avslutt\n\n";
 }
 void printError(char t[]) {
-	int n = strlen(t);						
-	for (int i = 0; i < n; i++)				//	Uppercases the whole string
-	{
-		t[i] = toupper(t[i]);
-	}
-	cout << "\n\n\t\t" << t << "\n\n";		//	Prints stirng
+    int n = strlen(t);
+    for (int i = 0; i < n; i++)                //    Uppercases the whole string
+    {
+        t[i] = toupper(t[i]);
+    }
+    cout << "\n\n\t\t" << t << "\n\n";        //    Prints stirng
 }
 
 
 
 /*TROR DISSE SKAL FJERNES:    HUSK Å FJERN FRA xxxxx.h også*/
 void venueMenu() {
-	char command;
-
-	command = read();
-
-	switch (command)
-	{
-	case 'D':	break;			//	Display
-	case 'N':	break;			//	New
-	case 'S':	break;			//	Delete
-
-	default:
-		printError("INVALID INPUT! GOING BACK TO MAIN MENU");	break;
-	}
-}
-void layoutMenu() {
-	char command;
-
-	command = read();
-
-	switch (command)
-	{
-	case 'D':	break;			//	Display
-	case 'N':	break;			//	New
-	case 'E':	break;			//	Edit
-	case 'S':	break;			//	Delete
-
-	default:
-		printError("INVALID INPUT! GOING BACK TO MAIN MENU");	break;
-	}
-}
-bool checkDigit(const char t[]) {	
-	for (int i = 0; i < strlen(t); i++)		
-	{
-		if (!isdigit(t[i]))
-			return false;
-	}
-	return true;
-}
-
-
-const char* getTypeName(enum eventType type)
-{
-    switch (type)
+    char command;
+    
+    command = read();
+    
+    switch (command)
     {
-        case Musikk: return "Music";
-        case Sport: return "Sport";
-        case Teater: return "Theater";
-        case Show: return "Show";
-        case Kino: return "Cinema";
-        case Familie: return "Family";
-        case Festival: return "Festival";
+        case 'D':    break;            //    Display
+        case 'N':    break;            //    New
+        case 'S':    break;            //    Delete
+            
+        default:
+            printError("INVALID INPUT! GOING BACK TO MAIN MENU");    break;
     }
 }
-
+void layoutMenu() {
+    char command;
+    
+    command = read();
+    
+    switch (command)
+    {
+        case 'D':    break;            //    Display
+        case 'N':    break;            //    New
+        case 'E':    break;            //    Edit
+        case 'S':    break;            //    Delete
+            
+        default:
+            printError("INVALID INPUT! GOING BACK TO MAIN MENU");    break;
+    }
+}
+bool checkDigit(const char t[]) {
+    for (int i = 0; i < strlen(t); i++)
+    {
+        if (!isdigit(t[i]))
+            return false;
+    }
+    return true;
+}

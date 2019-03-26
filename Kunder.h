@@ -7,21 +7,21 @@
 
 class Kunder {
 private:
-	List* customersList;			//	KundeR
-	int lastCustomer;
-
+    List* customersList;            //    KundeR
+    int lastCustomer;
+    
 public:
-	Kunder();
-	
-	void editCustomer();
-	void deleteCustomer();
-	void newCustomer();
-	void customersMenu();
-	void display();
-	void writeCustomersToFile();
-	void readCustomersFromFile();
-	
-	int customerNameSearch(char name[]);
+    Kunder();
+    
+    void editCustomer();
+    void deleteCustomer();
+    void newCustomer();
+    void customersMenu();
+    void display();
+    void writeCustomersToFile();
+    void readCustomersFromFile();
+    
+    int customerNameSearch(char name[]);
 };
 
 #endif 

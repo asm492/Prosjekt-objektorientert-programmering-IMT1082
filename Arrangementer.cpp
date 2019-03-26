@@ -130,8 +130,4 @@ Arrangementer::Arrangementer() {
 }
 Arrangementer::~Arrangementer() {
     
-}
-
-
-
-
+} 
