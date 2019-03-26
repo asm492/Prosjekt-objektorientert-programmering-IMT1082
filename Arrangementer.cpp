@@ -20,7 +20,7 @@ void Arrangementer::eventsMenu() {
     switch (command)
     {
         case 'D':   searchChoice();   break;            //    Display
-        case 'N':    break;            //    New
+        case 'N':   newEvent();       break;            //    New
         case 'E':    break;            //    Edit
         case 'S':    break;            //    Delete
         case 'K':    break;            //    Purchase
@@ -131,3 +131,9 @@ Arrangementer::Arrangementer() {
 Arrangementer::~Arrangementer() {
     
 } 
+
+void Arrangementer::newEvent(){
+    eventList->add(new Arrangement(++lastEvent));
+}
+
+

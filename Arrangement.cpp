@@ -12,7 +12,7 @@
 using namespace std;
 
 
-Arrangement::Arrangement(int eNr, char eventName[]) {
+Arrangement::Arrangement(int eNr) {
     char buffer[STRLEN];
     int dd, mm, yyyy, nr;
     
@@ -45,7 +45,7 @@ Arrangement::Arrangement(int eNr, char eventName[]) {
     
     cout << "\nTIME:";
     hh = read("Type hours", HOURMIN, HOURMAX);
-    mm = read("Type minutes", MINUTEMAX, MINUTEMAX);
+    mm = read("Type minutes", MINUTEMIN, MINUTEMAX);
     
     printEventTypeMenu();                    // Causes Linker2019 error
     nr = read("Choice", 0, 6);

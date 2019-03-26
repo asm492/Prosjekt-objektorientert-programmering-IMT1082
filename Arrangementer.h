@@ -16,6 +16,7 @@ private:
     List* eventList;
     
 public:
+    void newEvent();
     void eventsMenu();
     void searchChoice();
     void eventSearch();

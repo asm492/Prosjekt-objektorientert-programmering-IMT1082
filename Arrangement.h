@@ -17,7 +17,7 @@ private:
     
 public:
     
-    Arrangement(int eNr, char eventName[]);
+    Arrangement(int eNr);
     
     const char* enumDisplay(enum eventType type);
     
