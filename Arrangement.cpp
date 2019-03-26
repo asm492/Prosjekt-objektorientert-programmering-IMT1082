@@ -86,7 +86,9 @@ void Arrangement::display(){
     if (month < 10)
         cout << "0";
     
-    cout << month << " - " << year << endl;
+    cout << month << " - " << year;
+    cout << " kl." << hh << ":" << mm << endl;
+    
     
 }
 
