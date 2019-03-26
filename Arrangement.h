@@ -5,18 +5,25 @@
 #include <fstream>
 #include "ListTool2B.h"
 #include "enums.h"
+#include "Sted.h"
 
-class Arrangement : TextElement {
+class Arrangement : public TextElement {
 private:
-    char* name;
+    char* eventName;
+	char* artistName;
+	Sted* venue;
     int eventNumber;			
     int date, hh, mm;
     eventType eventType;
     
 public:
-    void display();
-    bool compareEvent(char query[]);
+
+	Arrangement(int eNr, char eventName[]);
     
+	void printEventTypeMenu();
+    bool compareEvent(char query[]);
+	int compare(Arrangement* arr);				//	Virtual fra listtool
+	
 };
 
 

@@ -55,6 +55,7 @@ void Kunder::display(){
 		cout << "\nType name, customer number or leave blank to display all:\n\n";
 		cin.getline(query, STRLEN);
 
+	
 		if (strlen(query) == 0)										//	Dislays all
 		{
 			customersList->displayList();
@@ -89,7 +90,7 @@ void Kunder::display(){
 			cout << "\n\tSearch: '" << query << "' returned " << numberOfResults
 				<< " result(s)" << endl;
 		}
-
+		
 	}
 	else
 		printError("NO CUSTOMERS IN DATABASE!");
@@ -141,7 +142,7 @@ void Kunder::editCustomer() {
 
 	int nr = 0;
 	char query[STRLEN];
-	char ch;
+//	char ch;
 
 	if (lastCustomer > 0)
 	{

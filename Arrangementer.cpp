@@ -9,6 +9,7 @@
 #include "Arrangement.h"
 #include "conster.h"
 
+
 using namespace std;
 
 void Arrangementer::eventsMenu() {
@@ -38,17 +39,36 @@ void Arrangementer::searchChoice(){
     command = read("Command: ", 1, 7);
     
     switch (command) {
-        case 1: eventList->displayList();    break;
-        case 2:                   break;
-        case 3:                   break;
-        case 4:                   break;
-        case 5:                   break;
-        case 6:                   break;
-        case 7:                   break;
+        case 1: eventList->displayList();   break;
+		case 2:	eventSearch();				break;
+		case 3: venueSearch(); 	            break;
+		case 4: dateSearch();				break;
+		case 5: typeSearch();               break;
+        case 6: artistSearch();             break;
+		case 7: allDataArrNr();				 break;
         default:   break;
     }
 }
 
+void Arrangementer::allDataArrNr() {
+
+}
+
+void Arrangementer::typeSearch() {
+
+}
+
+void Arrangementer::dateSearch() {
+
+}
+
+void Arrangementer::venueSearch() {
+
+}
+
+void Arrangementer::artistSearch() {
+
+}
 void Arrangementer::searchMenu() {
     cout << "\n\nEVENT MENU - Avalible commands:";
     cout << "\n\t(1). - Print all the events";
@@ -70,29 +90,47 @@ void Arrangementer::eventSearch() {
     
     read("Type the name you are searching for", searchName, STRLEN);
     
+	
+	for (int i = 1; i <= lastEvent; i++)
+	{
+		tempEvent = (Arrangement*)eventList->removeNo(i);        //    Takes event out if list
+		eventList->add(tempEvent);
+
+		searchResult = tempEvent->compareEvent(searchName);    //    Does a strstr comparison on event
+		                        //    Adds it back to the list
+//        Bruke ListTool til å compare???
+		if (searchResult == 1)                                //    Displays if partial match
+		{
+			eventList->displayElement(i);
+			numberOfResults++;
+		}
+
+	}
+	
+	/*
     for (int i = 1; i <= lastEvent; i++)
     {
         tempEvent = (Arrangement*)eventList->removeNo(i);        //    Takes customer out if list
         searchResult = tempEvent->compareEvent(searchName);    //    Does a strstr comparison on customer
-//        eventList->add(tempEvent);                        //    Adds it back to the list
+		eventList->add(tempEvent);                        //    Adds it back to the list
 //        Bruke ListTool til å compare???
         if (searchResult == 1)                                //    Displays if partial match
         {
             eventList->displayElement(i);
             numberOfResults++;
         }
-    }
+    }*/
     
     cout << "\n\tSearch: '" << searchName << "' returned " << numberOfResults
     << " result(s)" << endl;
 }
 
 Arrangementer::Arrangementer() {
-
+	eventList = new List(Sorted);
 }
 Arrangementer::~Arrangementer() {
 
-}
+} 
 
 
 
