@@ -13,19 +13,20 @@ using namespace std;
 class Steder {
 private:
     List* venueList;
-	int lastUsedVenue;
+    int lastUsedVenue;
 public:
     Steder();
     void venuesMenu();
-	void layoutMenu();
-	void newVenue();
-	void venueDisplay();
-	void readVenuesFromFile();
-	void writeVenuesToFile();
-
+    void layoutMenu();
+    void newVenue();
+    void venueDisplay();
+    void readVenuesFromFile();
+    void writeVenuesToFile();
+    
 };
 
 
 
-#endif 
+#endif
+
 

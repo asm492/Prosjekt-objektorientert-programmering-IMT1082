@@ -1,6 +1,6 @@
 #ifdef _MSC_VER
 #define _CRT_SECURE_NO_WARNINGS
-#endif 
+#endif
 
 #include <iostream>
 #include "ListTool2B.h"
@@ -10,6 +10,5 @@
 using namespace std;
 
 void Oppsett::writeToFile(ofstream & out) {
-
+    
 }
-

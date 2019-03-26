@@ -1,4 +1,3 @@
-
 #ifndef Arrangement_h
 #define Arrangement_h
 
@@ -10,20 +9,23 @@
 class Arrangement : public TextElement {
 private:
     char* eventName;
-	char* artistName;
-	Sted* venue;
-    int eventNumber;			
+    char* artistName;
+    Sted* venue;
+    int eventNumber;
     int date, hh, mm;
     eventType eventType;
     
 public:
-
-	Arrangement(int eNr, char eventName[]);
     
-	void printEventTypeMenu();
+    Arrangement(int eNr);
+    
+    const char* enumDisplay(enum eventType type);
+    
+    void display();
+    void printEventTypeMenu();
     bool compareEvent(char query[]);
-	int compare(Arrangement* arr);				//	Virtual fra listtool
-	
+    int compare(Arrangement* arr);                //    Virtual fra listtool
+    
 };
 
 

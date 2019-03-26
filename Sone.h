@@ -1,4 +1,3 @@
-
 #ifndef Sone_h
 #define Sone_h
 
@@ -8,17 +7,17 @@
 class Sone : public TextElement {
 private:
     char* zoneName;
-    int ticketsForSale; 				//	DO NOT INCREMENT! 		
-	int ticketsSold, ticketPrice;
-	List* seatList;										//	Stoler
-	List* swarmList;									//	Vrimle
+    int ticketsForSale;                 //    DO NOT INCREMENT!
+    int ticketsSold, ticketPrice;
+    List* seatList;                                        //    Stoler
+    List* swarmList;                                    //    Vrimle
 public:
     Sone(char n[]);
     ~Sone();
-
-	void display();
-
-	
+    
+    void display();
+    
+    
 };
 
 #endif

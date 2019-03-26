@@ -14,21 +14,24 @@ class Sted : public TextElement {
 private:
     char* name;
     int lastUsedLayout;
-	Oppsett* layouts[MAXLAYOUTS + 1];		//	Init to 1;  Pointers to all the different seat layouts
-	//	Tror vi må ha dynamic array eller liste her
-											
-											//List* zoneList;						
-
+    Oppsett* layouts[MAXLAYOUTS + 1];        //    Init to 1;  Pointers to all the different seat layouts
+    //    Tror vi mŒ ha dynamic array eller liste her
+    
+    //List* zoneList;
+    
 public:
-	Sted(char n[]);
-	Sted(char n[], ifstream & inn);
+    Sted(char n[]);
+    Sted(char n[], ifstream & inn);
     
-	void display();
-	void newLayout();
-	void newSeatLayout();
-	void printSeatLayout();
-	void writeToFile(ofstream & out);
+    void display();
+    void displayName();
+    void newLayout();
+    void newSeatLayout();
+    void printSeatLayout();
+    void writeToFile(ofstream & out);
 };
-    
+
 
 #endif 
+
+

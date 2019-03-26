@@ -12,21 +12,22 @@
 class Arrangementer
 {
 private:
-	int lastEvent;
-	List* eventList;
-
+    int lastEvent;
+    List* eventList;
+    
 public:
-	void eventsMenu();
+    void newEvent();
+    void eventsMenu();
     void searchChoice();
     void eventSearch();
     void searchMenu();
-	void artistSearch();
-	void venueSearch();
-	void dateSearch();
-	void typeSearch();
-	void allDataArrNr();
-	Arrangementer();
-	~Arrangementer();
+    void artistSearch();
+    void venueSearch();
+    void dateSearch();
+    void typeSearch();
+    void allDataArrNr();
+    Arrangementer();
+    ~Arrangementer();
 };
 
 

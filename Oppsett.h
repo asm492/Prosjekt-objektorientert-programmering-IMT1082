@@ -10,10 +10,9 @@ using namespace std;
 
 class Oppsett {
 private:
-
+    
 public:
-	void writeToFile(ofstream & out);
+    void writeToFile(ofstream & out);
 };
 
 #endif
-

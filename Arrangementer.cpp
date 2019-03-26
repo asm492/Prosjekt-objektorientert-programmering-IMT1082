@@ -1,6 +1,6 @@
 #ifdef _MSC_VER
 #define _CRT_SECURE_NO_WARNINGS
-#endif 
+#endif
 
 #include <iostream>
 #include "Arrangementer.h"
@@ -20,7 +20,7 @@ void Arrangementer::eventsMenu() {
     switch (command)
     {
         case 'D':   searchChoice();   break;            //    Display
-        case 'N':    break;            //    New
+        case 'N':   newEvent();       break;            //    New
         case 'E':    break;            //    Edit
         case 'S':    break;            //    Delete
         case 'K':    break;            //    Purchase
@@ -32,7 +32,7 @@ void Arrangementer::eventsMenu() {
 }
 
 void Arrangementer::searchChoice(){
-   
+    
     searchMenu();
     
     char command;
@@ -40,34 +40,34 @@ void Arrangementer::searchChoice(){
     
     switch (command) {
         case 1: eventList->displayList();   break;
-		case 2:	eventSearch();				break;
-		case 3: venueSearch(); 	            break;
-		case 4: dateSearch();				break;
-		case 5: typeSearch();               break;
+        case 2:    eventSearch();                break;
+        case 3: venueSearch();                 break;
+        case 4: dateSearch();                break;
+        case 5: typeSearch();               break;
         case 6: artistSearch();             break;
-		case 7: allDataArrNr();				 break;
+        case 7: allDataArrNr();                 break;
         default:   break;
     }
 }
 
 void Arrangementer::allDataArrNr() {
-
+    
 }
 
 void Arrangementer::typeSearch() {
-
+    
 }
 
 void Arrangementer::dateSearch() {
-
+    
 }
 
 void Arrangementer::venueSearch() {
-
+    
 }
 
 void Arrangementer::artistSearch() {
-
+    
 }
 void Arrangementer::searchMenu() {
     cout << "\n\nEVENT MENU - Avalible commands:";
@@ -90,48 +90,50 @@ void Arrangementer::eventSearch() {
     
     read("Type the name you are searching for", searchName, STRLEN);
     
-	
-	for (int i = 1; i <= lastEvent; i++)
-	{
-		tempEvent = (Arrangement*)eventList->removeNo(i);        //    Takes event out if list
-		eventList->add(tempEvent);
-
-		searchResult = tempEvent->compareEvent(searchName);    //    Does a strstr comparison on event
-		                        //    Adds it back to the list
-//        Bruke ListTool til å compare???
-		if (searchResult == 1)                                //    Displays if partial match
-		{
-			eventList->displayElement(i);
-			numberOfResults++;
-		}
-
-	}
-	
-	/*
+    
     for (int i = 1; i <= lastEvent; i++)
     {
-        tempEvent = (Arrangement*)eventList->removeNo(i);        //    Takes customer out if list
-        searchResult = tempEvent->compareEvent(searchName);    //    Does a strstr comparison on customer
-		eventList->add(tempEvent);                        //    Adds it back to the list
-//        Bruke ListTool til å compare???
+        tempEvent = (Arrangement*)eventList->removeNo(i);        //    Takes event out if list
+        eventList->add(tempEvent);
+        
+        searchResult = tempEvent->compareEvent(searchName);    //    Does a strstr comparison on event
+        //    Adds it back to the list
+        //        Bruke ListTool til å compare???
         if (searchResult == 1)                                //    Displays if partial match
         {
             eventList->displayElement(i);
             numberOfResults++;
         }
-    }*/
+        
+    }
+    
+    /*
+     for (int i = 1; i <= lastEvent; i++)
+     {
+     tempEvent = (Arrangement*)eventList->removeNo(i);        //    Takes customer out if list
+     searchResult = tempEvent->compareEvent(searchName);    //    Does a strstr comparison on customer
+     eventList->add(tempEvent);                        //    Adds it back to the list
+     //        Bruke ListTool til å compare???
+     if (searchResult == 1)                                //    Displays if partial match
+     {
+     eventList->displayElement(i);
+     numberOfResults++;
+     }
+     }*/
     
     cout << "\n\tSearch: '" << searchName << "' returned " << numberOfResults
     << " result(s)" << endl;
 }
 
 Arrangementer::Arrangementer() {
-	eventList = new List(Sorted);
+    eventList = new List(Sorted);
 }
 Arrangementer::~Arrangementer() {
-
+    
 } 
 
-
+void Arrangementer::newEvent(){
+    eventList->add(new Arrangement(++lastEvent));
+}
 
 

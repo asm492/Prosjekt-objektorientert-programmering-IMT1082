@@ -30,6 +30,3 @@ void Vrimle::configVrimle(){
     for (int i = 1; i <= numbOfSpots + 1; i++)
         space[i] = nullptr;
 }
-
-
-
