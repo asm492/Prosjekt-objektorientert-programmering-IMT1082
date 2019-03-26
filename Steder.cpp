@@ -47,7 +47,17 @@ void Steder::venueDisplay() {
 	/*THIS IS FOR TESING ONLY*/
 	char venueName[STRLEN];
 	read("WHICH VENUE TO DISPLAY?", venueName, STRLEN);
-	venueList->displayElement(venueName);
+	
+	if (venueList->inList(venueName)) {
+		venueList->displayElement(venueName);
+	}
+	else {
+		cout << "\n\n\t\tNO VENUES IN THE LIST WITH NAME: '";
+		cout << venueName << "'!\n\n";
+	}
+
+	
+	
 	
 	/************************/
 }
