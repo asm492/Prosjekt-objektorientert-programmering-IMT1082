@@ -44,31 +44,30 @@ void Steder::newVenue() {
     
 }
 void Steder::venueDisplay() {
-<<<<<<< HEAD
 	/*THIS IS FOR TESING ONLY*/
 	char venueName[STRLEN];
-	read("WHICH VENUE TO DISPLAY?", venueName, STRLEN);
 	
-	if (venueList->inList(venueName)) {
-		venueList->displayElement(venueName);
+	if ((venueList->noOfElements()) > 0)
+	{
+		read("WHICH VENUE TO DISPLAY?", venueName, STRLEN);
+		if (venueList->inList(venueName)) {
+			venueList->displayElement(venueName);
+		}
+		else {
+			cout << "\n\n\t\tNO VENUES IN THE LIST WITH NAME: '";
+			cout << venueName << "'!\n\n";
+		}
 	}
-	else {
-		cout << "\n\n\t\tNO VENUES IN THE LIST WITH NAME: '";
-		cout << venueName << "'!\n\n";
+	else
+	{
+		printError("NO VENUES IN LIST YET!");
 	}
+
 
 	
 	
-	
-	/************************/
-=======
-    /*THIS IS FOR TESING ONLY*/
-    char venueName[STRLEN];
-    read("WHICH VENUE TO DISPLAY?", venueName, STRLEN);
-    venueList->displayElement(venueName);
     
     /************************/
->>>>>>> f16d63fa489e482b08b7da526350a2b3d0fcb2db
 }
 void Steder::writeVenuesToFile() {
     
@@ -126,4 +125,3 @@ void Steder::layoutMenu() {
         printError("DIDN'T FIND ANY VENUES WITH THAT NAME");
     
 }
-//
