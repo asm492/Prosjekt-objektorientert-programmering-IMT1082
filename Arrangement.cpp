@@ -12,15 +12,15 @@
 using namespace std;
 
 
-Arrangement::Arrangement(int eNr) {
+Arrangement::Arrangement(int eNr, char n[]) : TextElement(n){
     char buffer[STRLEN];
     int dd, mm, yyyy, nr;
     
     eventNumber = eNr;
     
-    read("Enter event name", buffer, STRLEN);
-    eventName = new char[strlen(buffer) + 1];            //Allocating enough space
-    strcpy(eventName, buffer);                            //for string + '\0'
+    
+    eventName = new char[strlen(n) + 1];            //Allocating enough space
+    strcpy(eventName, n);                            //for string + '\0'
     
     read("Enter artist name", buffer, STRLEN);
     artistName = new char[strlen(buffer) + 1];            //Allocating enough space
@@ -44,8 +44,8 @@ Arrangement::Arrangement(int eNr) {
     date = (dd * 1000000) + (mm * 10000) + yyyy;                //    Converts date format to 1 int
     
     cout << "\nTIME:";
-    hh = read("Type hours", HOURMIN, HOURMAX);
-    mm = read("Type minutes", MINUTEMIN, MINUTEMAX);
+    hour = read("Type hours", HOURMIN, HOURMAX);
+    min = read("Type minutes", MINUTEMIN, MINUTEMAX);
     
     printEventTypeMenu();                    // Causes Linker2019 error
     nr = read("Choice", 0, 6);
@@ -72,12 +72,24 @@ void Arrangement::display(){
     year = temp%10000;
     
     
-    cout << "\nEvent name:        " << eventName << endl;
-    cout << "Venue:               "; venue->displayName(); cout << endl;
-    cout << "Artist:              " << artistName << endl;
-    cout << "Event Type:          "; enumDisplay(eventType);
-    cout << "Event date and time: ";
-   
+    cout << "\nEvent name:             " << eventName << endl;
+   // cout << "Venue:                    "; venue->displayName(); cout << endl;
+    cout << "Artist:                 " << artistName << endl;
+	cout << "Event Type:             "; cout << enumDisplay(eventType) << endl;
+	cout << "Event date and time:    " << date << ' ';
+	
+	if (hour < 10)
+	{
+		cout << '0';
+	}
+	cout << hour << ':';
+	if (min < 10)
+	{
+		cout << '0';
+	}
+	cout << min << endl;
+
+   /*
     if (day < 10)
      cout << "0";
     
@@ -88,14 +100,23 @@ void Arrangement::display(){
     
     cout << month << " - " << year;
     cout << " kl." << hh << ":" << mm << endl;
-    
+    */
     
 }
 
-bool Arrangement::compareEvent(char query[]) {
+bool Arrangement::compareEventName(char query[]) {
     
-    return strstr(eventName, query);
+    return !strcmp(eventName, query);
     //return strcmp(name, query);
+}
+bool Arrangement::compareArtistName(char query[])
+{
+	return !strcmp(artistName, query);
+	
+}
+bool Arrangement::compareEventDate(int searchDate)
+{
+	return (searchDate == date) ? true : false;
 }
 int Arrangement::compare(Arrangement* arr) {
     //Arrangement* arr1 = (TextElement*)arr;
@@ -109,7 +130,7 @@ void Arrangement::printEventTypeMenu() {
     cout << "\n\t3\tShow";
     cout << "\n\t4\tCinema";
     cout << "\n\t5\tFamily";
-    cout << "\n\t6\tFestival";
+	cout << "\n\t6\tFestival" << endl;
 }
 
 const char* Arrangement::enumDisplay(enum eventType type){

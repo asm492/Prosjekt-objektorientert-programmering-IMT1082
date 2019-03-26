@@ -12,19 +12,23 @@ private:
     char* artistName;
     Sted* venue;
     int eventNumber;
-    int date, hh, mm;
+    int date, hour, min;
     eventType eventType;
     
 public:
     
-    Arrangement(int eNr);
+    Arrangement(int eNr, char n[]);
     
     const char* enumDisplay(enum eventType type);
     
     void display();
     void printEventTypeMenu();
-    bool compareEvent(char query[]);
-    int compare(Arrangement* arr);                //    Virtual fra listtool
+    
+	bool compareEventName(char query[]);
+	bool compareArtistName(char query[]);
+	bool compareEventDate(int searchDate);
+	
+	int compare(Arrangement* arr);                //    Virtual fra listtool
     
 };
 

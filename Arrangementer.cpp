@@ -41,13 +41,13 @@ void Arrangementer::searchChoice(){
 		command = read("Command: ", 1, 7);
 
 		switch (command) {
-		case 1: eventList->displayList();		break;
-		case 2: eventSearch();	                break;
-		case 3: venueSearch();					break;
-		case 4: dateSearch();					break;
-		case 5: typeSearch();					break;
-		case 6: artistSearch();					break;
-		case 7: allDataArrNr();                 break;
+		case 1: eventList->displayList();		break;				//	Done
+		case 2: eventNameSearch();              break;				//	Done
+		case 3: venueSearch();					break;		//	To do
+		case 4: dateSearch();					break;				//	Done
+		case 5: typeSearch();					break;		//	To do
+		case 6: artistNameSearch();				break;				//	Done	
+		case 7: allDataArrNr();                 break;		//	To do
 		}
 	}
 	else
@@ -63,20 +63,82 @@ void Arrangementer::typeSearch() {
 }
 
 void Arrangementer::dateSearch() {
-    
+	
+	Arrangement* tempEvent;
+	int searchDate, dd, mm, yyyy;
+	bool searchResult;
+	int numberOfResults = 0;
+
+	do
+	{
+		cout << "\nDATE SEARCH:";
+		dd = read("Type day", DAYMIN, DAYMAX);
+		mm = read("Type month", MONTHMIN, MONTHMAX);
+		yyyy = read("Type year", YEARMIN, YEARMAX);
+
+		if (dayNumber(dd, mm, yyyy) == 0)
+		{
+			printError("INVALID DATE! TRY AGAIN!");
+		}
+	} while (dayNumber(dd, mm, yyyy) == 0);
+
+	searchDate = (dd * 1000000) + (mm * 10000) + yyyy;                //    Converts date format to 1 int
+
+
+	for (int i = 1; i <= lastEvent; i++)
+	{
+		tempEvent = (Arrangement*)eventList->removeNo(i);        //    Takes event out if list
+		eventList->add(tempEvent);
+		searchResult = tempEvent->compareEventDate(searchDate);
+		//searchResult = tempEvent->compareEvent(searchName);    //    Does a strcmp  comparison on event
+		//    Adds it back to the list
+		//        Bruke ListTool til å compare???
+		if (searchResult == 1)                                //    Displays if EXACT match
+		{
+			tempEvent->display();
+			numberOfResults++;
+		}
+
+	}
+
+	cout << "\n\tSearch: '" << searchDate << "' returned " << numberOfResults
+		<< " result(s)" << endl;
 }
 
 void Arrangementer::venueSearch() {
     
 }
 
-void Arrangementer::artistSearch() {
-    
+void Arrangementer::artistNameSearch() {
+	Arrangement* tempEvent;
+	char searchName[STRLEN];
+	bool searchResult;
+	int numberOfResults = 0;
+
+	read("Aritst name search", searchName, STRLEN);
+
+
+	for (int i = 1; i <= lastEvent; i++)
+	{
+		tempEvent = (Arrangement*)eventList->removeNo(i);        //    Takes event out if list
+		eventList->add(tempEvent);
+		searchResult = tempEvent->compareArtistName(searchName);
+		
+		if (searchResult == 1)                                //    Displays if EXACT match
+		{
+			tempEvent->display();
+			numberOfResults++;
+		}
+
+	}
+
+	cout << "\n\tSearch: '" << searchName << "' returned " << numberOfResults
+		<< " result(s)" << endl;
 }
 void Arrangementer::searchMenu() {
     cout << "\n\nEVENT MENU - Avalible commands:";
-    cout << "\n\t(1). - Print all the events";
-    cout << "\n\t(2) - Search for an event";
+    cout << "\n\t(1) - Print all the events";
+    cout << "\n\t(2) - Search for an event by event name";
     cout << "\n\t(3) - Search for event's on a certain venue";
     cout << "\n\t(4) - Search for events on a certain date";
     cout << "\n\t(5) - Search for event type";
@@ -85,27 +147,27 @@ void Arrangementer::searchMenu() {
     
 }
 
-void Arrangementer::eventSearch() {
+void Arrangementer::eventNameSearch() {
     
     Arrangement* tempEvent;
     char searchName[STRLEN];
     bool searchResult;
     int numberOfResults = 0;
     
-    read("Type the name you are searching for", searchName, STRLEN);
+    read("Type the event name you are searching for", searchName, STRLEN);
     
     
     for (int i = 1; i <= lastEvent; i++)
     {
         tempEvent = (Arrangement*)eventList->removeNo(i);        //    Takes event out if list
         eventList->add(tempEvent);
-        
-        searchResult = tempEvent->compareEvent(searchName);    //    Does a strstr comparison on event
+		searchResult = tempEvent->compareEventName(searchName);
+        //searchResult = tempEvent->compareEvent(searchName);    //    Does a strcmp  comparison on event
         //    Adds it back to the list
         //        Bruke ListTool til å compare???
-        if (searchResult == 1)                                //    Displays if partial match
+        if (searchResult == 1)                                //    Displays if EXACT match
         {
-            eventList->displayElement(i);
+			tempEvent->display();
             numberOfResults++;
         }
         
@@ -137,7 +199,10 @@ Arrangementer::~Arrangementer() {
 } 
 
 void Arrangementer::newEvent(){
-    eventList->add(new Arrangement(++lastEvent));
+	char buffer[STRLEN];
+	
+	read("Enter event name", buffer, STRLEN);
+	eventList->add(new Arrangement(++lastEvent, buffer));
 }
 
 
