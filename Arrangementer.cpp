@@ -33,21 +33,25 @@ void Arrangementer::eventsMenu() {
 
 void Arrangementer::searchChoice(){
     
-    searchMenu();
-    
-    char command;
-    command = read("Command: ", 1, 7);
-    
-    switch (command) {
-        case 1: eventList->displayList();   break;
-        case 2:    eventSearch();                break;
-        case 3: venueSearch();                 break;
-        case 4: dateSearch();                break;
-        case 5: typeSearch();               break;
-        case 6: artistSearch();             break;
-        case 7: allDataArrNr();                 break;
-        default:   break;
-    }
+	if ((eventList->noOfElements()) > 0)
+	{
+		searchMenu();
+
+		char command;
+		command = read("Command: ", 1, 7);
+
+		switch (command) {
+		case 1: eventList->displayList();		break;
+		case 2: eventSearch();	                break;
+		case 3: venueSearch();					break;
+		case 4: dateSearch();					break;
+		case 5: typeSearch();					break;
+		case 6: artistSearch();					break;
+		case 7: allDataArrNr();                 break;
+		}
+	}
+	else
+		printError("NO EVENTS IN EVENT LIST");
 }
 
 void Arrangementer::allDataArrNr() {
