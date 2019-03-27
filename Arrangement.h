@@ -22,11 +22,12 @@ public:
     const char* enumDisplay(enum eventType type);
     
     void display();
-    void printEventTypeMenu();
+  //  void printEventTypeMenu();		//Moved to functions.cpp, because we need it in Arrangementer as well
     
 	bool compareEventName(char query[]);
 	bool compareArtistName(char query[]);
 	bool compareEventDate(int searchDate);
+	bool compareEventType(enum eventType type);
 	
 	int compare(Arrangement* arr);                //    Virtual fra listtool
     

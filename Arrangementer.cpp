@@ -41,12 +41,12 @@ void Arrangementer::searchChoice(){
 		command = read("Command: ", 1, 7);
 
 		switch (command) {
-		case 1: eventList->displayList();		break;				//	Done
-		case 2: eventNameSearch();              break;				//	Done
+		case 1: eventList->displayList();		break;				//	Displays all events
+		case 2: eventNameSearch();              break;				//	Search by event name
 		case 3: venueSearch();					break;		//	To do
-		case 4: dateSearch();					break;				//	Done
-		case 5: typeSearch();					break;		//	To do
-		case 6: artistNameSearch();				break;				//	Done	
+		case 4: dateSearch();					break;				//	Search by date
+		case 5: typeSearch();					break;				//	Search by event type
+		case 6: artistNameSearch();				break;				//	Search by artist name
 		case 7: allDataArrNr();                 break;		//	To do
 		}
 	}
@@ -59,7 +59,42 @@ void Arrangementer::allDataArrNr() {
 }
 
 void Arrangementer::typeSearch() {
-    
+	int nr, numberOfResults = 0;
+	eventType evntTyp;
+	Arrangement* tempEvent;
+	bool searchResult;
+
+	cout << "\nSearch by event type:" << endl;
+	printEventTypeMenu();
+	nr = read("Select type you want to display", 0, 6);
+
+	switch (nr)
+	{
+	case 0:    evntTyp = Musikk;		break;
+	case 1:    evntTyp = Sport;			break;
+	case 2:    evntTyp = Teater;        break;
+	case 3:    evntTyp = Show;			break;
+	case 4:    evntTyp = Kino;			break;
+	case 5:    evntTyp = Familie;		break;
+	case 6:    evntTyp = Festival;		break;
+	}
+
+	for (int i = 1; i <= lastEvent; i++)
+	{
+		tempEvent = (Arrangement*)eventList->removeNo(i);			//	Takes event out if list
+		eventList->add(tempEvent);									//	Adds it back to the list
+		searchResult = tempEvent->compareEventType(evntTyp);		//	Each 'Arrangement' compares with own eventType
+		
+		if (searchResult == 1)                                //    Displays if EXACT match
+		{
+			tempEvent->display();
+			numberOfResults++;
+		}
+
+	}
+
+	cout << "\n\tSearch returned " << numberOfResults << " result(s)" << endl;
+
 }
 
 void Arrangementer::dateSearch() {
@@ -110,26 +145,25 @@ void Arrangementer::venueSearch() {
 }
 
 void Arrangementer::artistNameSearch() {
+	
 	Arrangement* tempEvent;
 	char searchName[STRLEN];
 	bool searchResult;
 	int numberOfResults = 0;
 
 	read("Aritst name search", searchName, STRLEN);
-
-
+	
 	for (int i = 1; i <= lastEvent; i++)
 	{
-		tempEvent = (Arrangement*)eventList->removeNo(i);        //    Takes event out if list
+		tempEvent = (Arrangement*)eventList->removeNo(i);       //    Takes event out if list
 		eventList->add(tempEvent);
 		searchResult = tempEvent->compareArtistName(searchName);
 		
-		if (searchResult == 1)                                //    Displays if EXACT match
+		if (searchResult == 1)									//    Displays if EXACT match
 		{
 			tempEvent->display();
 			numberOfResults++;
 		}
-
 	}
 
 	cout << "\n\tSearch: '" << searchName << "' returned " << numberOfResults
@@ -156,7 +190,6 @@ void Arrangementer::eventNameSearch() {
     
     read("Type the event name you are searching for", searchName, STRLEN);
     
-    
     for (int i = 1; i <= lastEvent; i++)
     {
         tempEvent = (Arrangement*)eventList->removeNo(i);        //    Takes event out if list
@@ -169,24 +202,9 @@ void Arrangementer::eventNameSearch() {
         {
 			tempEvent->display();
             numberOfResults++;
-        }
-        
+        }   
     }
-    
-    /*
-     for (int i = 1; i <= lastEvent; i++)
-     {
-     tempEvent = (Arrangement*)eventList->removeNo(i);        //    Takes customer out if list
-     searchResult = tempEvent->compareEvent(searchName);    //    Does a strstr comparison on customer
-     eventList->add(tempEvent);                        //    Adds it back to the list
-     //        Bruke ListTool til å compare???
-     if (searchResult == 1)                                //    Displays if partial match
-     {
-     eventList->displayElement(i);
-     numberOfResults++;
-     }
-     }*/
-    
+       
     cout << "\n\tSearch: '" << searchName << "' returned " << numberOfResults
     << " result(s)" << endl;
 }
@@ -194,9 +212,9 @@ void Arrangementer::eventNameSearch() {
 Arrangementer::Arrangementer() {
     eventList = new List(Sorted);
 }
-Arrangementer::~Arrangementer() {
+/*Arrangementer::~Arrangementer() {
     
-} 
+} */
 
 void Arrangementer::newEvent(){
 	char buffer[STRLEN];

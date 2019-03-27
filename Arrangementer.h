@@ -27,7 +27,7 @@ public:
     void typeSearch();
     void allDataArrNr();
     Arrangementer();
-    ~Arrangementer();
+    //~Arrangementer();
 };
 
 

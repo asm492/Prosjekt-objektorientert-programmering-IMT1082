@@ -76,31 +76,43 @@ void Arrangement::display(){
    // cout << "Venue:                    "; venue->displayName(); cout << endl;
     cout << "Artist:                 " << artistName << endl;
 	cout << "Event Type:             "; cout << enumDisplay(eventType) << endl;
-	cout << "Event date and time:    " << date << ' ';
-	
-	if (hour < 10)
-	{
-		cout << '0';
-	}
-	cout << hour << ':';
-	if (min < 10)
-	{
-		cout << '0';
-	}
-	cout << min << endl;
+	cout << "Event date and time:    "; //<< date << ' ';
 
-   /*
-    if (day < 10)
-     cout << "0";
-    
-    cout << day << "/";
-    
-    if (month < 10)
-        cout << "0";
-    
-    cout << month << " - " << year;
-    cout << " kl." << hh << ":" << mm << endl;
-    */
+	
+	if (day < 10)
+	{
+		cout << "0";
+	}
+	
+
+   cout << day << ".";
+
+   if (month < 10)
+   {
+	   cout << "0";
+   }
+
+	   
+
+   cout << month << "." << year << "  ";
+   
+   if (hour < 10)
+   {
+	   cout << '0';
+   }
+   cout << hour << ":";
+   
+   if (min < 10)
+   {
+	   cout << '0';
+   }
+   cout << min << endl;
+	
+	
+	
+	
+
+  
     
 }
 
@@ -122,17 +134,6 @@ int Arrangement::compare(Arrangement* arr) {
     //Arrangement* arr1 = (TextElement*)arr;
     return 0;
 }
-void Arrangement::printEventTypeMenu() {
-    cout << "\n\nTYPE OF EVENT:";
-    cout << "\n\t0\tMusic";
-    cout << "\n\t1\tSport";
-    cout << "\n\t2\tTheater";
-    cout << "\n\t3\tShow";
-    cout << "\n\t4\tCinema";
-    cout << "\n\t5\tFamily";
-	cout << "\n\t6\tFestival" << endl;
-}
-
 const char* Arrangement::enumDisplay(enum eventType type){
     
     switch (type) {
@@ -145,4 +146,7 @@ const char* Arrangement::enumDisplay(enum eventType type){
         case Festival: return "Festival";
     }
     
+}
+bool Arrangement::compareEventType(enum eventType type) {
+	return (type == eventType) ? true : false;
 }

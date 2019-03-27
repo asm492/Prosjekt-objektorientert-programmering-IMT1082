@@ -18,5 +18,6 @@ void layoutMenu();            //
 void read(const char t[], char s[], const int LEN);
 void printError(const char t[]);
 void printMenu();
+void printEventTypeMenu();
 
 #endif 
