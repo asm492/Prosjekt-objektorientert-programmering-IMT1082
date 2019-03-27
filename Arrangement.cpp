@@ -52,17 +52,24 @@ Arrangement::Arrangement(int eNr, char n[]) : TextElement(n){
     
     switch (nr)
     {
-        case 0:    eventType = Musikk;            break;
-        case 1:    eventType = Sport;            break;
-        case 2:    eventType = Teater;            break;
-        case 3:    eventType = Show;            break;
-        case 4:    eventType = Kino;            break;
-        case 5:    eventType = Familie;        break;
-        case 6:    eventType = Festival;        break;
+        case 0:    eventType = Musikk;		    break;
+        case 1:    eventType = Sport;			break;
+        case 2:    eventType = Teater;			break;
+        case 3:    eventType = Show;			break;
+        case 4:    eventType = Kino;			break;
+        case 5:    eventType = Familie;			break;
+        case 6:    eventType = Festival;		break;
     }
     
-}
 
+	/*
+	REMEMBER TO READ 'Oppsett' FROM USER
+	*/
+}
+void Arrangement::writeEventsToFile() {
+	
+
+}
 void Arrangement::display(){
     int temp, day, month, year;
     

@@ -22,6 +22,7 @@ public:
     const char* enumDisplay(enum eventType type);
     
     void display();
+	void writeEventsToFile();
   //  void printEventTypeMenu();		//Moved to functions.cpp, because we need it in Arrangementer as well
     
 	bool compareEventName(char query[]);

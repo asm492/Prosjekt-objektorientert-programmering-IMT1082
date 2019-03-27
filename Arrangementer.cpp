@@ -59,6 +59,7 @@ void Arrangementer::allDataArrNr() {
 }
 
 void Arrangementer::typeSearch() {
+	
 	int nr, numberOfResults = 0;
 	eventType evntTyp;
 	Arrangement* tempEvent;

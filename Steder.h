@@ -22,6 +22,8 @@ public:
     void venueDisplay();
     void readVenuesFromFile();
     void writeVenuesToFile();
+
+	int retLastUsedVenue();
     
 };
 

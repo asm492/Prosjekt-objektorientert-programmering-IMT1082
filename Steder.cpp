@@ -125,3 +125,6 @@ void Steder::layoutMenu() {
         printError("DIDN'T FIND ANY VENUES WITH THAT NAME");
     
 }
+int Steder::retLastUsedVenue() {
+	return lastUsedVenue;
+}
