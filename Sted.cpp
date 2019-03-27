@@ -112,10 +112,32 @@ void Sted::writeToFile(ofstream & out) {
     }
 }
 void Sted::newLayout() {
+	char command;
+
+	cout << "\nCURRENT NUMBER OF LAYOUTS: " << lastUsedLayout;
     
-    if (lastUsedLayout < 5)
+	if (lastUsedLayout < 5)
     {
-        layouts[++lastUsedLayout] = new Oppsett();
+		cout << "\nCreate layout from (S)cratch or (C)opy?: ";
+		command = read();
+
+		do
+		{
+			switch (command)
+			{
+			case 'S':
+				cout << "\nCRATING LAYOUT NO. " << ++lastUsedLayout << " for " << name << ":\n\n";
+				layouts[lastUsedLayout] = new Oppsett(); break;		//PROGRAM STOPS HERE. TAKE A LOOK AT OPPSETT()....STED.CPP
+
+			case 'C':
+				//cout << "\nCRATING LAYOUT NO. " << ++lastUsedLayout << " for " << name << ":\n\n";
+				//layouts[lastUsedLayout] = new Oppsett();				break;
+
+			default: printError("INVALID COMMAND, TRY AGAIN. S/C: ");	break;
+			}
+		} while (command != 'S' && command != 'C');
+
+		
     }
     else
         printError("THIS VENUE HAS REACHED ITS MAX NO. OF LAYOUTS!");

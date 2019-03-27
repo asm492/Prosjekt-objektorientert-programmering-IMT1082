@@ -11,6 +11,7 @@
 #include "ListTool2B.h"
 #include "Sted.h"
 #include "functions.h"
+#include "Vrimle.h"
 
 using namespace std;
 
@@ -21,10 +22,22 @@ Oppsett::Oppsett() {
 void Oppsett::writeToFile(ofstream & out) {
     
 }
-void newLayout() {
-	int evntNr;
-	int lastUsedVenue;
-		
-	evntNr = read("Which venue do you want to add a new layout to?", 1, 1);
+void Oppsett::newLayout() {			//	SHOULD THIS BE INN THE OPPSETT() constructor instead?
+	char command;
+	char buffer[STRLEN];
+
+	cout << "\nNEW ZONE:";
+	read("Enter desired name for the new zone", buffer, STRLEN);
+
+	cout << "\n(S)EATS or S(W)ARM?: ";
+	command = read();
+	
+
+	switch (command)
+	{
+	case 'S': seatsLayout->add(new Stoler(buffer));	break;
+	case 'W': swarmLayout->add(new Vrimle(buffer));	break;
+	default: printError("INVALID COMMAND");			break;
+	}
 }
 

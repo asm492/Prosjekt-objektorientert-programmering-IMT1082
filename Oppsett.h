@@ -5,6 +5,7 @@
 #include "ListTool2B.h"
 #include <fstream>
 
+
 using namespace std;
 
 class Oppsett {

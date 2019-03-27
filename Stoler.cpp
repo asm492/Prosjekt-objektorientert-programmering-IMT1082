@@ -12,10 +12,11 @@
 using namespace std;
 
 Stoler::Stoler(char name[]) : Sone(name) {
-    int** temp;
+    int** temp;									//	Makes a 2D dynamic int array
+												//	
     
-    cout << "\nNumber of seats per row?:  "; cin >> seatPrRow;
-    cout << "Number of rows?:           "; cin >> rows;
+    cout << "\nNumber of seats per row?:  ";	cin >> seatPrRow;
+    cout << "Number of rows?:           ";		cin >> rows;
     
     temp = new int*[seatPrRow];
     
@@ -36,7 +37,7 @@ Stoler::Stoler(char name[]) : Sone(name) {
     for (int i = 0; i < seatPrRow; i++)
     {
         for (int j = 0; j < rows; j++)
-            std::cout << temp[i][j] << " ";
+            cout << temp[i][j] << " ";
         
         cout << endl;
     }

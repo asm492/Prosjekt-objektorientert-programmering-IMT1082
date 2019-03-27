@@ -143,14 +143,15 @@ int Arrangement::compare(Arrangement* arr) {
 }
 const char* Arrangement::enumDisplay(enum eventType type){
     
-    switch (type) {
-        case Musikk: return "Music";
-        case Sport: return "Sport";
-        case Teater: return "Theatre";
-        case Show: return "Show";
-        case Kino: return "Cinema";
-        case Familie: return "Family";
-        case Festival: return "Festival";
+    switch (type) 
+	{
+	case Musikk:	return "Music";		break;
+    case Sport:		return "Sport";		break;
+    case Teater:	return "Theatre";	break;
+    case Show:		return "Show";		break;
+    case Kino:		return "Cinema";	break;
+    case Familie:	return "Family";	break;
+    case Festival:	return "Festival";	break;
     }
     
 }

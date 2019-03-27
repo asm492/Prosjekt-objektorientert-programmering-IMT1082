@@ -56,6 +56,6 @@ int main() {
         command = read();           //  Leser brukerens ›nske/valg.
     }
     
-    
+
     return 0;
 }
