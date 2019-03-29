@@ -8,6 +8,7 @@
 #include "conster.h"
 #include "Sted.h"
 #include "enums.h"
+#include "Steder.h"
 
 using namespace std;
 
@@ -26,7 +27,7 @@ Arrangement::Arrangement(int eNr, char n[]) : TextElement(n){
     artistName = new char[strlen(buffer) + 1];            //Allocating enough space
     strcpy(artistName, buffer);                            //for string + '\0'
     
-    
+    read("Enter Venue" , buffer, STRLEN);
     
     do
     {
@@ -65,6 +66,8 @@ Arrangement::Arrangement(int eNr, char n[]) : TextElement(n){
 	/*
 	REMEMBER TO READ 'Oppsett' FROM USER
 	*/
+    
+    
 }
 void Arrangement::writeEventsToFile() {
 	
@@ -125,7 +128,7 @@ void Arrangement::display(){
 
 bool Arrangement::compareEventName(char query[]) {
     
-    return !strcmp(eventName, query);
+    return strstr(eventName, query);
     //return strcmp(name, query);
 }
 bool Arrangement::compareArtistName(char query[])

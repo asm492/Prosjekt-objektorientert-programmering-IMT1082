@@ -19,6 +19,8 @@ public:
     
     Arrangement(int eNr, char n[]);
     
+    
+    
     const char* enumDisplay(enum eventType type);
     
     void display();
