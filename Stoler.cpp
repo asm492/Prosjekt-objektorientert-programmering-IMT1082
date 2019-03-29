@@ -142,6 +142,11 @@ void Stoler::printSeatMap() {
 	for (int i = 1; i <= rows; i++)
 	{
 		cout << "\t" << i << ". ";
+		if (i < 10)
+		{
+			cout << ' ';
+		}
+
 		for (int j = 1; j <= seatPrRow; j++)
 		{
 			if (tempArray[i][j] == 0)							//	THIS DOESNT WORK
