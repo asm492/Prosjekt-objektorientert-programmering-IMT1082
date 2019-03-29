@@ -1,3 +1,4 @@
+
 #ifdef _MSC_VER
 #define _CRT_SECURE_NO_WARNINGS
 #endif
@@ -8,6 +9,7 @@
 #include "Stoler.h"
 #include "Vrimle.h"
 #include "Sone.h"
+#include "Oppsett.h"
 
 using namespace std;
 
@@ -110,11 +112,54 @@ void Sted::writeToFile(ofstream & out) {
         layouts[i]->writeToFile(out);
     }
 }
+void Sted::displayLayouts()			//	TESTING
+{
+	int layoutNo;
+
+	layoutNo = read("WHICH LAYOUT TO DISPLAY? 0 = ALL", 0, lastUsedLayout);
+
+	if (layoutNo == 0)
+	{
+		for (int i = 1; i <= lastUsedLayout; i++)									//	Prints all
+		{
+			cout << "\nLAYOUT NO " << i << " FOR " << name << ':' << endl;
+			layouts[i]->printLayouts();												//	Calls Oppsett class' function	
+		}
+	}
+	else {
+		layouts[layoutNo]->printLayouts();
+	}
+
+	
+}
 void Sted::newLayout() {
+	char command;
+
+	cout << "\nCURRENT NUMBER OF LAYOUTS: " << lastUsedLayout;
     
-    if (lastUsedLayout < 5)
+	if (lastUsedLayout < 5)
     {
-        layouts[++lastUsedLayout] = new Oppsett();
+		cout << "\nCreate layout from (S)cratch or (C)opy?: ";
+		command = read();
+
+		do
+		{
+			switch (command)
+			{
+			case 'S':
+				cout << "\nCRATING LAYOUT NO. " << ++lastUsedLayout << " for " << name << ":\n\n";
+				layouts[lastUsedLayout] = new Oppsett(); 
+				layouts[lastUsedLayout]->newLayout(); break;		//PROGRAM STOPS HERE. TAKE A LOOK AT OPPSETT()....STED.CPP
+
+			case 'C':
+				//cout << "\nCRATING LAYOUT NO. " << ++lastUsedLayout << " for " << name << ":\n\n";
+				//layouts[lastUsedLayout] = new Oppsett();				break;
+
+			default: printError("INVALID COMMAND, TRY AGAIN. S/C: ");	break;
+			}
+		} while (command != 'S' && command != 'C');
+
+		
     }
     else
         printError("THIS VENUE HAS REACHED ITS MAX NO. OF LAYOUTS!");

@@ -16,12 +16,21 @@ private:
     int lastUsedVenue;
 public:
     Steder();
-    void venuesMenu();
+    
+	
+	void venuesMenu();
     void layoutMenu();
     void newVenue();
     void venueDisplay();
     void readVenuesFromFile();
     void writeVenuesToFile();
+	
+	void layoutDisplay();
+	void layoutNew();
+	void layoutEdit();
+	void layoutDelete();
+	
+	int retLastUsedVenue();
     
 };
 

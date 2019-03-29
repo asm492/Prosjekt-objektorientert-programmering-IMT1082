@@ -129,3 +129,13 @@ bool checkDigit(const char t[]) {
     }
     return true;
 }
+void printEventTypeMenu() {
+	cout << "\n\nTYPE OF EVENT:";
+	cout << "\n\t0\tMusic";
+	cout << "\n\t1\tSport";
+	cout << "\n\t2\tTheater";
+	cout << "\n\t3\tShow";
+	cout << "\n\t4\tCinema";
+	cout << "\n\t5\tFamily";
+	cout << "\n\t6\tFestival" << endl;
+}

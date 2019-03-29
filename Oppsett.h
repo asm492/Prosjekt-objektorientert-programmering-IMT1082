@@ -3,16 +3,22 @@
 
 #include <iostream>
 #include "ListTool2B.h"
-#include "Oppsett.h"
 #include <fstream>
+
 
 using namespace std;
 
 class Oppsett {
 private:
-    
+	List* seatsLayout;
+	List* swarmLayout;
 public:
-    void writeToFile(ofstream & out);
+	Oppsett();
+
+	void printLayouts();				
+	void writeToFile(ofstream & out);
+	void newLayout();
+	
 };
 
 #endif

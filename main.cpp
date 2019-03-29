@@ -23,7 +23,7 @@ int main() {
     
     Kunder customerDatabase;
     Arrangementer eventDatabase;
-    Steder venueDatabase;
+	Steder venueDatabase;
     
     
     
@@ -56,6 +56,6 @@ int main() {
         command = read();           //  Leser brukerens ›nske/valg.
     }
     
-    
+
     return 0;
 }

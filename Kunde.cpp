@@ -48,7 +48,21 @@ void Kunde::display() {
     cout << "\nCustomer number: " << number << endl;
     cout << "Name:            " << name << endl;
     cout << "Street address:  " << streetAddress << endl;
-    cout << "ZIP / Area:      " << postalCode << ' ' << postalArea << endl;
+	cout << "ZIP / Area:      ";
+	
+	if (postalCode < 10)								//	Ensures that ZIP is always 
+	{													//	displayed with correct format
+		cout << "000";
+	}
+	else if (postalCode < 100) {
+		cout << "00";
+	}
+	else if (postalCode < 1000)
+	{
+		cout << '0';
+	}
+	
+	cout << postalCode << ' ' << postalArea << endl;
     cout << "Phone:           " << phoneNumber << endl;
     cout << "Email:           " << email << endl;
     

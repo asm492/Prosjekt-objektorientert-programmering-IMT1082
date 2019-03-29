@@ -19,15 +19,15 @@ public:
     void newEvent();
     void eventsMenu();
     void searchChoice();
-    void eventSearch();
+    void eventNameSearch();
     void searchMenu();
-    void artistSearch();
+    void artistNameSearch();
     void venueSearch();
     void dateSearch();
     void typeSearch();
     void allDataArrNr();
     Arrangementer();
-    ~Arrangementer();
+    //~Arrangementer();
 };
 
 
