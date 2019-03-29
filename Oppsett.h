@@ -8,16 +8,17 @@
 
 using namespace std;
 
-class Oppsett {
+class Oppsett : public NumElement {
 private:
 	List* seatsLayout;
 	List* swarmLayout;
 public:
-	Oppsett();
+	Oppsett(int n);
 
 	void printLayouts();				
 	void writeToFile(ofstream & out);
 	void newLayout();
+	int retNoElements();
 	
 };
 

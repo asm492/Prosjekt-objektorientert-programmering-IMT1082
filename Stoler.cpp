@@ -177,6 +177,12 @@ void Stoler::printSeatMap() {
 	/****************************/
 }
 
+void Stoler::writeToFile(ofstream & out)
+{
+	Sone::writeToFile(out);
+	out << seatPrRow << ' ' << rows << '\n';
+}
+
 void Stoler::display() {
 	
 	Sone::display();

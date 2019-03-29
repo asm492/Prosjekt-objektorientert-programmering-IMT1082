@@ -10,6 +10,7 @@
 #include "Vrimle.h"
 #include "Sone.h"
 #include "Oppsett.h"
+#include "ListTool2B.h"
 
 using namespace std;
 
@@ -109,6 +110,7 @@ void Sted::writeToFile(ofstream & out) {
     
     for (int i = 1; i <= lastUsedLayout; i++)
     {
+		out << i << ' ';							//Layout number
         layouts[i]->writeToFile(out);
     }
 }
@@ -132,6 +134,29 @@ void Sted::displayLayouts()			//	TESTING
 
 	
 }
+/*
+List * Sted::kopier(int nr)
+{
+	
+	List* list = NULL;
+	int i, ant;
+	Sone *sone, *kopi;
+
+	if (nr >= 1 && nr <= lastUsedLayout) {
+		
+		ant = layouts[nr]->noOfElements();
+
+		list = new List(Sorted);
+		for (i = 1; i <= ant; i++) {
+			sone = (Sone*)layouts[nr]->removeNo(i);
+			if (*sone == 'S')  kopi = new Stoler(*((Stoler*)sone));
+			else kopi = new Vrimle(*((Vrimle*)sone));
+			oppsett[nr]->add(sone);
+			list->add(kopi);
+		}
+	}
+	return list;
+}*/
 void Sted::newLayout() {
 	char command;
 
@@ -148,12 +173,12 @@ void Sted::newLayout() {
 			{
 			case 'S':
 				cout << "\nCRATING LAYOUT NO. " << ++lastUsedLayout << " for " << name << ":\n\n";
-				layouts[lastUsedLayout] = new Oppsett(); 
+				layouts[lastUsedLayout] = new Oppsett(lastUsedLayout); 
 				layouts[lastUsedLayout]->newLayout(); break;		//PROGRAM STOPS HERE. TAKE A LOOK AT OPPSETT()....STED.CPP
 
 			case 'C':
 				//cout << "\nCRATING LAYOUT NO. " << ++lastUsedLayout << " for " << name << ":\n\n";
-				//layouts[lastUsedLayout] = new Oppsett();				break;
+				/*layouts[lastUsedLayout] = new Oppsett();*/				break;
 
 			default: printError("INVALID COMMAND, TRY AGAIN. S/C: ");	break;
 			}
@@ -164,4 +189,5 @@ void Sted::newLayout() {
     else
         printError("THIS VENUE HAS REACHED ITS MAX NO. OF LAYOUTS!");
 }
+
 

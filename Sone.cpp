@@ -4,6 +4,7 @@
 
 #include "functions.h"
 #include "Sone.h"
+#include <fstream>
 #include <iostream>
 #include "conster.h"
 
@@ -31,4 +32,11 @@ void Sone::display() {
     cout << "Tickets left for sale: " << ticketsForSale - ticketsSold << endl;
     cout << "Ticket price:          " << ticketPrice << endl;
     
+}
+
+void Sone::writeToFile(ofstream & out)
+{
+	//out << text << '\n';
+	out << zoneName << '\n';
+	out << ticketsForSale << ' ' << ticketsSold << ' ' << ticketPrice << '\n';
 }

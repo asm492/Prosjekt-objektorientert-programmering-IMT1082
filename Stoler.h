@@ -1,8 +1,12 @@
 #ifndef Stoler_h
 #define Stoler_h
 
-#include "conster.h"
+#include <iostream>
+#include <fstream>
+#include <cstring>
+#include "Stoler.h"
 #include "Sone.h"
+#include "Sted.h"       
 
 class Stoler : public Sone {
 private:
@@ -17,7 +21,7 @@ public:
     void display();
     void configureSeats();
     void printSeatMap();
-    
+	void writeToFile(ofstream & out);
 };
 
 #endif

@@ -23,14 +23,14 @@ public:
     Sted(char n[]);
     Sted(char n[], ifstream & inn);
     
-    
+	void writeToFile(ofstream & out);
     void display();
     void displayName();
     void newLayout();
     void newSeatLayout();
     void printSeatLayout();
-    void writeToFile(ofstream & out);
 	void displayLayouts();					//	Testing
+	//List* kopier(int nr);
 
 };
 

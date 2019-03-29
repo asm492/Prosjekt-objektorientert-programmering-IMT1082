@@ -134,7 +134,21 @@ void Steder::layoutNew()
 }
 void Steder::layoutEdit()
 {
-	//TO DO
+	
+	Sted* tmpVenue;
+	char buffer[STRLEN];
+
+	readAndUpcase("EDIT LAYOUT FOR?: ", buffer, STRLEN);
+
+	if (venueList->inList(buffer))
+	{
+		tmpVenue = (Sted*)venueList->remove(buffer);
+		venueList->add(tmpVenue);
+		venueList->displayElement(buffer);
+		tmpVenue->newLayout();
+	}
+	else
+		cout << "\n\n\t\t'" << buffer << "' IS NOT IN LIST!\n\n";
 }
 void Steder::layoutDelete()
 {
@@ -202,6 +216,16 @@ void Steder::layoutMenu() {		//	From main press 0
 }
 int Steder::retLastUsedVenue() {
 	return lastUsedVenue;
-}
+}/*
+List* Steder::kopier(char* nvn, int nr) {
+	List* listPtr = NULL;
+	Sted* venue;
+
+	if ((venue = (Sted*)venueList->remove(nvn))) {
+		listPtr = venue->kopier(nr);
+		venueList->add(venue);
+	}
+	return listPtr;
+}*/
 
 

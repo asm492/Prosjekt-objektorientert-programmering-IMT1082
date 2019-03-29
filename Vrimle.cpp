@@ -2,7 +2,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #endif
 
-
+#include <fstream>
 #include <iostream>
 #include "Vrimle.h"
 #include "ListTool2B.h"
@@ -12,6 +12,11 @@ using namespace std;
 
 Vrimle::Vrimle(char name[]) : Sone(name) {    
     space = new int[ticketsForSale];
+}
+
+void Vrimle::writeToFile(ofstream & out)
+{
+	Sone::writeToFile(out);
 }
 
 void Vrimle::display(){

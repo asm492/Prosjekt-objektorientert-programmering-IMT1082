@@ -14,10 +14,13 @@ class Steder {
 private:
     List* venueList;
     int lastUsedVenue;
+
 public:
     Steder();
     
+	//List* kopier(char* nvn, int nr);
 	
+
 	void venuesMenu();
     void layoutMenu();
     void newVenue();

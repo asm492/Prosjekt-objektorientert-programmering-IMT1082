@@ -52,8 +52,11 @@ int main() {
         }
         printMenu();
         command = read();           //  Leser brukerens ›nske/valg.
+		
     }
     
+	cout << "\n\nWRITING TO FILE...\n\n";
+	venueDatabase.writeVenuesToFile();
 
     return 0;
 }

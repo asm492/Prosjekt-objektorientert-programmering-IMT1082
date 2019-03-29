@@ -15,7 +15,7 @@
 
 using namespace std;
 
-Oppsett::Oppsett() {
+Oppsett::Oppsett(int n) : NumElement(n){
 	seatsLayout = new List(Sorted);
 	swarmLayout = new List(Sorted);
 }
@@ -35,7 +35,16 @@ void Oppsett::printLayouts()
 	
 }
 void Oppsett::writeToFile(ofstream & out) {
-    
+	Stoler* seatPtr;
+//	Vrimle* swarmPtr;
+
+	out << seatsLayout->noOfElements() << '\n';
+	for (int i = 1; i <= seatsLayout->noOfElements(); i++)
+	{
+		seatPtr = (Stoler*)seatsLayout->removeNo(i);
+		seatsLayout->add(seatPtr);
+		seatPtr->writeToFile(out);
+	}
 }
 void Oppsett::newLayout() {			//	SHOULD THIS BE INN THE OPPSETT() constructor instead?
 	char command, ch;
@@ -63,5 +72,10 @@ void Oppsett::newLayout() {			//	SHOULD THIS BE INN THE OPPSETT() constructor in
 		cout << "\nCONTINIUE TO ADD MORE ZONES? (Y/N):   "; ch = read();
 
 	} while (ch == 'Y');
+}
+
+int Oppsett::retNoElements()
+{
+	return 0;
 }
 

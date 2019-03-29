@@ -2,6 +2,7 @@
 #define Sone_h
 
 #include <stdio.h>
+#include <fstream>
 #include "ListTool2B.h"
 
 class Sone : public TextElement {
@@ -16,7 +17,7 @@ public:
     ~Sone();
     
     void display();
-    
+	void writeToFile(ofstream & out);
     
 };
 
