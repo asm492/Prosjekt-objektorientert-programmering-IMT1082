@@ -16,14 +16,15 @@
 //List* layoutList;
 //List* venueList;
 
+Kunder customerDatabase;
+Arrangementer eventDatabase;
+Steder venueDatabase;
 
 int main() {
     
     char command;
     
-    Kunder customerDatabase;
-    Arrangementer eventDatabase;
-	Steder venueDatabase;
+ 
     
     
     

@@ -29,7 +29,7 @@ public:
 	void layoutNew();
 	void layoutEdit();
 	void layoutDelete();
-	
+    
 	int retLastUsedVenue();
     
 };

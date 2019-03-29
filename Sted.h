@@ -23,6 +23,7 @@ public:
     Sted(char n[]);
     Sted(char n[], ifstream & inn);
     
+    
     void display();
     void displayName();
     void newLayout();
