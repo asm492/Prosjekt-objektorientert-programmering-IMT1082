@@ -11,6 +11,8 @@
 #include "Arrangementer.h"
 #include "Steder.h"
 
+
+using namespace std;
 //List* customerList;
 //List* eventList;
 //List* layoutList;
@@ -22,12 +24,7 @@ Steder venueDatabase;
 
 int main() {
     
-    char command;
-    
- 
-    
-    
-    
+	char command;
     
     
     customerDatabase.readCustomersFromFile();

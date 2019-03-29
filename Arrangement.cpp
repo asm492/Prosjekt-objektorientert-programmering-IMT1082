@@ -16,7 +16,8 @@ using namespace std;
 Arrangement::Arrangement(int eNr, char n[]) : TextElement(n){
     char buffer[STRLEN];
     int dd, mm, yyyy, nr;
-    
+	
+
     eventNumber = eNr;
     
     
@@ -27,8 +28,10 @@ Arrangement::Arrangement(int eNr, char n[]) : TextElement(n){
     artistName = new char[strlen(buffer) + 1];            //Allocating enough space
     strcpy(artistName, buffer);                            //for string + '\0'
     
-    read("Enter Venue" , buffer, STRLEN);
     
+	
+
+	
     do
     {
         cout << "\nDATE:";
@@ -84,6 +87,7 @@ void Arrangement::display(){
     
     cout << "\nEvent name:             " << eventName << endl;
    // cout << "Venue:                    "; venue->displayName(); cout << endl;
+
     cout << "Artist:                 " << artistName << endl;
 	cout << "Event Type:             "; cout << enumDisplay(eventType) << endl;
 	cout << "Event date and time:    "; //<< date << ' ';

@@ -35,8 +35,13 @@ void Steder::newVenue() {
     
     do
     {
-        read("TYPE VENUE NAME", tempName, STRLEN);
-        
+        readAndUpcase("TYPE VENUE NAME", tempName, STRLEN);
+		
+		if (venueList->inList(tempName))
+		{
+			cout << "\n\n\t\tVENUE WITH THE NAME '" << tempName << "' ALREADY EXISTS!\n\n";
+		}
+
     } while (venueList->inList(tempName));
     
     tempVenue = new Sted(tempName);
@@ -51,7 +56,7 @@ void Steder::venueDisplay() {
 	
 	if ((venueList->noOfElements()) > 0)
 	{
-		read("WHICH VENUE TO DISPLAY?", venueName, STRLEN);
+		readAndUpcase("WHICH VENUE TO DISPLAY?", venueName, STRLEN);
 		if (venueList->inList(venueName)) {
 			venueList->displayElement(venueName);
 		}
@@ -94,7 +99,7 @@ void Steder::layoutDisplay()
 	Sted* tmpVenue;
 	char buffer[STRLEN];
 
-	read("Which venue's layout would you like to display?", buffer, STRLEN);
+	readAndUpcase("Which venue's layout would you like to display?", buffer, STRLEN);
 
 	if (venueList->inList(buffer))
 	{
@@ -114,7 +119,7 @@ void Steder::layoutNew()
 	Sted* tmpVenue;
 	char buffer[STRLEN];
 
-	read("Which venue would you like to add layout to?", buffer, STRLEN);
+	readAndUpcase("Which venue would you like to add layout to?", buffer, STRLEN);
 
 	if (venueList->inList(buffer))
 	{
@@ -198,4 +203,5 @@ void Steder::layoutMenu() {		//	From main press 0
 int Steder::retLastUsedVenue() {
 	return lastUsedVenue;
 }
+
 

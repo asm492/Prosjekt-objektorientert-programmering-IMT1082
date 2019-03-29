@@ -5,15 +5,18 @@
 #include "ListTool2B.h"
 #include "enums.h"
 #include "Sted.h"
+#include "Steder.h"
 
 class Arrangement : public TextElement {
 private:
     char* eventName;
     char* artistName;
+
     Sted* venue;
     int eventNumber;
     int date, hour, min;
     eventType eventType;
+	
     
 public:
     

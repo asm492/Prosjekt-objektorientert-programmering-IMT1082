@@ -36,6 +36,15 @@ void read(const char t[], char s[], const int LEN) {
         cout << '\t' << t << ": "; cin.getline(s, LEN); // Ledetekst og leser.
     } while (strlen(s) == 0);                    //  Sjekker at tekstlengden er ulik 0.
 }
+void readAndUpcase(const char t[], char s[], const int LEN) {
+	do {
+		cout << '\t' << t << ": "; cin.getline(s, LEN);		// Ledetekst og leser.
+		for (int i = 0; i < strlen(s); i++)
+		{
+			s[i] = toupper(s[i]);
+		}
+	} while (strlen(s) == 0);                    //  Sjekker at tekstlengden er ulik 0.
+}
 void printError(const char t[]) {
     
     cout << "\n\n\t\t" << t << "\n\n";
@@ -85,41 +94,6 @@ void printError(char t[]) {
         t[i] = toupper(t[i]);
     }
     cout << "\n\n\t\t" << t << "\n\n";        //    Prints stirng
-}
-
-
-
-/*TROR DISSE SKAL FJERNES:    HUSK Å FJERN FRA xxxxx.h også*/
-void venueMenu() {
-    char command;
-    
-    command = read();
-    
-    switch (command)
-    {
-        case 'D':    break;            //    Display
-        case 'N':    break;            //    New
-        case 'S':    break;            //    Delete
-            
-        default:
-            printError("INVALID INPUT! GOING BACK TO MAIN MENU");    break;
-    }
-}
-void layoutMenu() {
-    char command;
-    
-    command = read();
-    
-    switch (command)
-    {
-        case 'D':    break;            //    Display
-        case 'N':    break;            //    New
-        case 'E':    break;            //    Edit
-        case 'S':    break;            //    Delete
-            
-        default:
-            printError("INVALID INPUT! GOING BACK TO MAIN MENU");    break;
-    }
 }
 bool checkDigit(const char t[]) {
     for (int i = 0; i < strlen(t); i++)
