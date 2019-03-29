@@ -5,6 +5,8 @@
 #include <fstream>
 #include "ListTool2B.h"
 
+using namespace std;
+
 class Sone : public TextElement {
 protected:
     char* zoneName;
