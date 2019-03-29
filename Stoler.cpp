@@ -21,6 +21,11 @@ Stoler::Stoler(char name[]) : Sone(name) {			//	Sends name to base class
 	{
 		cout << "\nNUMBER OF SEATS PR ROW?:    ";	cin >> seatPrRow;
 		cout << "NUMBER OF ROWS?:            ";		cin >> rows;
+		if (seatPrRow*rows != ticketsForSale)
+		{
+			printError("ROWS*SEATS PR ROW MUST EQUAL NUMBER OF TICKETS FOR SALE");
+		}
+
 	} while (seatPrRow*rows != ticketsForSale);
     
     tempArray = new int*[seatPrRow];					//	First pointer points to new int pointer
