@@ -19,25 +19,49 @@ Oppsett::Oppsett() {
 	seatsLayout = new List(Sorted);
 	swarmLayout = new List(Sorted);
 }
+void Oppsett::printLayouts()
+{
+	if ((seatsLayout->noOfElements()) > 0)
+	{
+		cout << "\nSEATS:" << endl;
+		seatsLayout->displayList();
+	}
+
+	if ((swarmLayout->noOfElements()) > 0)
+	{
+		cout << "\nSWARM:" << endl;
+		swarmLayout->displayList();
+	}
+	
+}
 void Oppsett::writeToFile(ofstream & out) {
     
 }
 void Oppsett::newLayout() {			//	SHOULD THIS BE INN THE OPPSETT() constructor instead?
-	char command;
+	char command, ch;
 	char buffer[STRLEN];
-
-	cout << "\nNEW ZONE:";
-	read("Enter desired name for the new zone", buffer, STRLEN);
-
-	cout << "\n(S)EATS or S(W)ARM?: ";
-	command = read();
 	
-
-	switch (command)
+	do
 	{
-	case 'S': seatsLayout->add(new Stoler(buffer));	break;
-	case 'W': swarmLayout->add(new Vrimle(buffer));	break;
-	default: printError("INVALID COMMAND");			break;
-	}
+		read("DESIRED NAME FOR NEW ZONE?", buffer, STRLEN);
+		
+
+		cout << "\n(S)EATS or S(W)ARM?: ";
+		command = read();
+
+
+		switch (command)
+		{
+		case 'S': seatsLayout->add(new Stoler(buffer));	break;	
+		case 'W': swarmLayout->add(new Vrimle(buffer));	break;	
+		default: printError("INVALID COMMAND");			break;
+		}
+
+		//cout << "\nNUMBER OF ZONES IN THIS LAYOUT ";
+		//cout << seatsLayout->noOfElements() + swarmLayout->noOfElements() << endl;
+
+		cout << "\nCONTINIUE TO ADD MORE ZONES? (Y/N):   "; ch = read();
+
+	} while (ch == 'Y');
 }
 

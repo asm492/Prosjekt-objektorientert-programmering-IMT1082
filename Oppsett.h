@@ -14,9 +14,11 @@ private:
 	List* swarmLayout;
 public:
 	Oppsett();
+
+	void printLayouts();				
 	void writeToFile(ofstream & out);
 	void newLayout();
-
+	
 };
 
 #endif

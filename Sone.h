@@ -5,14 +5,14 @@
 #include "ListTool2B.h"
 
 class Sone : public TextElement {
-private:
+protected:
     char* zoneName;
     int ticketsForSale;                 //    DO NOT INCREMENT!
     int ticketsSold, ticketPrice;
-    List* seatList;                                        //    Stoler
-    List* swarmList;                                    //    Vrimle
+    //List* seatList;                                        //    Stoler
+    //List* swarmList;                                    //    Vrimle
 public:
-    Sone(char n[]);
+	Sone(char n[]);		//	NEW
     ~Sone();
     
     void display();

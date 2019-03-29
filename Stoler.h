@@ -6,9 +6,9 @@
 
 class Stoler : public Sone {
 private:
-    int seatConfig[MAXLAYOUTS + 1][MAXLAYOUTS + 1];            //    Usikker på om denne faktisk skal med
+    //int seatConfig[MAXLAYOUTS + 1][MAXLAYOUTS + 1];            //    Usikker på om denne faktisk skal med
     int seatPrRow, rows;
-    
+	int** tempArray;
     
 public:
     

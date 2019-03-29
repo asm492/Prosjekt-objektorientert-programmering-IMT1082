@@ -9,6 +9,7 @@
 #include "Stoler.h"
 #include "Vrimle.h"
 #include "Sone.h"
+#include "Oppsett.h"
 
 using namespace std;
 
@@ -111,6 +112,26 @@ void Sted::writeToFile(ofstream & out) {
         layouts[i]->writeToFile(out);
     }
 }
+void Sted::displayLayouts()			//	TESTING
+{
+	int layoutNo;
+
+	layoutNo = read("WHICH LAYOUT TO DISPLAY? 0 = ALL", 0, lastUsedLayout);
+
+	if (layoutNo == 0)
+	{
+		for (int i = 1; i <= lastUsedLayout; i++)									//	Prints all
+		{
+			cout << "\nLAYOUT NO " << i << " FOR " << name << ':' << endl;
+			layouts[i]->printLayouts();												//	Calls Oppsett class' function	
+		}
+	}
+	else {
+		layouts[layoutNo]->printLayouts();
+	}
+
+	
+}
 void Sted::newLayout() {
 	char command;
 
@@ -127,7 +148,8 @@ void Sted::newLayout() {
 			{
 			case 'S':
 				cout << "\nCRATING LAYOUT NO. " << ++lastUsedLayout << " for " << name << ":\n\n";
-				layouts[lastUsedLayout] = new Oppsett(); break;		//PROGRAM STOPS HERE. TAKE A LOOK AT OPPSETT()....STED.CPP
+				layouts[lastUsedLayout] = new Oppsett(); 
+				layouts[lastUsedLayout]->newLayout(); break;		//PROGRAM STOPS HERE. TAKE A LOOK AT OPPSETT()....STED.CPP
 
 			case 'C':
 				//cout << "\nCRATING LAYOUT NO. " << ++lastUsedLayout << " for " << name << ":\n\n";

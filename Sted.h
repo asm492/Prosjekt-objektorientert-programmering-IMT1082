@@ -29,6 +29,7 @@ public:
     void newSeatLayout();
     void printSeatLayout();
     void writeToFile(ofstream & out);
+	void displayLayouts();					//	Testing
 };
 
 

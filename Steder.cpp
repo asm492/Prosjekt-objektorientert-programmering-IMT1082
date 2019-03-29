@@ -101,6 +101,8 @@ void Steder::layoutDisplay()
 		tmpVenue = (Sted*)venueList->remove(buffer);
 		venueList->add(tmpVenue);
 		venueList->displayElement(buffer);
+
+		tmpVenue->displayLayouts();					//	Calls Sted class' function
 	}
 	else
 		cout << "\n\n\t\t'" << buffer << "' IS NOT IN LIST!\n\n";
