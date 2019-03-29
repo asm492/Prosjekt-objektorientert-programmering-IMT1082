@@ -10,23 +10,12 @@
 
 using namespace std;
 
-Vrimle::Vrimle(char n[]) : Sone(n){
-    
+Vrimle::Vrimle(char name[]) : Sone(name) {    
+    space = new int[ticketsForSale];
 }
 
 void Vrimle::display(){
-    cout << "\n#Type: Vrimle" << "\t#Number of spots: " << numbOfSpots
-    << "\n#Price pr. ticket: " << ticketPrice << "NOK\t#Tickets left: "
-    << numbOfSpots-soldTickets;
+    
+    Sone::display();
 }
 
-void Vrimle::configVrimle(){
-    
-    cout << "\n\nNumber of tickets to be sold in sone?: "; cin >> numbOfSpots;
-    cout << "\nPrice pr. ticket?: "; cin >> ticketPrice;
-    
-    space = new int* [numbOfSpots + 1];
-    
-    for (int i = 1; i <= numbOfSpots + 1; i++)
-        space[i] = nullptr;
-}
