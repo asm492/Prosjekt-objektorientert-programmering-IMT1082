@@ -25,30 +25,21 @@ Sted::Sted(char n[]) : TextElement(n) {
     
 }
 Sted::Sted(char n[], ifstream & inn) : TextElement(n) {
-    Stoler* tempSeat;
-    Vrimle* tempSwarm;
-    char zoneName[STRLEN];
-    char zoneType[STRLEN];
+    //Stoler* tempSeat;
+    //Vrimle* tempSwarm;
+	int layoutNo;
+    //char zoneName[STRLEN];
+    //char zoneType[STRLEN];
     
-    name = new char[strlen(n) + 1];
+    name = new char[strlen(n) + 1];					//	Name of the venue
     strcpy(name, n);
     
-    inn >> lastUsedLayout; inn.ignore();
+    inn >> lastUsedLayout; //inn.ignore();
     
     for(int i = 1; i <= lastUsedLayout; i++){
         
-        inn.getline(zoneName, STRLEN); inn.ignore();
-        inn.getline(zoneType, STRLEN); inn.ignore();
-        
-        if(strcmp("Stoler", zoneName) == 0){
-            //tempSeat = (Oppsett*)layouts[i] = new Stoler(zoneName, inn);
-        }
-        else if(strcmp("Vrimle", zoneName) == 0){
-            //tempSwarm = (Oppsett*)layouts[i] = new Vrimle(zoneName, inn);
-        }
-        else{
-            printError("AN ERROR OCCURED WHILE READING FROM 'STEDER.DTA'!");
-        }
+		inn >> layoutNo; //inn.ignore();			//??????????????
+		layouts[i] = new Oppsett(layoutNo, inn);
     }
 }
 
@@ -64,7 +55,7 @@ void Sted::displayName(){
 
 void Sted::newSeatLayout() {
     char buffer[STRLEN];
-    Oppsett* tmp;
+   // Oppsett* tmp;
     if (lastUsedLayout < 5)
     {                                                    //    To do: copy
         cout << "\nCreating new layout:" << endl;
@@ -110,7 +101,7 @@ void Sted::writeToFile(ofstream & out) {
     
     for (int i = 1; i <= lastUsedLayout; i++)
     {
-		out << i << ' ';							//Layout number
+		out << i << '\n';							//Layout number
         layouts[i]->writeToFile(out);
     }
 }

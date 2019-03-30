@@ -54,6 +54,8 @@ void Steder::venueDisplay() {
 	/*THIS IS FOR TESING ONLY*/
 	char venueName[STRLEN];
 	
+	
+
 	if ((venueList->noOfElements()) > 0)
 	{
 		readAndUpcase("WHICH VENUE TO DISPLAY?", venueName, STRLEN);
@@ -88,6 +90,7 @@ void Steder::writeVenuesToFile() {
     out << lastUsedVenue << '\n';
     for (int i = 1; i <= lastUsedVenue; i++)
     {
+		//out << i << '\n';								//	Venue number
         tempVenue = (Sted*)venueList->removeNo(i);
         tempVenue->writeToFile(out);
         venueList->add(tempVenue);
@@ -96,6 +99,7 @@ void Steder::writeVenuesToFile() {
 }
 void Steder::layoutDisplay()
 {
+	
 	Sted* tmpVenue;
 	char buffer[STRLEN];
 
@@ -167,14 +171,14 @@ void Steder::readVenuesFromFile() {
         
         for(int i = 1; i <= lastUsedVenue; i++){
             inn.getline(bufferName, STRLEN);
-            temp = (Sted*)venueList->add(new Sted(bufferName, inn));
+			temp = new Sted(bufferName, inn);
+			venueList->add(temp);
+			//temp = (Sted*)venueList->add(new Sted(bufferName, inn));
         }
     }
     else
         printError("FILE 'STEDER.DTA' NOT FOUND!");
-    
-    //++lastUsedVenue;
-    
+       
     
 }
 void Steder::layoutMenu() {		//	From main press 0

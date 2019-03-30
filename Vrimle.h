@@ -14,6 +14,7 @@ private:
     //int soldToCustNo[ticketsForSale + 1]; MŒ ha dynamic array eller liste
 public:
     Vrimle(char name[]);
+	Vrimle(char name[], ifstream & inn);
 
 	void writeToFile(ofstream & out);
     void display();

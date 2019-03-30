@@ -14,12 +14,15 @@ private:
 	List* swarmLayout;
 public:
 	Oppsett(int n);
+	Oppsett(int n, ifstream & inn);
 
 	void printLayouts();				
 	void writeToFile(ofstream & out);
 	void newLayout();
 	int retNoElements();
 	
+	//void addToList(Stoler* tmpSeat);
+	//void a
 };
 
 #endif

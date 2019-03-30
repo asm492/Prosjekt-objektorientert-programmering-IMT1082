@@ -19,6 +19,42 @@ Oppsett::Oppsett(int n) : NumElement(n){
 	seatsLayout = new List(Sorted);
 	swarmLayout = new List(Sorted);
 }
+Oppsett::Oppsett(int n, ifstream & inn) : NumElement(n) {
+	char nameOfZone[STRLEN];
+	char buffer[STRLEN];
+	int noOfZones;
+	Stoler* tempSeat;
+	Vrimle* tempSwarm;
+		
+	seatsLayout = new List(Sorted);
+	swarmLayout = new List(Sorted);
+
+	inn >> noOfZones; //inn.ignore();
+
+	//Sjekk om inn.ignore() i sted ødelegger for denne:
+	for (int i = 1; i <= noOfZones; i++)
+	{
+		inn.getline(buffer, STRLEN); //inn.ignore();					//????????????
+		inn.getline(nameOfZone, STRLEN); //inn.ignore();
+		if (strcmp("Stoler", buffer) == 0) {
+
+			tempSeat = new Stoler(nameOfZone, inn);
+			seatsLayout->add(tempSeat);
+
+		}
+		else if (strcmp("Vrimle", buffer) == 0) {
+			tempSwarm = new Vrimle(nameOfZone, inn);
+			swarmLayout->add(tempSwarm);
+		}
+		else {
+			cout << "\n\nBUFFER/ZONE NAME: " << buffer << " / " << nameOfZone; //******************testing
+			printError("AN ERROR OCCURED WHILE READING FROM 'STEDER.DTA'!");
+		}
+	}
+
+	
+
+}
 void Oppsett::printLayouts()
 {
 	if ((seatsLayout->noOfElements()) > 0)
@@ -36,7 +72,7 @@ void Oppsett::printLayouts()
 }
 void Oppsett::writeToFile(ofstream & out) {
 	Stoler* seatPtr;
-//	Vrimle* swarmPtr;
+	Vrimle* swarmPtr;
 
 	out << seatsLayout->noOfElements() << '\n';
 	for (int i = 1; i <= seatsLayout->noOfElements(); i++)
@@ -45,6 +81,15 @@ void Oppsett::writeToFile(ofstream & out) {
 		seatsLayout->add(seatPtr);
 		seatPtr->writeToFile(out);
 	}
+
+	out << swarmLayout->noOfElements() << '\n';
+	for (int i = 1; i <= swarmLayout->noOfElements(); i++)
+	{
+		swarmPtr = (Vrimle*)swarmLayout->removeNo(i);
+		swarmLayout->add(swarmPtr);
+		swarmPtr->writeToFile(out);
+	}
+
 }
 void Oppsett::newLayout() {			//	SHOULD THIS BE INN THE OPPSETT() constructor instead?
 	char command, ch;

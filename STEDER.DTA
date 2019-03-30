@@ -1,32 +1,14 @@
 1		Antall steder
-ABC		Navn
-
-2		Antall oppsett
-
-2		Antall soner for dette oppsettet
-A1		Navn Sone
-Stoler		Type sone
-100		Pris
-5		#rader
-10		#seter
-A2		Navn Sone
-Stoler		Type sone
-200		Pris
-10		#rader
-30		#seter
-
-3		Antall soner for dette oppsettet
-B1		Navn sone
-Stoler		Type sone
-300		Pris
-10		#rader
-50		#seter
-B2		Navn sone
-Vrimle		Type sone
-100		Pris
-1000		#totalt billetter
-B3		Navn sone
-Vrimle		Type sone
-200		Pris
-2000		#totalt billetter
-
+ABC		Navn	
+1		Number of layouts
+1		Layout number 1
+2		Consists of 2 zones
+Stoler		Type
+A1		Name
+50 0 100	No of tickets / ticketsSold / Price
+10 5		Seats pr row	/	rows
+Stoler		Type
+A2		Name
+300 0 200	No of tickets / ticketsSold / Price
+30 10		Seats pr row	/	rows
+0		Vrimle in this layout

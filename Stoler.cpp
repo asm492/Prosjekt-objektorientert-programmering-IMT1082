@@ -78,11 +78,12 @@ Stoler::Stoler(char name[]) : Sone(name) {			//	Sends name to base class
     //delete[] temp[i];
     
     //delete[] temp;
-    
-    
-    
-    
 }
+Stoler::Stoler(char name[], ifstream & inn) : Sone(name, inn)
+{
+	inn >> seatPrRow >> rows; //inn.ignore();
+}
+
 
 
 
@@ -179,6 +180,7 @@ void Stoler::printSeatMap() {
 
 void Stoler::writeToFile(ofstream & out)
 {
+	out << "Stoler" << '\n';
 	Sone::writeToFile(out);
 	out << seatPrRow << ' ' << rows << '\n';
 }

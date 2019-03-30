@@ -17,7 +17,7 @@ private:
 public:
     
     Stoler(char name[]);
-    
+	Stoler(char name[], ifstream & inn);
     void display();
     void configureSeats();
     void printSeatMap();

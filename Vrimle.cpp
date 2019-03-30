@@ -14,6 +14,11 @@ Vrimle::Vrimle(char name[]) : Sone(name) {
     space = new int[ticketsForSale];
 }
 
+Vrimle::Vrimle(char name[], ifstream & inn) : Sone(name, inn)
+{
+	space = new int[ticketsForSale];
+}
+
 void Vrimle::writeToFile(ofstream & out)
 {
 	Sone::writeToFile(out);

@@ -16,7 +16,8 @@ protected:
     //List* swarmList;                                    //    Vrimle
 public:
 	Sone(char n[]);		//	NEW
-    ~Sone();
+	Sone(char n[], ifstream & inn);
+	~Sone();
     
     void display();
 	void writeToFile(ofstream & out);

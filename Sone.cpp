@@ -22,6 +22,15 @@ Sone::Sone(char n[]) : TextElement(n){			//	THIS CONSTRUCTOR IS USED BY STOLER()
 	ticketPrice = read("TICKET PRICE FOR ZONE", MINTICKETPRICE, MAXTICKETPRICE);
 
 }
+Sone::Sone(char n[], ifstream & inn)
+{
+	zoneName = new char[strlen(n) + 1];
+	strcpy(zoneName, n);
+
+	inn >> ticketsForSale >> ticketsSold >> ticketPrice; 
+	//inn.ignore();
+}
+//Sone::Sone(ifstream & inn)
 Sone::~Sone() {						
     
 }
@@ -36,7 +45,7 @@ void Sone::display() {
 
 void Sone::writeToFile(ofstream & out)
 {
-	//out << text << '\n';
+	
 	out << zoneName << '\n';
 	out << ticketsForSale << ' ' << ticketsSold << ' ' << ticketPrice << '\n';
 }

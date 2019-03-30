@@ -26,17 +26,8 @@ int main() {
     
 	char command;
     
-    
-    customerDatabase.readCustomersFromFile();
-    
-    //    Should these be outside main?
-    
-    //customerList = new List(Sorted);
-    //eventList = new List(Sorted);
-    //layoutList = new List(Sorted);        //    THIS IS WRONG
-    //venueList = new List(Sorted);
-    
-    
+	venueDatabase.readVenuesFromFile();
+    customerDatabase.readCustomersFromFile(); 
     
     
     printMenu();                  //  Meny av brukerens valg.
@@ -44,9 +35,9 @@ int main() {
     command = read();             //  Leser brukerens ›nske/valg.
     while (command != 'Q')  {
         switch(command)  {
-            case 'K': customerDatabase.customersMenu();        break;
-            case 'A': eventDatabase.eventsMenu();            break;
-            case 'S': venueDatabase.venuesMenu();            break;
+            case 'K': customerDatabase.customersMenu();			break;
+            case 'A': eventDatabase.eventsMenu();				break;
+            case 'S': venueDatabase.venuesMenu();				break;
             case 'O': venueDatabase.layoutMenu(); /*layoutMenu();*/                        break;
             default:  printError("INPUT NOT VALID!");    break;
         }
