@@ -12,6 +12,7 @@
 #include "Sted.h"
 #include "functions.h"
 #include "Vrimle.h"
+#include <cstring>
 
 using namespace std;
 
@@ -28,21 +29,45 @@ Oppsett::Oppsett(int n, ifstream & inn) : NumElement(n) {
 		
 	seatsLayout = new List(Sorted);
 	swarmLayout = new List(Sorted);
-
-	inn >> noOfZones; //inn.ignore();
+	/*
+	Hvis man har med inn.ignore() under så leser den mer, men henger
+	seg etterhvert. 
+	*/
+	inn >> noOfZones; inn.ignore();
 
 	//Sjekk om inn.ignore() i sted ødelegger for denne:
+
+	//Henger seg på O D, se stoler::printSeatMap();
 	for (int i = 1; i <= noOfZones; i++)
 	{
 		inn.getline(buffer, STRLEN); //inn.ignore();					//????????????
-		inn.getline(nameOfZone, STRLEN); //inn.ignore();
-		if (strcmp("Stoler", buffer) == 0) {
+		
+		if (strcmp(buffer, "Stoler") == 0)
+		{
+			inn.getline(nameOfZone, STRLEN); //inn.ignore();
+			tempSeat = new Stoler(nameOfZone, inn);
+			seatsLayout->add(tempSeat);
+		}
 
+		if (strcmp(buffer, "Vrimle") == 0)
+		{
+			inn.getline(nameOfZone, STRLEN); //inn.ignore();
+			tempSwarm = new Vrimle(nameOfZone, inn);
+			swarmLayout->add(tempSwarm);
+		}
+
+		cout << "\n\nBUFFER/ZONE NAME: " << buffer << " / " << nameOfZone;
+
+		/*
+		
+		if (strcmp(buffer, "Stoler") == 0) {
+			inn.getline(nameOfZone, STRLEN); //inn.ignore();
 			tempSeat = new Stoler(nameOfZone, inn);
 			seatsLayout->add(tempSeat);
 
 		}
-		else if (strcmp("Vrimle", buffer) == 0) {
+		else if (strcmp(buffer, "Vrimle") == 0) {
+			inn.getline(nameOfZone, STRLEN); //inn.ignore();
 			tempSwarm = new Vrimle(nameOfZone, inn);
 			swarmLayout->add(tempSwarm);
 		}
@@ -50,8 +75,12 @@ Oppsett::Oppsett(int n, ifstream & inn) : NumElement(n) {
 			cout << "\n\nBUFFER/ZONE NAME: " << buffer << " / " << nameOfZone; //******************testing
 			printError("AN ERROR OCCURED WHILE READING FROM 'STEDER.DTA'!");
 		}
+		*/
+		
 	}
 
+	/*TEST*/
+	
 	
 
 }
@@ -74,21 +103,30 @@ void Oppsett::writeToFile(ofstream & out) {
 	Stoler* seatPtr;
 	Vrimle* swarmPtr;
 
-	out << seatsLayout->noOfElements() << '\n';
-	for (int i = 1; i <= seatsLayout->noOfElements(); i++)
-	{
-		seatPtr = (Stoler*)seatsLayout->removeNo(i);
-		seatsLayout->add(seatPtr);
-		seatPtr->writeToFile(out);
-	}
 
-	out << swarmLayout->noOfElements() << '\n';
-	for (int i = 1; i <= swarmLayout->noOfElements(); i++)
+	if (seatsLayout->noOfElements() > 0)
 	{
-		swarmPtr = (Vrimle*)swarmLayout->removeNo(i);
-		swarmLayout->add(swarmPtr);
-		swarmPtr->writeToFile(out);
+		out << seatsLayout->noOfElements() << '\n';
+		for (int i = 1; i <= seatsLayout->noOfElements(); i++)
+		{
+			seatPtr = (Stoler*)seatsLayout->removeNo(i);
+			seatsLayout->add(seatPtr);
+			seatPtr->writeToFile(out);
+		}
 	}
+	
+
+	if (swarmLayout->noOfElements() > 0)
+	{
+		out << swarmLayout->noOfElements() << '\n';
+		for (int i = 1; i <= swarmLayout->noOfElements(); i++)
+		{
+			swarmPtr = (Vrimle*)swarmLayout->removeNo(i);
+			swarmLayout->add(swarmPtr);
+			swarmPtr->writeToFile(out);
+		}
+	}
+	
 
 }
 void Oppsett::newLayout() {			//	SHOULD THIS BE INN THE OPPSETT() constructor instead?

@@ -81,7 +81,21 @@ Stoler::Stoler(char name[]) : Sone(name) {			//	Sends name to base class
 }
 Stoler::Stoler(char name[], ifstream & inn) : Sone(name, inn)
 {
-	inn >> seatPrRow >> rows; //inn.ignore();
+	inn >> seatPrRow >> rows; inn.ignore();
+	tempArray = new int*[seatPrRow];					//	First pointer points to new int pointer
+
+	for (int i = 1; i <= seatPrRow; i++)
+	{
+		tempArray[i] = new int[rows];
+	}
+
+	for (int i = 1; i <= rows; i++)                    //    Fills with 0
+	{
+		for (int j = 1; j <= seatPrRow; j++)
+		{
+			tempArray[i][j] = 0;
+		}
+	}
 }
 
 
@@ -111,35 +125,7 @@ void Stoler::configureSeats() {
 }
 
 void Stoler::printSeatMap() {
-	//int** tempArray;									//	Declaring an int pointer to int pointer
-												//	Makes a 2D dynamic int array
-
-	/*tempArray = new int*[seatPrRow];					//	First pointer points to new int pointer
 	
-	
-	for (int i = 1; i <= rows; i++)
-	{
-		tempArray[i] = new int[seatPrRow];				//change
-	}*/
-	
-
-
-
-
-
-
-
-
-	/********remove
-	for (int i = 1; i <= rows; i++)                    //    Fills with 0
-	{
-		for (int j = 1; j <= seatPrRow; j++)
-		{
-			tempArray[i][j] = 0;
-		}
-	}
-	***************************/
-
 	for (int i = 1; i <= rows; i++)
 	{
 		cout << "\t" << i << ". ";
@@ -150,7 +136,7 @@ void Stoler::printSeatMap() {
 
 		for (int j = 1; j <= seatPrRow; j++)
 		{
-			if (tempArray[i][j] == 0)							//	THIS DOESNT WORK
+			if (tempArray[i][j] == 0)							
 			{
 				cout << '-';								//	Seat is free
 			}
@@ -166,6 +152,7 @@ void Stoler::printSeatMap() {
 
 
 	/*TEST TO SEE WHICH NUMBER*/
+	/*
 	for (int i = 1; i <= rows; i++)
 	{
 		cout << "\t" << i << ". ";
@@ -175,7 +162,7 @@ void Stoler::printSeatMap() {
 		}
 		cout << endl;
 	}
-	/****************************/
+	*/
 }
 
 void Stoler::writeToFile(ofstream & out)
@@ -188,7 +175,7 @@ void Stoler::writeToFile(ofstream & out)
 void Stoler::display() {
 	
 	Sone::display();
-	cout << "\nSEATS PR ROW / ROWS:  " << seatPrRow << " / " << rows << endl;
+	cout << "\nSeats pr row*rows:  " << seatPrRow << " * " << rows << endl;
 	//	REMEMBER TO FILL ARRAY WITH CUSTOMERNUMBER OF BUYERS
 	printSeatMap();
 }

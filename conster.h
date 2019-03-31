@@ -22,7 +22,7 @@ const int MINUTEMAX = 59;
 const int MINTICKETPRICE = 50;
 const int MAXTICKETPRICE = 2000;	//	Maximum price of a ticket
 const int MINTICKETSSALE = 10;		//	Minimum number of tickets in any given 
-const int MAXTICKETSSALE = 1000;	//	Maximum number of tickets in any given zone
+const int MAXTICKETSSALE = 3000;	//	Maximum number of tickets in any given zone
 
 
 

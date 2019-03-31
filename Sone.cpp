@@ -22,7 +22,7 @@ Sone::Sone(char n[]) : TextElement(n){			//	THIS CONSTRUCTOR IS USED BY STOLER()
 	ticketPrice = read("TICKET PRICE FOR ZONE", MINTICKETPRICE, MAXTICKETPRICE);
 
 }
-Sone::Sone(char n[], ifstream & inn)
+Sone::Sone(char n[], ifstream & inn) : TextElement(n)
 {
 	zoneName = new char[strlen(n) + 1];
 	strcpy(zoneName, n);
