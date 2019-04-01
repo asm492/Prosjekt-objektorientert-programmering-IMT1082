@@ -222,13 +222,16 @@ Arrangementer::Arrangementer() {
 void Arrangementer::newEvent(){
 	char venueName[STRLEN];
 	char eventName[STRLEN];
+    Arrangement* temp;
 
 	if (venueDatabase.retLastUsedVenue() > 0)
 	{
+        
 		readAndUpcase("Enter venue name", venueName, STRLEN);
 		if (venueDatabase.venueExist(venueName))
 		{
-			eventList->add(new Arrangement(++lastEvent, eventName, venueName));
+            temp = new Arrangement(++lastEvent, eventName, venueName);
+            eventList->add(temp);
 		}
 		else
 		{

@@ -234,15 +234,18 @@ List* Steder::kopier(char* nvn, int nr) {
 
 bool Steder::venueExist(char text[]){
     Sted* tempVenue;
- 
+    
 	bool searchResult = false;
+    lastUsedVenue = venueList->noOfElements();
     
     for (int i = 1; i <= lastUsedVenue; i++)
     {
-        tempVenue = (Sted*)venueList->removeNo(i);        //    Takes customer out if list
-        searchResult = tempVenue->compareVenueName(text);        //    Does a strstr comparison on customer
-        venueList->add(tempVenue);
         
+        tempVenue = (Sted*)venueList->removeNo(i);        //    Takes customer out if list
+               //    Does a strstr comparison on customer
+        venueList->add(tempVenue);
+        searchResult += tempVenue->compareVenueName(text);
+
         if (searchResult) {
             return true;
         }

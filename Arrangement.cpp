@@ -20,8 +20,7 @@ Arrangement::Arrangement(int eNr, char evntName[], char venName[]) : TextElement
     int dd, mm, yyyy, nr;
    
     
-	if (venueDatabase.venueExist(buffer))
-	{
+	
 		eventNumber = eNr;
 
 		eventName = new char[strlen(evntName) + 1];            //Allocating enough space
@@ -71,11 +70,8 @@ Arrangement::Arrangement(int eNr, char evntName[], char venName[]) : TextElement
 		case 5:    eventType = Familie;			break;
 		case 6:    eventType = Festival;		break;
 		}
-	}
-	else {
-		printError("VENUE NOT IN DATABASE!");
-		
-	}
+	
+
 	
     
     

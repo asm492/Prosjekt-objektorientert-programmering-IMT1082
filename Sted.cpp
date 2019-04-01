@@ -182,6 +182,7 @@ void Sted::newLayout() {
         printError("THIS VENUE HAS REACHED ITS MAX NO. OF LAYOUTS!");
 }
 
-bool Sted::compareVenueName(char text[]){
+int Sted::compareVenueName(char text[]){
     return !strcmp(name, text);
+    
 }
