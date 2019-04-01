@@ -23,6 +23,7 @@ public:
     Sted(char n[]);
     Sted(char n[], ifstream & inn);
     
+    bool compareVenueName(char text[]);
 	void writeToFile(ofstream & out);
     void display();
     void displayName();

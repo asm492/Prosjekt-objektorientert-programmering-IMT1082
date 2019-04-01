@@ -11,6 +11,7 @@
 #include "Sone.h"
 #include "Oppsett.h"
 #include "ListTool2B.h"
+#include <cstring>
 
 using namespace std;
 
@@ -181,4 +182,6 @@ void Sted::newLayout() {
         printError("THIS VENUE HAS REACHED ITS MAX NO. OF LAYOUTS!");
 }
 
-
+bool Sted::compareVenueName(char text[]){
+    return !strcmp(text, name);
+}

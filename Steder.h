@@ -28,6 +28,8 @@ public:
     void readVenuesFromFile();
     void writeVenuesToFile();
 	
+    bool venueExist(char text[]);
+    
 	void layoutDisplay();
 	void layoutNew();
 	void layoutEdit();

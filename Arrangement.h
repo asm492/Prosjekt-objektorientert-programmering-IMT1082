@@ -7,10 +7,13 @@
 #include "Sted.h"
 #include "Steder.h"
 
+extern Steder venueDatabase;
+
 class Arrangement : public TextElement {
 private:
     char* eventName;
     char* artistName;
+    char* venueName;
 
     Sted* venue;
     int eventNumber;
