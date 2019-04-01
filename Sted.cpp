@@ -183,5 +183,5 @@ void Sted::newLayout() {
 }
 
 bool Sted::compareVenueName(char text[]){
-    return !strcmp(text, name);
+    return !strcmp(name, text);
 }

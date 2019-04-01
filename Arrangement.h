@@ -23,7 +23,7 @@ private:
     
 public:
     
-    Arrangement(int eNr, char n[]);
+    Arrangement(int eNr, char evntName[], char venName[]);
     
     
     

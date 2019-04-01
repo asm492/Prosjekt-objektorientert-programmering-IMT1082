@@ -12,6 +12,8 @@
 
 using namespace std;
 
+extern Steder venueDatabase;
+
 void Arrangementer::eventsMenu() {
     char command;
     
@@ -218,10 +220,25 @@ Arrangementer::Arrangementer() {
 } */
 
 void Arrangementer::newEvent(){
-	char buffer[STRLEN];
-	
-	read("Enter event name", buffer, STRLEN);
-	eventList->add(new Arrangement(++lastEvent, buffer));
+	char venueName[STRLEN];
+	char eventName[STRLEN];
+
+	if (venueDatabase.retLastUsedVenue() > 0)
+	{
+		readAndUpcase("Enter venue name", venueName, STRLEN);
+		if (venueDatabase.venueExist(venueName))
+		{
+			eventList->add(new Arrangement(++lastEvent, eventName, venueName));
+		}
+		else
+		{
+			printError("VENUE NOT IN DATABASE!");
+		}
+	}
+	else
+	{
+		printError("VENUE LIST IS EMPTY! PLEASE REGISTER A VENUE USING 'S N' COMMAND IN MAIN MENU");
+	}
 }
 
 
