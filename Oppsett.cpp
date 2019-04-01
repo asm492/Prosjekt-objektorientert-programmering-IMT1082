@@ -56,36 +56,15 @@ Oppsett::Oppsett(int n, ifstream & inn) : NumElement(n) {
 			swarmLayout->add(tempSwarm);
 		}
 
-		cout << "\n\nBUFFER/ZONE NAME: " << buffer << " / " << nameOfZone;
-
-		/*
-		
-		if (strcmp(buffer, "Stoler") == 0) {
-			inn.getline(nameOfZone, STRLEN); //inn.ignore();
-			tempSeat = new Stoler(nameOfZone, inn);
-			seatsLayout->add(tempSeat);
-
-		}
-		else if (strcmp(buffer, "Vrimle") == 0) {
-			inn.getline(nameOfZone, STRLEN); //inn.ignore();
-			tempSwarm = new Vrimle(nameOfZone, inn);
-			swarmLayout->add(tempSwarm);
-		}
-		else {
-			cout << "\n\nBUFFER/ZONE NAME: " << buffer << " / " << nameOfZone; //******************testing
-			printError("AN ERROR OCCURED WHILE READING FROM 'STEDER.DTA'!");
-		}
-		*/
-		
+		cout << "\n\nBUFFER/ZONE NAME: " << buffer << " / " << nameOfZone;	
 	}
-
-	/*TEST*/
-	
-	
-
 }
 void Oppsett::printLayouts()
 {
+
+	/*Innmaten er fyttet til Oppsett::display*/
+	/*Sted::displayLayouts kaller på denne funksjonen, husk å 
+	endre der til Oppsett::display*/
 	if ((seatsLayout->noOfElements()) > 0)
 	{
 		cout << "\nSEATS:" << endl;
@@ -102,15 +81,17 @@ void Oppsett::printLayouts()
 void Oppsett::writeToFile(ofstream & out) {
 	Stoler* seatPtr;
 	Vrimle* swarmPtr;
+	
 
+	out << seatsLayout->noOfElements() + swarmLayout->noOfElements() << '\n';
 
 	if (seatsLayout->noOfElements() > 0)
 	{
-		out << seatsLayout->noOfElements() << '\n';
 		for (int i = 1; i <= seatsLayout->noOfElements(); i++)
 		{
 			seatPtr = (Stoler*)seatsLayout->removeNo(i);
 			seatsLayout->add(seatPtr);
+			out << "Stoler" << '\n';
 			seatPtr->writeToFile(out);
 		}
 	}
@@ -118,9 +99,9 @@ void Oppsett::writeToFile(ofstream & out) {
 
 	if (swarmLayout->noOfElements() > 0)
 	{
-		out << swarmLayout->noOfElements() << '\n';
 		for (int i = 1; i <= swarmLayout->noOfElements(); i++)
 		{
+			out << "Vrimle" << '\n';
 			swarmPtr = (Vrimle*)swarmLayout->removeNo(i);
 			swarmLayout->add(swarmPtr);
 			swarmPtr->writeToFile(out);
@@ -162,3 +143,21 @@ int Oppsett::retNoElements()
 	return 0;
 }
 
+void Oppsett::display() {
+	
+	cout << seatsLayout->noOfElements();
+
+	if ((seatsLayout->noOfElements()) > 0)
+	{
+		cout << "\nSEATS:" << endl;
+		seatsLayout->displayList();
+		cout << "TEST SEAATT";
+	}
+
+	if ((swarmLayout->noOfElements()) > 0)
+	{
+		cout << "\nSWARM:" << endl;
+		swarmLayout->displayList();
+		cout << "TEST";
+	}
+}

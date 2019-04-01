@@ -78,6 +78,28 @@ void Steder::venueDisplay() {
     
     /************************/
 }
+void Steder::readVenuesFromFile() {
+
+	Sted* temp;
+	char bufferName[STRLEN];
+
+	ifstream inn("STEDER.DTA");
+
+	if (inn)
+	{
+		inn >> lastUsedVenue; inn.ignore();
+
+		for (int i = 1; i <= lastUsedVenue; i++) {
+			inn.getline(bufferName, STRLEN);
+			temp = new Sted(bufferName, inn);
+			venueList->add(temp);
+		}
+	}
+	else
+		printError("FILE 'STEDER.DTA' NOT FOUND!");
+
+
+}
 void Steder::writeVenuesToFile() {
     
     int lastUsedVenue;
@@ -158,29 +180,6 @@ void Steder::layoutDelete()
 {
 	//TO DO 
 }
-void Steder::readVenuesFromFile() {
-    
-    Sted* temp;
-    char bufferName[STRLEN];
-    
-    ifstream inn("STEDER.DTA");
-    
-    if (inn)
-    {
-        inn >> lastUsedVenue; inn.ignore();
-        
-        for(int i = 1; i <= lastUsedVenue; i++){
-            inn.getline(bufferName, STRLEN);
-			temp = new Sted(bufferName, inn);
-			venueList->add(temp);
-			//temp = (Sted*)venueList->add(new Sted(bufferName, inn));
-        }
-    }
-    else
-        printError("FILE 'STEDER.DTA' NOT FOUND!");
-       
-    
-}
 void Steder::layoutMenu() {		//	From main press 0
 	char command;
 	
@@ -244,7 +243,7 @@ bool Steder::venueExist(char text[]){
         tempVenue = (Sted*)venueList->removeNo(i);        //    Takes customer out if list
                //    Does a strstr comparison on customer
         venueList->add(tempVenue);
-        searchResult += tempVenue->compareVenueName(text);
+        searchResult = tempVenue->compareVenueName(text);
 
         if (searchResult) {
             return true;

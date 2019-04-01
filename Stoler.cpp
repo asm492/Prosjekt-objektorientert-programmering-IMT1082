@@ -124,7 +124,7 @@ void Stoler::configureSeats() {
     
 }
 
-void Stoler::printSeatMap() {
+void Stoler::printSeatMap() {		//	Used to display seat layout
 	
 	for (int i = 1; i <= rows; i++)
 	{
@@ -136,7 +136,39 @@ void Stoler::printSeatMap() {
 
 		for (int j = 1; j <= seatPrRow; j++)
 		{
-			if (tempArray[i][j] == 0)							
+			cout << '-';
+		}
+		cout << endl;
+	}
+
+	cout << "\n";
+
+
+	/*TEST TO SEE WHICH NUMBER*/
+	/*
+	for (int i = 1; i <= rows; i++)
+	{
+		cout << "\t" << i << ". ";
+		for (int j = 1; j <= seatPrRow; j++)
+		{
+			cout << tempArray[i][j] << ' ';
+		}
+		cout << endl;
+	}
+	*/
+}
+void Stoler::printSeatMapAvailibility() {
+	for (int i = 1; i <= rows; i++)
+	{
+		cout << "\t" << i << ". ";
+		if (i < 10)
+		{
+			cout << ' ';
+		}
+
+		for (int j = 1; j <= seatPrRow; j++)
+		{
+			if (tempArray[i][j] == 0)
 			{
 				cout << '-';								//	Seat is free
 			}
@@ -167,7 +199,7 @@ void Stoler::printSeatMap() {
 
 void Stoler::writeToFile(ofstream & out)
 {
-	out << "Stoler" << '\n';
+	
 	Sone::writeToFile(out);
 	out << seatPrRow << ' ' << rows << '\n';
 }
@@ -176,6 +208,6 @@ void Stoler::display() {
 	
 	Sone::display();
 	cout << "Seats pr row*rows:  " << seatPrRow << "*" << rows << endl;
-	//	REMEMBER TO FILL ARRAY WITH CUSTOMERNUMBER OF BUYERS
+	
 	printSeatMap();
 }

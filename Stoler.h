@@ -21,6 +21,7 @@ public:
     void display();
     void configureSeats();
     void printSeatMap();
+	void printSeatMapAvailibility();
 	void writeToFile(ofstream & out);
 };
 

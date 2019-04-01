@@ -16,6 +16,7 @@ public:
 	Oppsett(int n);
 	Oppsett(int n, ifstream & inn);
 
+	void display();
 	void printLayouts();				
 	void writeToFile(ofstream & out);
 	void newLayout();

@@ -22,15 +22,10 @@ Sted::Sted(char n[]) : TextElement(n) {
     name = new char[strlen(n) + 1];
     strcpy(name, n);
     
-    
-    
 }
 Sted::Sted(char n[], ifstream & inn) : TextElement(n) {
-    //Stoler* tempSeat;
-    //Vrimle* tempSwarm;
-	int layoutNo;
-    //char zoneName[STRLEN];
-    //char zoneType[STRLEN];
+    int layoutNo;
+    
     
     name = new char[strlen(n) + 1];					//	Name of the venue
     strcpy(name, n);
@@ -43,11 +38,20 @@ Sted::Sted(char n[], ifstream & inn) : TextElement(n) {
 		layouts[i] = new Oppsett(layoutNo, inn);
     }
 }
+void Sted::writeToFile(ofstream & out) {
+	out << name << '\n';
+	out << lastUsedLayout << '\n';
+
+	for (int i = 1; i <= lastUsedLayout; i++)
+	{
+		out << i << '\n';							//Layout number
+		layouts[i]->writeToFile(out);
+	}
+}
 
 void Sted::display(){
-    cout << '\n' << "Venue:             " << name;
-    cout << '\n' << "Number of layouts: " << lastUsedLayout;
-    cout << '\n';
+    cout << "\nVenue:             " << name;
+	cout << "\nNumber of layouts: " << lastUsedLayout << endl;
 }
 
 void Sted::displayName(){
@@ -96,16 +100,6 @@ void Sted::printSeatLayout() {
         printError("NO LAYOUTS IN THE DATABASE");
     }
 }
-void Sted::writeToFile(ofstream & out) {
-    out << name << '\n';
-    out << lastUsedLayout << '\n';
-    
-    for (int i = 1; i <= lastUsedLayout; i++)
-    {
-		out << i << '\n';							//Layout number
-        layouts[i]->writeToFile(out);
-    }
-}
 void Sted::displayLayouts()			//	TESTING
 {
 	int layoutNo;
@@ -117,7 +111,8 @@ void Sted::displayLayouts()			//	TESTING
 		for (int i = 1; i <= lastUsedLayout; i++)									//	Prints all
 		{
 			cout << "\nLAYOUT NO " << i << " FOR " << name << ':' << endl;
-			layouts[i]->printLayouts();												//	Calls Oppsett class' function	
+			
+			layouts[i]->display();												//	Calls Oppsett class' function	
 		}
 	}
 	else {
