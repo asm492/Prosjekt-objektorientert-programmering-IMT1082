@@ -30,7 +30,6 @@ Sone::Sone(char n[], ifstream & inn) : TextElement(n)
 	inn >> ticketsForSale >> ticketsSold >> ticketPrice; 
 	//inn.ignore();
 }
-//Sone::Sone(ifstream & inn)
 Sone::~Sone() {						
     
 }

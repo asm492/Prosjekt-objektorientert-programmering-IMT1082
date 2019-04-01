@@ -175,7 +175,7 @@ void Stoler::writeToFile(ofstream & out)
 void Stoler::display() {
 	
 	Sone::display();
-	cout << "\nSeats pr row*rows:  " << seatPrRow << " * " << rows << endl;
+	cout << "Seats pr row*rows:  " << seatPrRow << "*" << rows << endl;
 	//	REMEMBER TO FILL ARRAY WITH CUSTOMERNUMBER OF BUYERS
 	printSeatMap();
 }
