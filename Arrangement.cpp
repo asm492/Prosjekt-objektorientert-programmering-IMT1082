@@ -26,16 +26,14 @@ Arrangement::Arrangement(int eNr, char evntName[], char venName[]) : TextElement
 		eventName = new char[strlen(evntName) + 1];            //Allocating enough space
 		strcpy(eventName, evntName);                            //for string + '\0'
 
-		eventName = new char[strlen(venName) + 1];            //Allocating enough space
-		strcpy(eventName, venName);                            //for string + '\0'
+		venueName = new char[strlen(venName) + 1];            //Allocating enough space
+		strcpy(venueName, venName);                            //for string + '\0'
 
 
 		read("Enter artist name", buffer, STRLEN);
 		artistName = new char[strlen(buffer) + 1];            //Allocating enough space
 		strcpy(artistName, buffer);                            //for string + '\0'
 
-		venueName = new char[strlen(buffer) + 1];
-		strcpy(venueName, buffer);
 
 
 		do
@@ -90,7 +88,7 @@ void Arrangement::display(){
     
     
     cout << "\nEvent name:             " << eventName << endl;
-    cout << "Venue:                    " << venueName << endl;
+    cout << "Venue:                  " << venueName << endl;
 
     cout << "Artist:                 " << artistName << endl;
 	cout << "Event Type:             "; cout << enumDisplay(eventType) << endl;
@@ -148,9 +146,9 @@ bool Arrangement::compareEventDate(int searchDate)
 {
 	return (searchDate == date) ? true : false;
 }
-int Arrangement::compare(Arrangement* arr) {
-    //Arrangement* arr1 = (TextElement*)arr;
-    return 0;
+bool Arrangement::compareVenueName(char query[]) {
+    return !strcmp(venueName, query);
+    
 }
 const char* Arrangement::enumDisplay(enum eventType type){
     

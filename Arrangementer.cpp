@@ -144,7 +144,22 @@ void Arrangementer::dateSearch() {
 }
 
 void Arrangementer::venueSearch() {
+    char venue[STRLEN];
+    int searchResult = 0;
     
+    Arrangement* tempeEvent;
+    readAndUpcase("Venue name search", venue, STRLEN);
+    
+    for (int i = 1; i <= lastEvent; i++) {
+        tempeEvent = (Arrangement*)eventList->removeNo(i);
+        eventList->add(tempeEvent);
+
+        if(tempeEvent->compareVenueName(venue)){
+            tempeEvent->display();
+            searchResult++;
+        }
+    }
+    cout << "\n\nSearch results: " << searchResult << endl;
 }
 
 void Arrangementer::artistNameSearch() {
@@ -183,6 +198,8 @@ void Arrangementer::searchMenu() {
     cout << "\n\t(7) - Print all data of a certain event";
     
 }
+
+
 
 void Arrangementer::eventNameSearch() {
     
@@ -226,10 +243,10 @@ void Arrangementer::newEvent(){
 
 	if (venueDatabase.retLastUsedVenue() > 0)
 	{
-        
 		readAndUpcase("Enter venue name", venueName, STRLEN);
 		if (venueDatabase.venueExist(venueName))
 		{
+            read("Enter event name", eventName, STRLEN);
             temp = new Arrangement(++lastEvent, eventName, venueName);
             eventList->add(temp);
 		}
