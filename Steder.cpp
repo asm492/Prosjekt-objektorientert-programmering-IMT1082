@@ -233,23 +233,30 @@ List* Steder::kopier(char* nvn, int nr) {
 }*/
 
 bool Steder::venueExist(char text[]){
-    //Sted* tempVenue;
-    
-	if (venueList->inList(text))
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-	/*
+    Sted* tempVenue;
+ 
 	bool searchResult = false;
-    for (int i = 0; i <= lastUsedVenue; i++)
+    
+    for (int i = 1; i <= lastUsedVenue; i++)
     {
         tempVenue = (Sted*)venueList->removeNo(i);        //    Takes customer out if list
         searchResult = tempVenue->compareVenueName(text);        //    Does a strstr comparison on customer
         venueList->add(tempVenue);
-    }*/
-    //return searchResult;
+        
+        if (searchResult) {
+            return true;
+        }
+        
+    }
+    return false;
+/*
+    if (venueList->inList(text))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+    */
 }
