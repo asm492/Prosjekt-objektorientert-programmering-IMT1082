@@ -18,7 +18,7 @@ public:
 
 	void writeToFile(ofstream & out);
     void display();
-    void configVrimle();
+    
 };
 
 

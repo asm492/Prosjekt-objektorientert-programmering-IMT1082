@@ -29,18 +29,15 @@ Oppsett::Oppsett(int n, ifstream & inn) : NumElement(n) {
 		
 	seatsLayout = new List(Sorted);
 	swarmLayout = new List(Sorted);
-	/*
-	Hvis man har med inn.ignore() under så leser den mer, men henger
-	seg etterhvert. 
-	*/
+	
 	inn >> noOfZones; //inn.ignore();
 
-	//Sjekk om inn.ignore() i sted ødelegger for denne:
-
-	//Henger seg på O D, se stoler::printSeatMap();
+	
 	for (int i = 1; i <= noOfZones; i++)
 	{
-		inn >> zoneNo;
+		inn >> zoneNo; 
+		inn.ignore();
+		
 		inn.getline(buffer, STRLEN); //inn.ignore();					//????????????
 		
 		if (strcmp(buffer, "Stoler") == 0)
@@ -57,7 +54,12 @@ Oppsett::Oppsett(int n, ifstream & inn) : NumElement(n) {
 			swarmLayout->add(tempSwarm);
 		}
 
+
+		//	FOR TESTING
+		/*
 		cout << "\n\nBUFFER/ZONE NAME: " << buffer << " / " << nameOfZone;	
+		cout << "\nSTRLEN(BUFFER) / STRLEN(ZONENAME): " << strlen(buffer) << " / " << strlen(nameOfZone) << endl;
+		*/	
 	}
 }
 void Oppsett::printLayouts()

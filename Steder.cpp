@@ -51,13 +51,8 @@ void Steder::newVenue() {
     
 }
 void Steder::venueDisplay() {
-	/*THIS IS FOR TESING ONLY*/
 	char venueName[STRLEN];
 	
-	/**/
-
-	venueList->displayList();
-	/**/
 	if ((venueList->noOfElements()) > 0)
 	{
 		readAndUpcase("WHICH VENUE TO DISPLAY?", venueName, STRLEN);
@@ -92,7 +87,7 @@ void Steder::readVenuesFromFile() {
 			inn.getline(bufferName, STRLEN);
 			
 			
-			cout << "Buffer/strlen(buffer): " << bufferName << ' ' << strlen(bufferName) << endl;
+			cout << "Steder.cpp: Buffer/strlen(buffer): " << bufferName << ' ' << strlen(bufferName) << endl;
 			
 			//temp = new Sted(bufferName, inn);
 			venueList->add(new Sted(bufferName, inn));
