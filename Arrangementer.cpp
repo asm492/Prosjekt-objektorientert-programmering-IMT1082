@@ -287,3 +287,26 @@ void Arrangementer::writeEventsToFile() {
     else
         printError("NO CUSTOMERS IN DATABASE!");
 }
+
+void Arrangementer::readEventsFromFile() {
+    
+    Arrangement* temp;
+    char bufferName[STRLEN];
+    
+    ifstream inn("ARRANGEMENTER.DTA");
+    
+    if (inn)
+    {
+        inn >> lastEvent; 
+        
+        for (int i = 1; i <= lastEvent; i++) {
+            inn.getline(bufferName, STRLEN);
+            temp = new Arrangement(bufferName, inn);
+            eventList->add(temp);
+        }
+    }
+    else
+        printError("FILE 'STEDER.DTA' NOT FOUND!");
+    
+    
+}

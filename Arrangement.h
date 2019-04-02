@@ -24,7 +24,7 @@ private:
 public:
     
     Arrangement(int eNr, char evntName[], char venName[]);
-   
+    Arrangement(char n[], ifstream & inn);
     
     
     const char* enumDisplay(enum eventType type);

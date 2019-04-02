@@ -181,9 +181,7 @@ void Arrangement::writeToFile(ofstream & out) {
     month = temp/10000;
     year = temp%10000;
     
-    out << day << '/';
-    
-    out << month << '-' << year << '\n';
+    out << day << '/' << month << '-' << year << '\n';
     
     if (hour < 10)
     {
@@ -198,4 +196,35 @@ void Arrangement::writeToFile(ofstream & out) {
     out << min << '\n';
     
     
+}
+
+Arrangement::Arrangement(char n[], ifstream & inn) : TextElement(n) {
+    char typeChar;
+    int day, month, year;
+    
+    eventName = new char[strlen(n) + 1];                    //    Name of the venue
+    strcpy(eventName, n);
+    
+    inn.getline(venueName, STRLEN);
+    inn.getline(artistName, STRLEN);
+    
+    inn >> typeChar;
+    switch (typeChar) {
+        case 'M':  eventType = Musikk;    break;
+        case 'S':  eventType = Sport;     break;
+        case 'T':  eventType = Teater;    break;
+        case 'W':  eventType = Show;      break;
+        case 'C':  eventType = Kino;      break;
+        case 'F':  eventType = Familie;   break;
+        case 'V':  eventType = Festival;  break;
+        default: cout << "\n\tUlovlig Status'verdi på fila!\n\n";  break;
+    }
+    
+    inn >> day; cin.ignore();
+    inn >> month; cin.ignore();
+    inn >> year;
+    date = (day * 1000000) + (month * 10000) + year;
+    
+    inn >> hour; cin.ignore();
+    inn >> min;
 }

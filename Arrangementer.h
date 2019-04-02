@@ -26,6 +26,7 @@ public:
     void dateSearch();
     void typeSearch();
     void allDataArrNr();
+    void readEventsFromFile();
     void writeEventsToFile();
     Arrangementer();
     //~Arrangementer();
