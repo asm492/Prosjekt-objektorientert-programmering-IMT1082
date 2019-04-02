@@ -36,10 +36,12 @@ public:
   //  void printEventTypeMenu();		//Moved to functions.cpp, because we need it in Arrangementer as well
     
     bool compareVenueName(char query[]);
+	bool compareEventNameExact(char query[]);
 	bool compareEventName(char query[]);
 	bool compareArtistName(char query[]);
 	bool compareEventDate(int searchDate);
 	bool compareEventType(enum eventType type);
+	
 	
 	int compare(Arrangement* arr);                //    Virtual fra listtool
     

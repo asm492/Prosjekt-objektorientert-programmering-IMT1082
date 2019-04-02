@@ -28,6 +28,8 @@ public:
     void allDataArrNr();
     void readEventsFromFile();
     void writeEventsToFile();
+	void buyTickets();
+	int findEvent();
     Arrangementer();
     //~Arrangementer();
 };

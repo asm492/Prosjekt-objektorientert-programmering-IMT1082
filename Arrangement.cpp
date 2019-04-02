@@ -119,11 +119,13 @@ void Arrangement::display(){
 	
     
 }
-
+bool Arrangement::compareEventNameExact(char query[]) {
+	return !strcmp(eventName, query);
+}
 bool Arrangement::compareEventName(char query[]) {
     
     return strstr(eventName, query);
-    //return strcmp(name, query);
+    
 }
 bool Arrangement::compareArtistName(char query[])
 {
