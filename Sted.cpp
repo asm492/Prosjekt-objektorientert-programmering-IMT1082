@@ -121,6 +121,10 @@ void Sted::displayLayouts()			//	TESTING
 
 	
 }
+int Sted::returnLastUsedLayout()
+{
+	return lastUsedLayout;
+}
 /*
 List * Sted::kopier(int nr)
 {

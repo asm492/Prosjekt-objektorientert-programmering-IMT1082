@@ -131,9 +131,17 @@ void Steder::layoutDisplay()
 	{
 		tmpVenue = (Sted*)venueList->remove(buffer);
 		venueList->add(tmpVenue);
-		venueList->displayElement(buffer);
 
-		tmpVenue->displayLayouts();					//	Calls Sted class' function
+		if (tmpVenue->returnLastUsedLayout() > 0)
+		{
+			venueList->displayElement(buffer);
+			tmpVenue->displayLayouts();					//	Calls Sted class' function
+		}
+		else {
+			cout << "\n\n\t\t'" << buffer; 
+			cout << "' HAS NO LAYOUTS! MAKE ONE WITH COMMAND 'O N' IN MAIN MENU\n\n";
+
+		}
 	}
 	else
 		cout << "\n\n\t\t'" << buffer << "' IS NOT IN LIST!\n\n";

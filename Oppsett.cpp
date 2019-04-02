@@ -81,24 +81,24 @@ void Oppsett::printLayouts()
 void Oppsett::writeToFile(ofstream & out) {
 	Stoler* seatPtr;
 	Vrimle* swarmPtr;
+	int totalZones;
+
+	totalZones = seatsLayout->noOfElements() + swarmLayout->noOfElements();
 	
+	out << totalZones << '\n';									//	Total zones in this layout
 
-	out << seatsLayout->noOfElements() + swarmLayout->noOfElements() << '\n';
-
-	if (seatsLayout->noOfElements() > 0)
+	for (int j = 1; j <= totalZones;  j++)						
 	{
+		out << j << '\n';										//	Prints zone number to file 
+		
 		for (int i = 1; i <= seatsLayout->noOfElements(); i++)
 		{
+			out << "Stoler" << '\n';
 			seatPtr = (Stoler*)seatsLayout->removeNo(i);
 			seatsLayout->add(seatPtr);
-			out << "Stoler" << '\n';
 			seatPtr->writeToFile(out);
 		}
-	}
-	
 
-	if (swarmLayout->noOfElements() > 0)
-	{
 		for (int i = 1; i <= swarmLayout->noOfElements(); i++)
 		{
 			out << "Vrimle" << '\n';
