@@ -89,23 +89,19 @@ void Arrangement::display(){
 
     cout << "Artist:                 " << artistName << endl;
 	cout << "Event Type:             "; cout << enumDisplay(eventType) << endl;
-	cout << "Event date and time:    "; //<< date << ' ';
+	cout << "Event date and time:    ";
     
-	
 	if (day < 10)
 	{
 		cout << "0";
 	}
 	
-
    cout << day << ".";
 
    if (month < 10)
    {
 	   cout << "0";
    }
-
-	   
 
    cout << month << "." << year << "  ";
    
@@ -121,11 +117,6 @@ void Arrangement::display(){
    }
    cout << min << endl;
 	
-	
-	
-	
-
-  
     
 }
 
@@ -166,12 +157,45 @@ bool Arrangement::compareEventType(enum eventType type) {
 }
 
 void Arrangement::writeToFile(ofstream & out) {
+   
+    int temp, day, month, year;
+    
     out << eventNumber << '\n';
     out << eventName << '\n';
     out << venueName << '\n';
     out << artistName << '\n';
-    out << eventType << '\n';
-    out << date << '\n';
-    out << hour << '\n';
+    
+    switch (eventType) {                   //  Status skrives som bokstaver:
+        case Musikk:     out << 'M';   break;
+        case Sport:      out << 'S';   break;
+        case Teater:     out << 'T';   break;
+        case Show:       out << 'W';   break; //W - For show to avoid reading error
+        case Kino:       out << 'C';   break;
+        case Familie:    out << 'F';   break;
+        case Festival:   out << 'V';   break; //V - For festival to avoid reading error
+    }
+    out << '\n';
+    
+    day = date/1000000;
+    temp = date%1000000;
+    month = temp/10000;
+    year = temp%10000;
+    
+    out << day << '/';
+    
+    out << month << '-' << year << '\n';
+    
+    if (hour < 10)
+    {
+        out << '0';
+    }
+    out << hour << ":";
+    
+    if (min < 10)
+    {
+        out << '0';
+    }
     out << min << '\n';
+    
+    
 }
