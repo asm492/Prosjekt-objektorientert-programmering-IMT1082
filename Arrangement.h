@@ -24,13 +24,15 @@ private:
 public:
     
     Arrangement(int eNr, char evntName[], char venName[]);
-    
+   
     
     
     const char* enumDisplay(enum eventType type);
     
+   
+    void writeToFile(ofstream & out);
     void display();
-	void writeEventsToFile();
+	
   //  void printEventTypeMenu();		//Moved to functions.cpp, because we need it in Arrangementer as well
     
     bool compareVenueName(char query[]);

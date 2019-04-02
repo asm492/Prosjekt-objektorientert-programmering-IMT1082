@@ -74,10 +74,7 @@ Arrangement::Arrangement(int eNr, char evntName[], char venName[]) : TextElement
     
     
 }
-void Arrangement::writeEventsToFile() {
-	
 
-}
 void Arrangement::display(){
     int temp, day, month, year;
     
@@ -166,4 +163,15 @@ const char* Arrangement::enumDisplay(enum eventType type){
 }
 bool Arrangement::compareEventType(enum eventType type) {
 	return (type == eventType) ? true : false;
+}
+
+void Arrangement::writeToFile(ofstream & out) {
+    out << eventNumber << '\n';
+    out << eventName << '\n';
+    out << venueName << '\n';
+    out << artistName << '\n';
+    out << eventType << '\n';
+    out << date << '\n';
+    out << hour << '\n';
+    out << min << '\n';
 }

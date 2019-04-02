@@ -2,6 +2,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #endif
 
+#include <fstream>
 #include <iostream>
 #include "Arrangementer.h"
 #include "functions.h"
@@ -261,4 +262,28 @@ void Arrangementer::newEvent(){
 	}
 }
 
-
+void Arrangementer::writeEventsToFile() {
+    
+    int noOfEvents;
+    Arrangement* tempEvent;
+    
+    /********************************************************************************/
+    ofstream out("ARRANGEMENTER_TEST.DTA");                            //JUST FOR TESTING. 
+    
+    noOfEvents = eventList->noOfElements();
+    
+    
+    if (lastEvent > 0)
+    {
+        
+        out << noOfEvents << '\n';
+        for (int i = 1; i <= noOfEvents; i++)
+        {
+            tempEvent = (Arrangement*)eventList->removeNo(i);
+            tempEvent->writeToFile(out);
+            eventList->add(tempEvent);                      //    Puts the object back inn the list
+        }
+    }
+    else
+        printError("NO CUSTOMERS IN DATABASE!");
+}
