@@ -54,8 +54,10 @@ void Steder::venueDisplay() {
 	/*THIS IS FOR TESING ONLY*/
 	char venueName[STRLEN];
 	
-	
+	/**/
 
+	venueList->displayList();
+	/**/
 	if ((venueList->noOfElements()) > 0)
 	{
 		readAndUpcase("WHICH VENUE TO DISPLAY?", venueName, STRLEN);
@@ -71,28 +73,29 @@ void Steder::venueDisplay() {
 	{
 		printError("NO VENUES IN LIST YET!");
 	}
-
-
-	
-	
-    
-    /************************/
 }
 void Steder::readVenuesFromFile() {
 
-	Sted* temp;
+	//Sted* temp;
 	char bufferName[STRLEN];
-
+	int venueNr;
+	//ifstream inn("STEDER.DTA");
 	ifstream inn("STEDER.DTA");
 
 	if (inn)
 	{
-		inn >> lastUsedVenue; inn.ignore();
+		inn >> lastUsedVenue; //inn.ignore();
 
 		for (int i = 1; i <= lastUsedVenue; i++) {
+			
+			inn >> venueNr; inn.ignore();
 			inn.getline(bufferName, STRLEN);
-			temp = new Sted(bufferName, inn);
-			venueList->add(temp);
+			
+			
+			cout << "Buffer/strlen(buffer): " << bufferName << ' ' << strlen(bufferName) << endl;
+			
+			//temp = new Sted(bufferName, inn);
+			venueList->add(new Sted(bufferName, inn));
 		}
 	}
 	else
@@ -112,7 +115,7 @@ void Steder::writeVenuesToFile() {
     out << lastUsedVenue << '\n';
     for (int i = 1; i <= lastUsedVenue; i++)
     {
-		//out << i << '\n';								//	Venue number
+		out << i << '\n';								//	Venue number
         tempVenue = (Sted*)venueList->removeNo(i);
         tempVenue->writeToFile(out);
         venueList->add(tempVenue);

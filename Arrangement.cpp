@@ -198,16 +198,26 @@ void Arrangement::writeToFile(ofstream & out) {
     
 }
 
-Arrangement::Arrangement(char n[], ifstream & inn) : TextElement(n) {
-    char typeChar;
+Arrangement::Arrangement(int eNr, char n[], ifstream & inn) : TextElement(n) {
+	char typeChar, buffer[STRLEN];
     int day, month, year;
     
-    eventName = new char[strlen(n) + 1];                    //    Name of the venue
+	eventNumber = eNr;
+
+    eventName = new char[strlen(n) + 1];                    
     strcpy(eventName, n);
     
-    inn.getline(venueName, STRLEN);
-    inn.getline(artistName, STRLEN);
-    
+	
+    inn.getline(buffer, STRLEN);				
+	venueName = new char[strlen(buffer) + 1];
+	strcpy(venueName, buffer);
+	
+
+	inn.getline(buffer, STRLEN);
+	artistName = new char[strlen(buffer) + 1];
+	strcpy(artistName, buffer);
+	
+
     inn >> typeChar;
     switch (typeChar) {
         case 'M':  eventType = Musikk;    break;
@@ -220,11 +230,11 @@ Arrangement::Arrangement(char n[], ifstream & inn) : TextElement(n) {
         default: cout << "\n\tUlovlig Status'verdi på fila!\n\n";  break;
     }
     
-    inn >> day; cin.ignore();
-    inn >> month; cin.ignore();
+    inn >> day; inn.ignore();
+    inn >> month; inn.ignore();
     inn >> year;
     date = (day * 1000000) + (month * 10000) + year;
     
-    inn >> hour; cin.ignore();
+    inn >> hour; inn.ignore();
     inn >> min;
 }

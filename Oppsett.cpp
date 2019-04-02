@@ -23,7 +23,7 @@ Oppsett::Oppsett(int n) : NumElement(n){
 Oppsett::Oppsett(int n, ifstream & inn) : NumElement(n) {
 	char nameOfZone[STRLEN];
 	char buffer[STRLEN];
-	int noOfZones;
+	int noOfZones, zoneNo;
 	Stoler* tempSeat;
 	Vrimle* tempSwarm;
 		
@@ -33,13 +33,14 @@ Oppsett::Oppsett(int n, ifstream & inn) : NumElement(n) {
 	Hvis man har med inn.ignore() under så leser den mer, men henger
 	seg etterhvert. 
 	*/
-	inn >> noOfZones; inn.ignore();
+	inn >> noOfZones; //inn.ignore();
 
 	//Sjekk om inn.ignore() i sted ødelegger for denne:
 
 	//Henger seg på O D, se stoler::printSeatMap();
 	for (int i = 1; i <= noOfZones; i++)
 	{
+		inn >> zoneNo;
 		inn.getline(buffer, STRLEN); //inn.ignore();					//????????????
 		
 		if (strcmp(buffer, "Stoler") == 0)

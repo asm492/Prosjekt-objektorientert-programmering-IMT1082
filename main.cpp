@@ -28,7 +28,7 @@ int main() {
     
 	venueDatabase.readVenuesFromFile();
     customerDatabase.readCustomersFromFile(); 
-    
+	eventDatabase.readEventsFromFile();
     
     printMenu();                  //  Meny av brukerens valg.
     
@@ -48,6 +48,6 @@ int main() {
     
 	cout << "\n\nWRITING TO FILE...\n\n";
 	venueDatabase.writeVenuesToFile();
-
+	eventDatabase.writeEventsToFile();
     return 0;
 }

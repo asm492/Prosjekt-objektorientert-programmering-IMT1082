@@ -268,7 +268,7 @@ void Arrangementer::writeEventsToFile() {
     Arrangement* tempEvent;
     
     /********************************************************************************/
-    ofstream out("ARRANGEMENTER_TEST.DTA");                            //JUST FOR TESTING. 
+    ofstream out("ARRANGEMENTER.DTA");                            //JUST FOR TESTING. 
     
     noOfEvents = eventList->noOfElements();
     
@@ -292,7 +292,7 @@ void Arrangementer::readEventsFromFile() {
     
     Arrangement* temp;
     char bufferName[STRLEN];
-    
+	int evntNumber;
     ifstream inn("ARRANGEMENTER.DTA");
     
     if (inn)
@@ -300,13 +300,14 @@ void Arrangementer::readEventsFromFile() {
         inn >> lastEvent; 
         
         for (int i = 1; i <= lastEvent; i++) {
+			inn >> evntNumber; inn.ignore();
             inn.getline(bufferName, STRLEN);
-            temp = new Arrangement(bufferName, inn);
+            temp = new Arrangement(evntNumber, bufferName, inn);
             eventList->add(temp);
         }
     }
     else
-        printError("FILE 'STEDER.DTA' NOT FOUND!");
+        printError("FILE 'ARRANGEMENTER.DTA' NOT FOUND!");
     
     
 }
