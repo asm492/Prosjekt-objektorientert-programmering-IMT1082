@@ -10,11 +10,11 @@
 
 using namespace std;
 
-Vrimle::Vrimle(char name[]) : Sone(name) {    
+Vrimle::Vrimle(char name[]) : Sone(name, typeOfZone) {
     space = new int[ticketsForSale];
 }
 
-Vrimle::Vrimle(char name[], ifstream & inn) : Sone(name, inn)
+Vrimle::Vrimle(char name[], ifstream & inn, enum zoneType type) : Sone(name, inn, type)
 {
 	space = new int[ticketsForSale];
 	inn.ignore();

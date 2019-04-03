@@ -95,8 +95,6 @@ void Steder::readVenuesFromFile() {
 	}
 	else
 		printError("FILE 'STEDER.DTA' NOT FOUND!");
-
-
 }
 void Steder::writeVenuesToFile() {
     

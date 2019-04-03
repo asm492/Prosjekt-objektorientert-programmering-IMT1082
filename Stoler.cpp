@@ -8,10 +8,11 @@
 #include "Stoler.h"
 #include "Sone.h"
 #include "Sted.h"            /***********/
+#include "enums.h"
 
 using namespace std;
 
-Stoler::Stoler(char name[]) : Sone(name) {			//	Sends name to base class
+Stoler::Stoler(char name[]) : Sone(name, typeOfZone) {			//	Sends name to base class
     //int** temp;									//	Declaring an int pointer to int pointer
 												//	Makes a 2D dynamic int array
 	//int tempTicketsForSale, tempTicketsSold, tempTicketPrice;
@@ -79,7 +80,7 @@ Stoler::Stoler(char name[]) : Sone(name) {			//	Sends name to base class
     
     //delete[] temp;
 }
-Stoler::Stoler(char name[], ifstream & inn) : Sone(name, inn)
+Stoler::Stoler(char name[], ifstream & inn, enum zoneType type) : Sone(name, inn, type)
 {
 	inn >> seatPrRow >> rows; inn.ignore();
 	tempArray = new int*[seatPrRow];					//	First pointer points to new int pointer

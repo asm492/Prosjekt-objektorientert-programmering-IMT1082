@@ -12,27 +12,63 @@
 #include "Sted.h"
 #include "functions.h"
 #include "Vrimle.h"
+#include "enums.h"
 #include <cstring>
 
 using namespace std;
 
 Oppsett::Oppsett(int n) : NumElement(n){
-	seatsLayout = new List(Sorted);
-	swarmLayout = new List(Sorted);
+	//seatsLayout = new List(Sorted);
+	//swarmLayout = new List(Sorted);
+
+	zoneList = new List(Sorted);
 }
 Oppsett::Oppsett(int n, ifstream & inn) : NumElement(n) {
 	char nameOfZone[STRLEN];
 	char buffer[STRLEN];
+	enum zoneType typeOfZone;
 	int noOfZones, zoneNo;
 	Stoler* tempSeat;
 	Vrimle* tempSwarm;
 		
-	seatsLayout = new List(Sorted);
-	swarmLayout = new List(Sorted);
+	zoneList = new List(Sorted);
+	//seatsLayout = new List(Sorted);
+	//swarmLayout = new List(Sorted);
 	
 	inn >> noOfZones; //inn.ignore();
-
 	
+	for (int i = 1; i <= noOfZones; i++)
+	{
+		inn >> zoneNo;
+		inn.ignore();
+
+		inn.getline(buffer, STRLEN); //inn.ignore();					//????????????
+
+		if (strcmp(buffer, "Stoler") == 0)
+		{
+			typeOfZone = stoler;
+			inn.getline(nameOfZone, STRLEN); //inn.ignore();
+			tempSeat = new Stoler(nameOfZone, inn, typeOfZone);
+			zoneList->add(tempSeat);
+		}
+
+		if (strcmp(buffer, "Vrimle") == 0)
+		{
+			typeOfZone = vrimle;
+			inn.getline(nameOfZone, STRLEN); //inn.ignore();
+			tempSwarm = new Vrimle(nameOfZone, inn, typeOfZone);
+			zoneList->add(tempSwarm);
+		}
+
+
+		//	FOR TESTING
+
+		cout << "\n\nBUFFER/ZONE NAME: " << buffer << " / " << nameOfZone;
+		cout << "\nSTRLEN(BUFFER) / STRLEN(ZONENAME): " << strlen(buffer) << " / " << strlen(nameOfZone) << endl;
+
+	}
+
+	/*
 	for (int i = 1; i <= noOfZones; i++)
 	{
 		inn >> zoneNo; 
@@ -61,6 +97,7 @@ Oppsett::Oppsett(int n, ifstream & inn) : NumElement(n) {
 		cout << "\nSTRLEN(BUFFER) / STRLEN(ZONENAME): " << strlen(buffer) << " / " << strlen(nameOfZone) << endl;
 			
 	}
+	*/
 }
 void Oppsett::printLayouts()
 {
@@ -84,15 +121,24 @@ void Oppsett::printLayouts()
 void Oppsett::writeToFile(ofstream & out) {
 	Stoler* seatPtr;
 	Vrimle* swarmPtr;
+	Sone* zonePtr;
 	int totalZones, totalSeats, totalSwarm;
 	int zoneCounter = 0;
 
-	totalSeats = seatsLayout->noOfElements();
-	totalSwarm = swarmLayout->noOfElements();
-	totalZones = totalSeats + totalSwarm;
+	//totalSeats = seatsLayout->noOfElements();
+	//totalSwarm = swarmLayout->noOfElements();
+	totalZones = zoneList->noOfElements();
 	
 	out << totalZones << '\n';									//	Total zones in this layout
 
+	for (int i = 1; i <= totalZones; i++)
+	{
+		out << i << '\n';
+		zonePtr = (Sone*)zoneList->removeNo(i);
+		/**/
+	}
+
+	/*
 	for (int i = 1; i <= totalSeats; i++)
 	{
 		out << ++zoneCounter << '\n';
@@ -109,7 +155,7 @@ void Oppsett::writeToFile(ofstream & out) {
 		swarmPtr = (Vrimle*)swarmLayout->removeNo(i);
 		swarmLayout->add(swarmPtr);
 		swarmPtr->writeToFile(out);
-	}
+	}*/
 	/*
 	for (int j = 1; j <= totalZones;  j++)						
 	{
