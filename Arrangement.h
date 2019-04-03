@@ -1,6 +1,6 @@
 #ifndef Arrangement_h
 #define Arrangement_h
-//OOPS
+
 #include <fstream>
 #include "ListTool2B.h"
 #include "enums.h"

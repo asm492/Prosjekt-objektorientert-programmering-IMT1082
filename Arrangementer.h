@@ -1,6 +1,6 @@
 #ifndef Arrangementer_h
 #define Arrangementer_h
-//OOPS
+
 #include <iostream>
 #include "Arrangementer.h"
 #include "functions.h"
