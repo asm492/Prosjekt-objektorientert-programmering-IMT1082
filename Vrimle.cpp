@@ -10,7 +10,7 @@
 
 using namespace std;
 
-Vrimle::Vrimle(char name[]) : Sone(name, typeOfZone) {
+Vrimle::Vrimle(char name[], enum zoneType type) : Sone(name, type) {
     space = new int[ticketsForSale];
 }
 
@@ -28,5 +28,8 @@ void Vrimle::writeToFile(ofstream & out)
 void Vrimle::display(){
     
     Sone::display();
+}
+Vrimle::~Vrimle() {
+	space = nullptr;
 }
 

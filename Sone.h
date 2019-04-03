@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <fstream>
 #include "ListTool2B.h"
+#include "enums.h"
 
 using namespace std;
 
@@ -23,6 +24,7 @@ public:
 	int returnZoneType();
     void display();
 	void writeToFile(ofstream & out);
+	
     
 };
 

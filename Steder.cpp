@@ -165,17 +165,24 @@ void Steder::layoutNew()
 void Steder::layoutEdit()
 {
 	
-	Sted* tmpVenue;
+	Sted* tmpVenue = nullptr;
 	char buffer[STRLEN];
 
-	readAndUpcase("EDIT LAYOUT FOR?: ", buffer, STRLEN);
+	readAndUpcase("EDIT LAYOUT FOR?", buffer, STRLEN);
 
 	if (venueList->inList(buffer))
 	{
 		tmpVenue = (Sted*)venueList->remove(buffer);
 		venueList->add(tmpVenue);
-		venueList->displayElement(buffer);
-		tmpVenue->newLayout();
+		if (tmpVenue->returnLastUsedLayout() > 0)
+		{
+			
+			
+			venueList->displayElement(buffer);
+			tmpVenue->editExistingLayout();
+		}
+		else
+			printError("THIS VENUE DOESN'T HAVE ANY LAYOUTS YET!");
 	}
 	else
 		cout << "\n\n\t\t'" << buffer << "' IS NOT IN LIST!\n\n";

@@ -18,7 +18,8 @@ Sone::Sone(char n[], enum zoneType type) : TextElement(n){			//	THIS CONSTRUCTOR
     strcpy(zoneName, n);
 	typeOfZone = type;	
 	//ticketsForSale = sumSeats;
-	ticketsForSale = read("NO. OF TICKETS FOR SALE?", MINTICKETSSALE, MAXTICKETSSALE);		//	How to distinguish between STOLER AND VRIMLE?
+	cout << "\nNO. OF TICKETS FOR SALE?:   "; cin >> ticketsForSale;
+	//ticketsForSale = read("NO. OF TICKETS FOR SALE?", MINTICKETSSALE, MAXTICKETSSALE);		//	How to distinguish between STOLER AND VRIMLE?
 	ticketsSold = 0;
 	ticketPrice = read("TICKET PRICE FOR ZONE", MINTICKETPRICE, MAXTICKETPRICE);
 
@@ -33,7 +34,7 @@ Sone::Sone(char n[], ifstream & inn, enum zoneType type) : TextElement(n)
 	inn.ignore();
 }
 Sone::~Sone() {						
-    
+	delete zoneName;
 }
 int Sone::returnZoneType() {
 	switch (typeOfZone)
@@ -43,6 +44,16 @@ int Sone::returnZoneType() {
 	}
 }
 void Sone::display() {
+
+	cout << "\nZone type:             ";
+	
+	switch (typeOfZone)
+	{
+	case stoler: cout << "Stoler"; break;
+	case vrimle: cout << "Vrimle";  break;
+	}
+	
+	
     cout << "\nZone name:             " << zoneName << endl;
 	cout << "Total no. of tickets:  " << ticketsForSale << endl;
     cout << "Tickets left for sale: " << ticketsForSale - ticketsSold << endl;

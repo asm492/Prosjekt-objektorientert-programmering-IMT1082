@@ -9,15 +9,18 @@
 #include "Sted.h"     
 #include "enums.h"
 
+using namespace std;
+
 class Stoler : public Sone {
 private:
-    //int seatConfig[MAXLAYOUTS + 1][MAXLAYOUTS + 1];            //    Usikker på om denne faktisk skal med
+    
     int seatPrRow, rows;
 	int** tempArray = nullptr;
-	enum zoneType typeOfZone = stoler;
+	//enum zoneType type;
+	
 public:
-    
-    Stoler(char name[]);
+	~Stoler();
+    Stoler(char name[], enum zoneType type);
 	Stoler(char name[], ifstream & inn, enum zoneType type);
     void display();
     void configureSeats();

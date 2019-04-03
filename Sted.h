@@ -32,6 +32,7 @@ public:
     void printSeatLayout();
 	void displayLayouts();					//	Testing
 	int returnLastUsedLayout();
+	void editExistingLayout();
 	//List* kopier(int nr);
 
 };

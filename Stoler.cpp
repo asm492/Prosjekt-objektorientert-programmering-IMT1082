@@ -12,7 +12,7 @@
 
 using namespace std;
 
-Stoler::Stoler(char name[]) : Sone(name, typeOfZone) {			//	Sends name to base class
+Stoler::Stoler(char name[], enum zoneType type) : Sone(name, type) {			//	Sends name to base class
     //int** temp;									//	Declaring an int pointer to int pointer
 												//	Makes a 2D dynamic int array
 	//int tempTicketsForSale, tempTicketsSold, tempTicketPrice;
@@ -124,12 +124,28 @@ Stoler::Stoler(char name[], ifstream & inn, enum zoneType type) : Sone(name, inn
 void Stoler::configureSeats() {
     
 }
+Stoler::~Stoler() {
+	tempArray = nullptr;
+}
 
 void Stoler::printSeatMap() {		//	Used to display seat layout
 	
+	cout << "\n\t\tSEAT MAP:" << endl;
+	cout << "\t\t    ";							//	USED TO WRITE SEAT NUMBER
+	for (int k = 1; k <= seatPrRow; k++)
+	{
+		cout << " " << k;
+		if (k < 10)
+		{
+			cout << ' ';
+		}
+	}
+	cout << "\n";
+
+	
 	for (int i = 1; i <= rows; i++)
 	{
-		cout << "\t" << i << ". ";
+		cout << "\t\t" << i << ". ";
 		if (i < 10)
 		{
 			cout << ' ';
@@ -137,7 +153,7 @@ void Stoler::printSeatMap() {		//	Used to display seat layout
 
 		for (int j = 1; j <= seatPrRow; j++)
 		{
-			cout << '-';
+			cout << " - "; 
 		}
 		cout << endl;
 	}
@@ -158,10 +174,27 @@ void Stoler::printSeatMap() {		//	Used to display seat layout
 	}
 	*/
 }
-void Stoler::printSeatMapAvailibility() {
+void Stoler::printSeatMapAvailibility() {		//	USED TO DISPLAY IF A SEAT IS 
+												//	RESERVED OR FREE
+	
+	cout << "\n\t\tAVAILIBLE SEATS:" << endl;
+	cout << "\t\t    ";							//	USED TO WRITE SEAT NUMBER
+	for (int k = 1; k <= seatPrRow; k++)
+	{
+		cout << " " << k;
+		if (k < 10)
+		{
+			cout << ' ';
+		}
+	}
+	cout << "\n";
+
+
+
 	for (int i = 1; i <= rows; i++)
 	{
-		cout << "\t" << i << ". ";
+		
+		cout << "\t\t" << i << ". ";
 		if (i < 10)
 		{
 			cout << ' ';
@@ -171,17 +204,20 @@ void Stoler::printSeatMapAvailibility() {
 		{
 			if (tempArray[i][j] == 0)
 			{
-				cout << '-';								//	Seat is free
+				cout << " - ";								//	Seat is free
 			}
 			else
 			{
-				cout << 'x';								//	Seat is taken
+				cout << " x ";								//	Seat is taken
 			}
 		}
 		cout << endl;
 	}
 
-	cout << "\n\n";
+	cout << "\n";
+	////////////////
+	
+	
 
 
 	/*TEST TO SEE WHICH NUMBER*/
@@ -208,7 +244,8 @@ void Stoler::writeToFile(ofstream & out)
 void Stoler::display() {
 	
 	Sone::display();
-	cout << "Seats pr row*rows:  " << seatPrRow << "*" << rows << endl;
+	cout << "SEATS*ROWS:            " << seatPrRow << "*" << rows << endl;
 	
 	printSeatMap();
+	
 }

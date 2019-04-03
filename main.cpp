@@ -26,7 +26,7 @@ int main() {
     
 	char command;
     
-	venueDatabase.readVenuesFromFile();
+	//venueDatabase.readVenuesFromFile();
     customerDatabase.readCustomersFromFile(); 
 	eventDatabase.readEventsFromFile();
     
