@@ -57,11 +57,17 @@ void Arrangementer::searchChoice(){
 		printError("NO EVENTS IN EVENT LIST");
 }
 void Arrangementer::buyTickets() {
-
+    int evnr1, evnr2;
 
 	if (eventList->noOfElements() > 0)
 	{
 		cout << "\nTICKET PURCHASE:" << endl;
+        evnr1 = findEvent();
+        if (evnr1 == 0){
+            cout << "VELG ET ARR NR"; cin >> evnr2;
+        }
+            
+        
 	}
 	else
 		printError("NO EVENTS IN DATABASE! CREATE ONE USING 'A N' INN MAIN MENU FIRST!");
@@ -69,77 +75,36 @@ void Arrangementer::buyTickets() {
 
 }
 int Arrangementer::findEvent() {							//	Use if multiple search results
-	Arrangement* eventPtr;
-	char eventName[STRLEN];
-	char venueName[STRLEN];
-	int* tmpName;
-	int* tmpVenue;
-	int date, dd, mm, yyyy, hours, minutes;
-	int noOfEvents, searchResults = 0;
-
-	noOfEvents = eventList->noOfElements();
-	
-	tmpName = new int[noOfEvents + 1];							//	Points to a dynamic 1D int array
-	tmpVenue = new int[noOfEvents + 1];							//	Points to a dynamic 1D int array
-
-	for (int i = 1; i <= noOfEvents; i++)					//	Init. arrays
-	{
-		tmpName[i] = 0;
-		tmpVenue[i] = 0;
-	}
-
-	read("EVENT NAME", eventName, STRLEN);
-	
-	
-	for (int i = 1; i <= noOfEvents; i++)					//	Couldn't use listool:: inList()
-	{														//	Need to know exatly how many in list
-		eventPtr = (Arrangement*)eventList->removeNo(i);
-		if (eventPtr->compareEventNameExact(eventName))
-		{
-			++searchResults;
-			tmpName[i] = i;
-			//tmpName[i] = eventPtr->returnEventNumber();
-		}
-		eventList->add(eventPtr);
-	}
-
-	if (searchResults == 1)								//	One unique result, returns index/event number
-	{
-		for (int i = 1; i <= noOfEvents; i++)
-		{
-			if (tmpName[i] != 0) {
-				return tmpName[i];
-			}
-		}
-	}
-	else
-	{
-		for (int i = 1; i <= noOfEvents; i++)
-		{
-			if (tmpName[i] != 0)
-			{
-				eventList->displayElement(i);
-			}
-		}
-	}
-	
-	cout << "\n\nSEARCH RETURNED " << searchResults << " RESULTS! ENTER MORE DETAILS TO NARROW SEARCH: ";
-	read("VENUE NAME", venueName, STRLEN);
-	searchResults = 0;
-	
-	for (int i = 1; i <= noOfEvents; i++)
-	{
-		eventPtr = (Arrangement*)eventList->removeNo(i);
-		if (eventPtr->compareVenueName(venueName))
-		{
-			++searchResults;
-			tmpVenue[i] = i;
-			//tmpName[i] = eventPtr->returnEventNumber();
-		}
-		eventList->add(eventPtr);
-	}
+    Arrangement* eventPtr;
+    List* tempList;
+    char eventName[STRLEN];
+    int noOfEvents;
+    int searchResults = 0;
+    int hit = 0;
+    tempList = new List(Sorted);
+    noOfEvents = eventList->noOfElements();
+    
+    read("EVENT NAME", eventName, STRLEN);
+    
+    for (int i = 1; i <= noOfEvents; i++)                    //    Couldn't use listool:: inList()
+    {                                                        //    Need to know exatly how many in list
+        eventPtr = (Arrangement*)eventList->removeNo(i);
+        if (eventPtr->compareEventNameExact(eventName))
+        {
+            searchResults++;
+            eventPtr->display();
+            hit = eventPtr->getEventNr();
+        }
+            eventList->add(eventPtr);
+       }
+    if (searchResults == 1)
+        return hit;
+    
+    else
+        return 0;
 
 }
+
 void Arrangementer::allDataArrNr() {
     
 }

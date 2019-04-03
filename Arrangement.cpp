@@ -83,13 +83,13 @@ void Arrangement::display(){
     month = temp/10000;
     year = temp%10000;
     
-    
-    cout << "\nEvent name:             " << eventName << endl;
-    cout << "Venue:                  " << venueName << endl;
+    cout << "Event Nr " << eventNumber << ':';
+    cout << "\n\tEvent name:             " << eventName << endl;
+    cout << "\tVenue:                  " << venueName << endl;
 
-    cout << "Artist:                 " << artistName << endl;
-	cout << "Event Type:             "; cout << enumDisplay(eventType) << endl;
-	cout << "Event date and time:    ";
+    cout << "\tArtist:                 " << artistName << endl;
+	cout << "\tEvent Type:             "; cout << enumDisplay(eventType) << endl;
+	cout << "\tEvent date and time:    ";
     
 	if (day < 10)
 	{
@@ -119,6 +119,9 @@ void Arrangement::display(){
 	
     
 }
+bool Arrangement::compareEventNumber(int eveNr){
+    return (eveNr == eventNumber) ? true : false;
+}
 bool Arrangement::compareEventNameExact(char query[]) {
 	return !strcmp(eventName, query);
 }
@@ -139,6 +142,9 @@ bool Arrangement::compareEventDate(int searchDate)
 bool Arrangement::compareVenueName(char query[]) {
     return !strcmp(venueName, query);
     
+}
+const char* Arrangement::getEventName() {
+    return eventName;
 }
 const char* Arrangement::enumDisplay(enum eventType type){
     
@@ -239,4 +245,14 @@ Arrangement::Arrangement(int eNr, char n[], ifstream & inn) : TextElement(n) {
     
     inn >> hour; inn.ignore();
     inn >> min;
+}
+
+Arrangement::~Arrangement() {
+    delete[] eventName;
+    delete[] artistName;
+    delete[] venueName;
+}
+
+int Arrangement::getEventNr(){
+    return eventNumber;
 }

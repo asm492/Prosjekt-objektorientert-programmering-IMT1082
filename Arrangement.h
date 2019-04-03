@@ -15,7 +15,6 @@ private:
     char* artistName;
     char* venueName;
 
-    Sted* venue;
     int eventNumber;
     int date, hour, min;
     eventType eventType;
@@ -25,9 +24,10 @@ public:
     
     Arrangement(int eNr, char evntName[], char venName[]);
     Arrangement(int eNr, char n[], ifstream & inn);
-    
+    ~Arrangement();
     
     const char* enumDisplay(enum eventType type);
+    const char* getEventName();
     
    
     void writeToFile(ofstream & out);
@@ -41,8 +41,9 @@ public:
 	bool compareArtistName(char query[]);
 	bool compareEventDate(int searchDate);
 	bool compareEventType(enum eventType type);
+    bool compareEventNumber(int eveNr);
 	
-	
+    int getEventNr();
 	int compare(Arrangement* arr);                //    Virtual fra listtool
     
 };
