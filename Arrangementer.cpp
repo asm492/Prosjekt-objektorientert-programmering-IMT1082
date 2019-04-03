@@ -59,7 +59,7 @@ void Arrangementer::searchChoice(){
 void Arrangementer::buyTickets() {
 
 
-	if (eventList->noOfElements > 0)
+	if (eventList->noOfElements() > 0)
 	{
 		cout << "\nTICKET PURCHASE:" << endl;
 	}

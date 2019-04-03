@@ -56,10 +56,10 @@ Oppsett::Oppsett(int n, ifstream & inn) : NumElement(n) {
 
 
 		//	FOR TESTING
-		/*
+		
 		cout << "\n\nBUFFER/ZONE NAME: " << buffer << " / " << nameOfZone;	
 		cout << "\nSTRLEN(BUFFER) / STRLEN(ZONENAME): " << strlen(buffer) << " / " << strlen(nameOfZone) << endl;
-		*/	
+			
 	}
 }
 void Oppsett::printLayouts()
@@ -84,12 +84,33 @@ void Oppsett::printLayouts()
 void Oppsett::writeToFile(ofstream & out) {
 	Stoler* seatPtr;
 	Vrimle* swarmPtr;
-	int totalZones;
+	int totalZones, totalSeats, totalSwarm;
+	int zoneCounter = 0;
 
-	totalZones = seatsLayout->noOfElements() + swarmLayout->noOfElements();
+	totalSeats = seatsLayout->noOfElements();
+	totalSwarm = swarmLayout->noOfElements();
+	totalZones = totalSeats + totalSwarm;
 	
 	out << totalZones << '\n';									//	Total zones in this layout
 
+	for (int i = 1; i <= totalSeats; i++)
+	{
+		out << ++zoneCounter << '\n';
+		out << "Stoler" << '\n';
+		seatPtr = (Stoler*)seatsLayout->removeNo(i);
+		seatsLayout->add(seatPtr);
+		seatPtr->writeToFile(out);
+	}
+
+	for (int i = 1; i <= totalSwarm; i++)
+	{
+		out << ++zoneCounter << '\n';
+		out << "Vrimle" << '\n';
+		swarmPtr = (Vrimle*)swarmLayout->removeNo(i);
+		swarmLayout->add(swarmPtr);
+		swarmPtr->writeToFile(out);
+	}
+	/*
 	for (int j = 1; j <= totalZones;  j++)						
 	{
 		out << j << '\n';										//	Prints zone number to file 
@@ -110,7 +131,7 @@ void Oppsett::writeToFile(ofstream & out) {
 			swarmPtr->writeToFile(out);
 		}
 	}
-	
+	*/
 
 }
 void Oppsett::newLayout() {			//	SHOULD THIS BE INN THE OPPSETT() constructor instead?

@@ -74,8 +74,8 @@ void Steder::readVenuesFromFile() {
 	//Sted* temp;
 	char bufferName[STRLEN];
 	int venueNr;
-	//ifstream inn("STEDER.DTA");
 	ifstream inn("STEDER.DTA");
+	//ifstream inn("STEDER_TEST.DTA");
 
 	if (inn)
 	{
@@ -85,7 +85,7 @@ void Steder::readVenuesFromFile() {
 			
 			inn >> venueNr; inn.ignore();
 			inn.getline(bufferName, STRLEN);
-			
+			//inn.ignore();
 			
 			cout << "Steder.cpp: Buffer/strlen(buffer): " << bufferName << ' ' << strlen(bufferName) << endl;
 			

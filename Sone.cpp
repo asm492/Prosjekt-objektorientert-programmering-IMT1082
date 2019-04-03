@@ -28,7 +28,7 @@ Sone::Sone(char n[], ifstream & inn) : TextElement(n)
 	strcpy(zoneName, n);
 
 	inn >> ticketsForSale >> ticketsSold >> ticketPrice; 
-	//inn.ignore();
+	inn.ignore();
 }
 Sone::~Sone() {						
     
