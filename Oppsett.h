@@ -10,8 +10,9 @@ using namespace std;
 
 class Oppsett : public NumElement {
 private:
-	List* seatsLayout;
-	List* swarmLayout;
+	List* seatsLayout;		// IKKE BRUK
+	List* swarmLayout;		// IKKE BRUK
+	List* zoneList;
 public:
 	Oppsett(int n);
 	Oppsett(int n, ifstream & inn);

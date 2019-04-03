@@ -12,13 +12,15 @@ protected:
     char* zoneName;
     int ticketsForSale;                 //    DO NOT INCREMENT!
     int ticketsSold, ticketPrice;
+	enum zoneType typeOfZone;
     //List* seatList;                                        //    Stoler
     //List* swarmList;                                    //    Vrimle
 public:
-	Sone(char n[]);		//	NEW
-	Sone(char n[], ifstream & inn);
+	Sone(char n[], enum zoneType type);		//	NEW
+	Sone(char n[], ifstream & inn, enum zoneType type);
 	~Sone();
     
+	int returnZoneType();
     void display();
 	void writeToFile(ofstream & out);
     
