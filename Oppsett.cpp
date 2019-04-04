@@ -295,9 +295,48 @@ int Oppsett::retNoElements()
 	return zoneList->noOfElements();
 }
 
-void Oppsett::display() {
-	
+List* Oppsett::getZoneList()
+{
 
+	/*TROR IKKE VI TRENGER DENNE
+	Å LAGE NO ANNEN INNMAT HER ENN DET SOM ER I 
+	List * Oppsett::copyZone(). 
+	DENNE KAN EVT KALLE PÅ DEN*/
+
+	//Nullptr er bare midlertidig for å få dette til å funke
+	return nullptr;
+}
+
+List * Oppsett::copyZone()
+{
+	int totalZones, i, temp;
+	Sone *zonePtr, *zoneCopyPtr;
+	List* zoneListCopy = NULL;
+
+	totalZones = zoneList->noOfElements();
+
+	zoneListCopy = new List(Sorted);
+	for (i = 1; i <= totalZones; i++) {
+		zonePtr = (Sone*)zoneList->removeNo(i);
+		temp = zonePtr->returnZoneType();
+		zoneList->add(zonePtr);
+
+		if (temp == 0) {
+			zoneCopyPtr = new Stoler(*((Stoler*)zonePtr));		//	Makes new Stoler
+		}
+		else
+		{
+			zoneCopyPtr = new Vrimle(*((Vrimle*)zonePtr));
+		}
+
+		zoneList->add(zonePtr);								//	Adds back to old list 
+		zoneListCopy->add(zonePtr);							//	and to new list
+	}
+
+
+	return zoneListCopy;
+}
+
+void Oppsett::display() {
 	zoneList->displayList();
-	
 }

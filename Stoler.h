@@ -20,6 +20,7 @@ private:
 	
 public:
 	~Stoler();
+	Stoler(Stoler & s);
     Stoler(char name[], enum zoneType type);
 	Stoler(char name[], ifstream & inn, enum zoneType type);
     void display();

@@ -17,8 +17,9 @@ protected:
     //List* seatList;                                        //    Stoler
     //List* swarmList;                                    //    Vrimle
 public:
-	Sone(char n[], enum zoneType type);		//	NEW
+	Sone(char n[], enum zoneType type);						//	NEW
 	Sone(char n[], ifstream & inn, enum zoneType type);
+	Sone(Sone* s);
 	~Sone();
     
 	int returnZoneType();

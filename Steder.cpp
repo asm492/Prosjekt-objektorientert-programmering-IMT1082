@@ -191,6 +191,14 @@ void Steder::layoutDelete()
 {
 	//TO DO 
 }
+List* Steder::getVenue(char venName[], int layoutN)
+{
+	Sted* tmp;
+
+	tmp = (Sted*)venueList->remove(venName);
+	//tmp->
+	return nullptr;
+}
 void Steder::layoutMenu() {		//	From main press 0
 	char command;
 	
@@ -227,6 +235,22 @@ void Steder::layoutMenu() {		//	From main press 0
     else
         printError("DIDN'T FIND ANY VENUES WITH THAT NAME");
     */
+}
+int Steder::returnCurrentLayout(char venueName[])
+{
+	
+	Sted* tempVenue;
+	if (venueList->inList(venueName))
+	{
+		tempVenue = (Sted*)venueList->remove(venueName);
+		venueList->add(tempVenue);
+		return tempVenue->returnLastUsedLayout();
+	}
+	else
+	{
+		printError("VENUE NOT IN LIST!");
+		return 0;
+	}
 }
 int Steder::retLastUsedVenue() {
 	return lastUsedVenue;

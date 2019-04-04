@@ -16,11 +16,15 @@ private:
 	//enum zoneType type;
     //int soldToCustNo[ticketsForSale + 1]; MŒ ha dynamic array eller liste
 public:
-    Vrimle(char name[], enum zoneType type);
+    
+	Vrimle(char name[], enum zoneType type);
 	Vrimle(char name[], ifstream & inn, enum zoneType type);
+	Vrimle(Vrimle & v);
 	~Vrimle();
+	
 	void writeToFile(ofstream & out);
     void display();
+	
     
 };
 

@@ -33,6 +33,10 @@ Sone::Sone(char n[], ifstream & inn, enum zoneType type) : TextElement(n)
 	inn >> ticketsForSale >> ticketsSold >> ticketPrice; 
 	inn.ignore();
 }
+Sone::Sone(Sone* s) : TextElement(s->text) {
+	ticketsForSale = s->ticketsForSale;
+	ticketsSold = s->ticketsSold;
+}
 Sone::~Sone() {						
 	delete zoneName;
 }

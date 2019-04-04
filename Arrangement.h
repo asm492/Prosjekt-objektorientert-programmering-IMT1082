@@ -14,7 +14,7 @@ private:
     char* eventName;
     char* artistName;
     char* venueName;
-
+	int layoutNumber;
     int eventNumber;
     int date, hour, min;
     eventType eventType;
@@ -28,7 +28,7 @@ public:
     
     const char* enumDisplay(enum eventType type);
     const char* getEventName();
-    
+	const char* getVenueName();
    
     void writeToFile(ofstream & out);
     void display();
@@ -44,6 +44,7 @@ public:
     bool compareEventNumber(int eveNr);
 	
     int getEventNr();
+	int getLayout();
 	int compare(Arrangement* arr);                //    Virtual fra listtool
     
 };

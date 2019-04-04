@@ -28,8 +28,9 @@ public:
 
 	int retNoElements();
 	
-	//void addToList(Stoler* tmpSeat);
-	//void a
+	List* getZoneList();
+	List* copyZone();
+	
 };
 
 #endif

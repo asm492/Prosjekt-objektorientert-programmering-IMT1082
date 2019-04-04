@@ -158,6 +158,10 @@ void Sted::editExistingLayout()
 	}
 
 }
+List* Sted::getLayout(int layoutN)
+{
+	return ( layouts[layoutN]->getZoneList());
+}
 /*
 List * Sted::kopier(int nr)
 {
@@ -200,7 +204,7 @@ void Sted::newLayout() {
 				layouts[lastUsedLayout] = new Oppsett(lastUsedLayout); 
 				//layouts[lastUsedLayout]->newLayout(); break;		//PROGRAM STOPS HERE. TAKE A LOOK AT OPPSETT()....STED.CPP
 
-			case 'C':
+			case 'C': /*newLayoutFromCopy();*/
 				//cout << "\nCRATING LAYOUT NO. " << ++lastUsedLayout << " for " << name << ":\n\n";
 				/*layouts[lastUsedLayout] = new Oppsett();*/				break;
 
@@ -213,7 +217,15 @@ void Sted::newLayout() {
     else
         printError("THIS VENUE HAS REACHED ITS MAX NO. OF LAYOUTS!");
 }
+void Sted::newLayoutFromCopy() {
+	char buffer[STRLEN];
+	
 
+	read("WHICH LAYOUT NR. TO COPY FROM?", buffer, STRLEN);
+
+	
+	++lastUsedLayout;
+}
 int Sted::compareVenueName(char text[]){
     return !strcmp(name, text);
     

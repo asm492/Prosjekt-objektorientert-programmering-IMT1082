@@ -29,11 +29,11 @@ Stoler::Stoler(char name[], enum zoneType type) : Sone(name, type) {			//	Sends 
 
 	} while (seatPrRow*rows != ticketsForSale);
     
-    tempArray = new int*[seatPrRow];					//	First pointer points to new int pointer
+    tempArray = new int*[seatPrRow + 1];					//	First pointer points to new int pointer
     
     for (int i = 1; i <= seatPrRow; i++)
     {
-        tempArray[i] = new int[rows];
+        tempArray[i] = new int[rows + 1];
     }
     
     for (int i = 1; i <= rows; i++)                    //    Fills with 0
@@ -83,11 +83,11 @@ Stoler::Stoler(char name[], enum zoneType type) : Sone(name, type) {			//	Sends 
 Stoler::Stoler(char name[], ifstream & inn, enum zoneType type) : Sone(name, inn, type)
 {
 	inn >> seatPrRow >> rows; inn.ignore();
-	tempArray = new int*[seatPrRow];					//	First pointer points to new int pointer
+	tempArray = new int*[seatPrRow + 1];					//	First pointer points to new int pointer
 
 	for (int i = 1; i <= seatPrRow; i++)
 	{
-		tempArray[i] = new int[rows];
+		tempArray[i] = new int[rows + 1];
 	}
 
 	for (int i = 1; i <= rows; i++)                    //    Fills with 0
@@ -98,36 +98,30 @@ Stoler::Stoler(char name[], ifstream & inn, enum zoneType type) : Sone(name, inn
 		}
 	}
 }
+Stoler::Stoler(Stoler & s) : Sone((Sone*)&s) {
 
+	tempArray = new int*[seatPrRow + 1];					//	First pointer points to new int pointer
 
+	for (int i = 1; i <= seatPrRow; i++)
+	{
+		tempArray[i] = new int[rows + 1];
+	}
 
+	for (int i = 1; i <= rows; i++)                    //    Fills with 0
+	{
+		for (int j = 1; j <= seatPrRow; j++)
+		{
+			tempArray[i][j] = 0;
+		}
+	}
 
-
-/*
- int** a = new int*[rowCount];
- for(int i = 0; i < rowCount; ++i)
- a[i] = new int[colCount];
- 
- new:
- int **ary = new int*[sizeY];
- for(int i = 0; i < sizeY; ++i) {
- ary[i] = new int[sizeX];
- 
- slette:
- for(int i = 0; i < sizeY; ++i) {
- delete [] ary[i];
- }
- delete [] ary;
- }
- */
-
+}
 void Stoler::configureSeats() {
     
 }
 Stoler::~Stoler() {
 	tempArray = nullptr;
 }
-
 void Stoler::printSeatMap() {		//	Used to display seat layout
 	
 	cout << "\n\t\tSEAT MAP:" << endl;
