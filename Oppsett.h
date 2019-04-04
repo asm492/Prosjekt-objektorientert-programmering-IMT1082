@@ -23,6 +23,7 @@ public:
 	void newLayout();
 	void addNewZone();
 	
+	bool deleteLayout();
 	bool removeZone();
 
 	int retNoElements();

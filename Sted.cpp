@@ -145,11 +145,15 @@ void Sted::editExistingLayout()
 	case 'C': /*layouts[nr]->addNewCopy();*/	break;
 	case 'R': if (layouts[nr]->removeZone() == true)
 	{
+		layouts[nr] = nullptr;							//	Deletes layout if deleted
+		--lastUsedLayout;								//	zone was the last one in layout
+	}												break;
+	case 'D': if (layouts[nr]->deleteLayout() == true)
+	{
 		layouts[nr] = nullptr;
 		--lastUsedLayout;
-
-	}												break;
-	case 'D': break;
+	}
+		break;
 	default: printError("INVALID COMMAND!");	break;
 	}
 

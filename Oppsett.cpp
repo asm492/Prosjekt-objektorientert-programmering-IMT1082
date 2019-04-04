@@ -211,6 +211,34 @@ void Oppsett::addNewZone()
 	} while (ch == 'Y');
 }
 
+bool Oppsett::deleteLayout()
+{
+	bool deleteConfirmation = false;
+	char ch;
+
+	cout << "\nThis layout has the following zones in it:" << endl;
+	zoneList->displayList();
+
+	cout << "DELETING THE LAYOUT WILL ALSO DELETE THE ZONES. CONTINIUE?\n";
+	ch = read();
+
+	if (ch == 'Y')
+	{
+		for (int i = 1; i <= zoneList->noOfElements(); i++)
+		{
+			zoneList->destroy(i);
+		}
+		deleteConfirmation = true;
+	}
+	else {
+		cout << "\nABORTING DELETION" << endl;
+	}
+
+
+
+	return deleteConfirmation;
+}
+
 bool Oppsett::removeZone()
 {
 	bool deleteConfirmation = false;
