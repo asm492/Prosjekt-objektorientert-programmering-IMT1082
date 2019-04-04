@@ -46,7 +46,7 @@ void Steder::newVenue() {
     
     tempVenue = new Sted(tempName);
     venueList->add(tempVenue);
-
+    lastUsedVenue = venueList->noOfElements();
 	cout << "\n\n\t\tVENUE CREATED!\n";
     
 }

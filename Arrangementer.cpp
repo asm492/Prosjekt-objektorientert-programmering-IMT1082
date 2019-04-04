@@ -63,9 +63,7 @@ void Arrangementer::buyTickets() {
 	{
 		cout << "\nTICKET PURCHASE:" << endl;
         evnr1 = findEvent();
-        if (evnr1 == 0){
-            cout << "VELG ET ARR NR"; cin >> evnr2;
-        }
+
             
         
 	}
@@ -76,12 +74,12 @@ void Arrangementer::buyTickets() {
 }
 int Arrangementer::findEvent() {							//	Use if multiple search results
     Arrangement* eventPtr;
-    List* tempList;
+    
     char eventName[STRLEN];
-    int noOfEvents;
+    int noOfEvents, eveNr;
     int searchResults = 0;
     int hit = 0;
-    tempList = new List(Sorted);
+    
     noOfEvents = eventList->noOfElements();
     
     read("EVENT NAME", eventName, STRLEN);
@@ -96,10 +94,25 @@ int Arrangementer::findEvent() {							//	Use if multiple search results
             hit = eventPtr->getEventNr();
         }
             eventList->add(eventPtr);
-       }
+    }
+    
     if (searchResults == 1)
         return hit;
     
+    else if (searchResults > 1){
+        cout << "\nMore than one event! \n\nType event number: "; cin >> eveNr;
+        for (int i = 1; i <= noOfEvents; i++)                    //    Couldn't use listool:: inList()
+        {                                                        //    Need to know exatly how many in list
+            eventPtr = (Arrangement*)eventList->removeNo(i);
+            if (eventPtr->compareEventNumber(eveNr))
+            {
+                eventPtr->display();
+                hit = eventPtr->getEventNr();
+            }
+            eventList->add(eventPtr);
+        }
+        return hit;
+    }
     else
         return 0;
 
