@@ -19,7 +19,7 @@ Arrangement::Arrangement(int eNr, char evntName[], char venName[]) : TextElement
     char buffer[STRLEN];
 	int dd, mm, yyyy, nr, layoutNo;
 
-	eventNumber = eNr;
+	eventNumber = eNr;                                     //Adds eventnumber from parametre
 	eventName = new char[strlen(evntName) + 1];            //Allocating enough space
 	strcpy(eventName, evntName);                            //for string + '\0'
 
@@ -28,7 +28,7 @@ Arrangement::Arrangement(int eNr, char evntName[], char venName[]) : TextElement
 
 
 
-	layoutNo = venueDatabase.returnCurrentLayout(venName);
+	layoutNo = venueDatabase.returnCurrentLayout(venName);  //Gets alle layouts for venue
 	layoutNumber = read("WHICH LAYOUT TO USE FOR EVENT?", 1, layoutNo);
 	
 
@@ -40,7 +40,7 @@ Arrangement::Arrangement(int eNr, char evntName[], char venName[]) : TextElement
 
 		do
 		{
-			cout << "\nDATE:";
+			cout << "\nDATE:";                  //Reads date for event
 			dd = read("Type day", DAYMIN, DAYMAX);
 			mm = read("Type month", MONTHMIN, MONTHMAX);
 			yyyy = read("Type year", YEARMIN, YEARMAX);
@@ -49,17 +49,17 @@ Arrangement::Arrangement(int eNr, char evntName[], char venName[]) : TextElement
 			{
 				printError("INVALID DATE! TRY AGAIN!");
 			}
-		} while (dayNumber(dd, mm, yyyy) == 0);
+		} while (dayNumber(dd, mm, yyyy) == 0); //Checks if date is valid
 
 		date = (dd * 1000000) + (mm * 10000) + yyyy;                //    Converts date format to 1 int
 
-		cout << "\nTIME:";
+		cout << "\nTIME:";                      //Reads time for event
 		hour = read("Type hours", HOURMIN, HOURMAX);
 		min = read("Type minutes", MINUTEMIN, MINUTEMAX);
 
-		printEventTypeMenu();                    // Causes Linker2019 error
+		printEventTypeMenu();                    //Writes type menue
 		nr = read("Choice", 0, 6);
-
+                                            //Number picket will set eventype to chosen type
 		switch (nr)
 		{
 		case 0:    eventType = Musikk;		    break;
@@ -77,10 +77,10 @@ Arrangement::Arrangement(int eNr, char evntName[], char venName[]) : TextElement
     
 }
 
-void Arrangement::display(){
+void Arrangement::display(){         //Prints all data for one event
     int temp, day, month, year;
     
-    day = date/1000000;
+    day = date/1000000;          //Makes one int from ddmmyear
     temp = date%1000000;
     month = temp/10000;
     year = temp%10000;
@@ -121,38 +121,44 @@ void Arrangement::display(){
 	
     
 }
-bool Arrangement::compareEventNumber(int eveNr){
+bool Arrangement::compareEventNumber(int eveNr) //compares event number
+{
     return (eveNr == eventNumber) ? true : false;
 }
-bool Arrangement::compareEventNameExact(char query[]) {
+bool Arrangement::compareEventNameExact(char query[])  //compares exact event name
+{
 	return !strcmp(eventName, query);
 }
-bool Arrangement::compareEventName(char query[]) {
-    
+bool Arrangement::compareEventName(char query[])    //compares event name
+{
     return strstr(eventName, query);
-    
 }
-bool Arrangement::compareArtistName(char query[])
+bool Arrangement::compareArtistName(char query[]) //compares artist name
 {
 	return !strcmp(artistName, query);
 	
 }
-bool Arrangement::compareEventDate(int searchDate)
+bool Arrangement::compareEventDate(int searchDate) //compares event date
 {
 	return (searchDate == date) ? true : false;
 }
-bool Arrangement::compareVenueName(char query[]) {
+bool Arrangement::compareVenueName(char query[])    //compares venue name
+{
     return !strcmp(venueName, query);
-    
 }
-const char* Arrangement::getEventName() {
+bool Arrangement::compareEventType(enum eventType type) //Compares event type
+{
+    return (type == eventType) ? true : false;
+}
+const char* Arrangement::getEventName()        //returns event name
+{
     return eventName;
 }
-const char * Arrangement::getVenueName()
+const char * Arrangement::getVenueName()          //returns venue name
 {
 	return venueName;
 }
-const char* Arrangement::enumDisplay(enum eventType type){
+const char* Arrangement::enumDisplay(enum eventType type){ //Returns enumn name
     
     switch (type) 
 	{
@@ -166,21 +172,18 @@ const char* Arrangement::enumDisplay(enum eventType type){
     }
     
 }
-bool Arrangement::compareEventType(enum eventType type) {
-	return (type == eventType) ? true : false;
-}
 
-void Arrangement::writeToFile(ofstream & out) {
+void Arrangement::writeToFile(ofstream & out) {  //Writes events to file
    
     int temp, day, month, year;
     
-    out << eventNumber << '\n';
+    out << eventNumber << '\n';               //Writes alle data
     out << eventName << '\n';
     out << venueName << '\n';
 	out << layoutNumber << '\n';
     out << artistName << '\n';
     
-    switch (eventType) {                   //  Status skrives som bokstaver:
+    switch (eventType) {                      //Takes event type en writes Letters to file
         case Musikk:     out << 'M';   break;
         case Sport:      out << 'S';   break;
         case Teater:     out << 'T';   break;
@@ -191,20 +194,20 @@ void Arrangement::writeToFile(ofstream & out) {
     }
     out << '\n';
     
-    day = date/1000000;
+    day = date/1000000;                  //makes date to 3 int's
     temp = date%1000000;
     month = temp/10000;
     year = temp%10000;
     
     out << day << '/' << month << '-' << year << '\n';
     
-    if (hour < 10)
+    if (hour < 10)            //Adds zero if its under 10
     {
         out << '0';
     }
     out << hour << ":";
     
-    if (min < 10)
+    if (min < 10)            //Adds zero if its under 10
     {
         out << '0';
     }
@@ -217,24 +220,24 @@ Arrangement::Arrangement(int eNr, char n[], ifstream & inn) : TextElement(n) {
 	char typeChar, buffer[STRLEN];
     int day, month, year;
     
-	eventNumber = eNr;
+	eventNumber = eNr;                            //Reads int into eventNumber
 
-    eventName = new char[strlen(n) + 1];                    
+    eventName = new char[strlen(n) + 1];           //Reads eventName
     strcpy(eventName, n);
     
 	
-    inn.getline(buffer, STRLEN);				
+    inn.getline(buffer, STRLEN);				   //Reads venuName
 	venueName = new char[strlen(buffer) + 1];
 	strcpy(venueName, buffer);
 	
-	inn >> layoutNumber; inn.ignore();
+	inn >> layoutNumber; inn.ignore();          //reads used layout number
 
-	inn.getline(buffer, STRLEN);
+	inn.getline(buffer, STRLEN);                //Reads artist name
 	artistName = new char[strlen(buffer) + 1];
 	strcpy(artistName, buffer);
 	
 
-    inn >> typeChar;
+    inn >> typeChar;                      // Reads eventType from char to enum
     switch (typeChar) {
         case 'M':  eventType = Musikk;    break;
         case 'S':  eventType = Sport;     break;
@@ -246,26 +249,26 @@ Arrangement::Arrangement(int eNr, char n[], ifstream & inn) : TextElement(n) {
         default: cout << "\n\tUlovlig Status'verdi på fila!\n\n";  break;
     }
     
-    inn >> day; inn.ignore();
+    inn >> day; inn.ignore();             //Reads day, month and year
     inn >> month; inn.ignore();
     inn >> year;
-    date = (day * 1000000) + (month * 10000) + year;
+    date = (day * 1000000) + (month * 10000) + year; //Adds all to one int
     
-    inn >> hour; inn.ignore();
+    inn >> hour; inn.ignore();           //Reads hour and min
     inn >> min;
 }
 
-Arrangement::~Arrangement() {
+Arrangement::~Arrangement() {       //Destructor for Arrangement
     delete[] eventName;
     delete[] artistName;
     delete[] venueName;
 }
 
-int Arrangement::getEventNr(){
+int Arrangement::getEventNr(){      //Return eventnumber
     return eventNumber;
 }
 
-int Arrangement::getLayout()
+int Arrangement::getLayout()       //Returns layout number for event
 {
 	return layoutNumber;
 }

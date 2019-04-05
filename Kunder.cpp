@@ -32,28 +32,28 @@ void Kunder::customersMenu() {
     }
 }
 
-Kunder::Kunder() {
+Kunder::Kunder() {                      //Constructing new list
     customersList = new List(Sorted);
     
 }
 void Kunder::newCustomer() {
     
-    customersList->add(new Kunde(++lastCustomer));
+    customersList->add(new Kunde(++lastCustomer)); //Adds new customer to list
     writeCustomersToFile();
     
 }
-void Kunder::display(){
+void Kunder::display(){                       //Displays customers
     
     Kunde* tempCust;
     int custNr, numberOfResults = 0;
     char query[STRLEN];
     bool searchResult;
     
-    if (lastCustomer > 0)
+    if (lastCustomer > 0)                      //If customers are in list
     {
         cout << "\nCUSTOMER DISPLAY:" << endl;
         cout << "\nType name, customer number or leave blank to display all:\n\n";
-        cin.getline(query, STRLEN);
+        cin.getline(query, STRLEN);        //User search for customer
         
         
         if (strlen(query) == 0)                                        //    Dislays all
@@ -150,9 +150,9 @@ void Kunder::editCustomer() {
         read("NAME or CUSTOMER NUMBER", query, STRLEN);
         
         
-        if(checkDigit(query) == true && strlen(query) != 0){
-            nr = atoi(query);
-            customersList->displayElement(nr);
+        if(checkDigit(query) == true && strlen(query) != 0){  //    Input not only digits &
+            nr = atoi(query);                                 //    lenght greater than 0
+            customersList->displayElement(nr);                // Displayes customer in list
             
         }
         
@@ -225,16 +225,16 @@ void Kunder::deleteCustomer() {
     else
         printError("NO CUSTOMERS IN DATABASE!");
 }
-int Kunder::customerNameSearch(char name[]){
-    Kunde* tempCust;
+int Kunder::customerNameSearch(char name[]){       //Customer namesearch, returns
+    Kunde* tempCust;                               //   customer number
     int resultCounter = 0;
     int customerNr;
     
     for(int i = 1; i <= lastCustomer; i++){
-        tempCust = (Kunde*)customersList->removeNo(i);
+        tempCust = (Kunde*)customersList->removeNo(i);  //Removes and adds back to list
         customersList->add(tempCust);
         
-        if(tempCust->compareName(name) == true){
+        if(tempCust->compareName(name) == true){      //If match displays customer
             customersList->displayElement(i);
             ++resultCounter;
             
@@ -249,12 +249,12 @@ int Kunder::customerNameSearch(char name[]){
     cout << "\n\n\t";
     cout << resultCounter << " RESULT(S) FOR: '" << name << "'\n\n";
     
-    if(resultCounter > 1){
+    if(resultCounter > 1){     //If more than one hit, user types index number
         cout << "\nMULTIPLE RESULTS FOR QUERY. PLEASE ENTER CUSTOMER INDEX MANUALLY:        ";
         
     }
     
-    if(resultCounter == 1){
+    if(resultCounter == 1){      //Returns customer number if result = 1
         return customerNr;
     }
     else{

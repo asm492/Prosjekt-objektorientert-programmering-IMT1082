@@ -15,12 +15,19 @@ using namespace std;
 
 extern Steder venueDatabase;
 
+Arrangementer::Arrangementer() {
+    eventList = new List(Sorted);
+}
+/*Arrangementer::~Arrangementer() {
+ 
+ } */
+
+
 void Arrangementer::eventsMenu() {
     char command;
     
     command = read();
-    
-    switch (command)
+        switch (command)
     {
         case 'D':   searchChoice();		break;            //    Display
         case 'N':   newEvent();			break;            //    New
@@ -184,10 +191,27 @@ int Arrangementer::findEvent() {							//	Use if multiple search results
 }
 
 void Arrangementer::allDataArrNr() {
+    //Skal ha en kopi av oppsettet her
     
+    int arrNr;
+    
+    Arrangement* tempeEvent;
+    
+    if (lastEvent >= 1){
+    arrNr = read("Write event number: ", 1, lastEvent);
+        
+        for (int i = 1; i <= lastEvent; i++) {
+            tempeEvent = (Arrangement*)eventList->removeNo(i);
+            eventList->add(tempeEvent);
+            
+            if(tempeEvent->compareEventNumber(arrNr))
+                tempeEvent->display();
+            
+        }
+    }
 }
 
-void Arrangementer::typeSearch() {
+void Arrangementer::typeSearch() { //For searching for an event by type
 	
 	int nr, numberOfResults = 0;
 	eventType evntTyp;
@@ -195,12 +219,12 @@ void Arrangementer::typeSearch() {
 	bool searchResult;
 
 	cout << "\nSearch by event type:" << endl;
-	printEventTypeMenu();
+	printEventTypeMenu();                                   //Prints all event types
 	nr = read("Select type you want to display", 0, 6);
 
-	switch (nr)
-	{
-	case 0:    evntTyp = Musikk;		break;
+	switch (nr)                                       //The typed number will gi in an
+	{                                                 //  switch to set the variable to
+	case 0:    evntTyp = Musikk;		break;        //  the wanted type.
 	case 1:    evntTyp = Sport;			break;
 	case 2:    evntTyp = Teater;        break;
 	case 3:    evntTyp = Show;			break;
@@ -213,9 +237,9 @@ void Arrangementer::typeSearch() {
 	{
 		tempEvent = (Arrangement*)eventList->removeNo(i);			//	Takes event out if list
 		eventList->add(tempEvent);									//	Adds it back to the list
-		searchResult = tempEvent->compareEventType(evntTyp);		//	Each 'Arrangement' compares with own eventType
+		searchResult = tempEvent->compareEventType(evntTyp);		//  compares event types in Arrangement
 		
-		if (searchResult == 1)                                //    Displays if EXACT match
+		if (searchResult == 1)                                //    Displays event if enumtype matches
 		{
 			tempEvent->display();
 			numberOfResults++;
@@ -275,14 +299,14 @@ void Arrangementer::venueSearch() {
     int searchResult = 0;
     
     Arrangement* tempeEvent;
-    readAndUpcase("Venue name search", venue, STRLEN);
+    readAndUpcase("Venue name search", venue, STRLEN);       //reads and upcase venue
     
     for (int i = 1; i <= lastEvent; i++) {
         tempeEvent = (Arrangement*)eventList->removeNo(i);
         eventList->add(tempeEvent);
 
-        if(tempeEvent->compareVenueName(venue)){
-            tempeEvent->display();
+        if(tempeEvent->compareVenueName(venue)){            //Compares venue name in Arrangement
+            tempeEvent->display();                          // Diplayes alle the matched venues
             searchResult++;
         }
     }
@@ -291,7 +315,7 @@ void Arrangementer::venueSearch() {
 
 void Arrangementer::artistNameSearch() {
 	
-	Arrangement* tempEvent;
+    Arrangement* tempEvent;
 	char searchName[STRLEN];
 	bool searchResult;
 	int numberOfResults = 0;
@@ -302,7 +326,7 @@ void Arrangementer::artistNameSearch() {
 	{
 		tempEvent = (Arrangement*)eventList->removeNo(i);       //    Takes event out if list
 		eventList->add(tempEvent);
-		searchResult = tempEvent->compareArtistName(searchName);
+		searchResult = tempEvent->compareArtistName(searchName); //Compares artist name in Arrangement
 		
 		if (searchResult == 1)									//    Displays if EXACT match
 		{
@@ -341,10 +365,8 @@ void Arrangementer::eventNameSearch() {
     {
         tempEvent = (Arrangement*)eventList->removeNo(i);        //    Takes event out if list
         eventList->add(tempEvent);
-		searchResult = tempEvent->compareEventName(searchName);
-        //searchResult = tempEvent->compareEvent(searchName);    //    Does a strcmp  comparison on event
-        //    Adds it back to the list
-        //        Bruke ListTool til å compare???
+		searchResult = tempEvent->compareEventName(searchName); // Compares event name in arrangement
+        
         if (searchResult == 1)                                //    Displays if EXACT match
         {
 			tempEvent->display();
@@ -356,12 +378,7 @@ void Arrangementer::eventNameSearch() {
     << " result(s)" << endl;
 }
 
-Arrangementer::Arrangementer() {
-    eventList = new List(Sorted);
-}
-/*Arrangementer::~Arrangementer() {
-    
-} */
+
 
 void Arrangementer::newEvent(){
 	char venueName[STRLEN];
@@ -370,14 +387,14 @@ void Arrangementer::newEvent(){
 
 	if (venueDatabase.retLastUsedVenue() > 0)
 	{
-		readAndUpcase("Enter venue name", venueName, STRLEN);
-		if (venueDatabase.venueExist(venueName))
+		readAndUpcase("Enter venue name", venueName, STRLEN); //Reads venue name
+ 		if (venueDatabase.venueExist(venueName))          //Checks if it exist
 		{
-			if (venueDatabase.returnCurrentLayout(venueName))
+			if (venueDatabase.returnCurrentLayout(venueName)) //Checks if venue has layouts
 			{
-				read("Enter event name", eventName, STRLEN);
+				read("Enter event name", eventName, STRLEN);   //Reads event name
 				temp = new Arrangement(++lastEvent, eventName, venueName);
-				eventList->add(temp);
+				eventList->add(temp);                      //Adds event to list
 			}
 			else
 				printError("THIS VENUE DOES NOT HAVE ANY LAYOUTS YET!");
@@ -425,13 +442,13 @@ void Arrangementer::readEventsFromFile() {
     
     if (inn)
     {
-        inn >> lastEvent; 
+        inn >> lastEvent;      //Read last event number to top of the file
         
-        for (int i = 1; i <= lastEvent; i++) {
-			inn >> evntNumber; inn.ignore();
-            inn.getline(bufferName, STRLEN);
-            temp = new Arrangement(evntNumber, bufferName, inn);
-            eventList->add(temp);
+        for (int i = 1; i <= lastEvent; i++) {   //Loops through all the events
+			inn >> evntNumber; inn.ignore();     //Reads event number
+            inn.getline(bufferName, STRLEN);     //Reads event name
+            temp = new Arrangement(evntNumber, bufferName, inn); //Calls arrangement read funksjon
+            eventList->add(temp);              //Adds event to list
         }
     }
     else
