@@ -12,7 +12,7 @@
 
 using namespace std;
 
-Stoler::Stoler(char name[]) : Sone(name, typeOfZone) {			//	Sends name to base class
+Stoler::Stoler(char name[], enum zoneType type) : Sone(name, type) {			//	Sends name to base class
     //int** temp;									//	Declaring an int pointer to int pointer
 												//	Makes a 2D dynamic int array
 	//int tempTicketsForSale, tempTicketsSold, tempTicketPrice;
@@ -29,11 +29,11 @@ Stoler::Stoler(char name[]) : Sone(name, typeOfZone) {			//	Sends name to base c
 
 	} while (seatPrRow*rows != ticketsForSale);
     
-    tempArray = new int*[seatPrRow];					//	First pointer points to new int pointer
+    tempArray = new int*[seatPrRow + 1];					//	First pointer points to new int pointer
     
     for (int i = 1; i <= seatPrRow; i++)
     {
-        tempArray[i] = new int[rows];
+        tempArray[i] = new int[rows + 1];
     }
     
     for (int i = 1; i <= rows; i++)                    //    Fills with 0
@@ -83,11 +83,11 @@ Stoler::Stoler(char name[]) : Sone(name, typeOfZone) {			//	Sends name to base c
 Stoler::Stoler(char name[], ifstream & inn, enum zoneType type) : Sone(name, inn, type)
 {
 	inn >> seatPrRow >> rows; inn.ignore();
-	tempArray = new int*[seatPrRow];					//	First pointer points to new int pointer
+	tempArray = new int*[seatPrRow + 1];					//	First pointer points to new int pointer
 
 	for (int i = 1; i <= seatPrRow; i++)
 	{
-		tempArray[i] = new int[rows];
+		tempArray[i] = new int[rows + 1];
 	}
 
 	for (int i = 1; i <= rows; i++)                    //    Fills with 0
@@ -98,38 +98,48 @@ Stoler::Stoler(char name[], ifstream & inn, enum zoneType type) : Sone(name, inn
 		}
 	}
 }
+Stoler::Stoler(Stoler & s) : Sone((Sone*)&s) {
 
+	tempArray = new int*[seatPrRow + 1];					//	First pointer points to new int pointer
 
+	for (int i = 1; i <= seatPrRow; i++)
+	{
+		tempArray[i] = new int[rows + 1];
+	}
 
+	for (int i = 1; i <= rows; i++)                    //    Fills with 0
+	{
+		for (int j = 1; j <= seatPrRow; j++)
+		{
+			tempArray[i][j] = 0;
+		}
+	}
 
-
-/*
- int** a = new int*[rowCount];
- for(int i = 0; i < rowCount; ++i)
- a[i] = new int[colCount];
- 
- new:
- int **ary = new int*[sizeY];
- for(int i = 0; i < sizeY; ++i) {
- ary[i] = new int[sizeX];
- 
- slette:
- for(int i = 0; i < sizeY; ++i) {
- delete [] ary[i];
- }
- delete [] ary;
- }
- */
-
+}
 void Stoler::configureSeats() {
     
 }
-
+Stoler::~Stoler() {
+	tempArray = nullptr;
+}
 void Stoler::printSeatMap() {		//	Used to display seat layout
+	
+	cout << "\n\t\tSEAT MAP:" << endl;
+	cout << "\t\t    ";							//	USED TO WRITE SEAT NUMBER
+	for (int k = 1; k <= seatPrRow; k++)
+	{
+		cout << " " << k;
+		if (k < 10)
+		{
+			cout << ' ';
+		}
+	}
+	cout << "\n";
+
 	
 	for (int i = 1; i <= rows; i++)
 	{
-		cout << "\t" << i << ". ";
+		cout << "\t\t" << i << ". ";
 		if (i < 10)
 		{
 			cout << ' ';
@@ -137,7 +147,7 @@ void Stoler::printSeatMap() {		//	Used to display seat layout
 
 		for (int j = 1; j <= seatPrRow; j++)
 		{
-			cout << '-';
+			cout << " - "; 
 		}
 		cout << endl;
 	}
@@ -158,10 +168,27 @@ void Stoler::printSeatMap() {		//	Used to display seat layout
 	}
 	*/
 }
-void Stoler::printSeatMapAvailibility() {
+void Stoler::printSeatMapAvailibility() {		//	USED TO DISPLAY IF A SEAT IS 
+												//	RESERVED OR FREE
+	
+	cout << "\n\t\tAVAILIBLE SEATS:" << endl;
+	cout << "\t\t    ";							//	USED TO WRITE SEAT NUMBER
+	for (int k = 1; k <= seatPrRow; k++)
+	{
+		cout << " " << k;
+		if (k < 10)
+		{
+			cout << ' ';
+		}
+	}
+	cout << "\n";
+
+
+
 	for (int i = 1; i <= rows; i++)
 	{
-		cout << "\t" << i << ". ";
+		
+		cout << "\t\t" << i << ". ";
 		if (i < 10)
 		{
 			cout << ' ';
@@ -171,17 +198,20 @@ void Stoler::printSeatMapAvailibility() {
 		{
 			if (tempArray[i][j] == 0)
 			{
-				cout << '-';								//	Seat is free
+				cout << " - ";								//	Seat is free
 			}
 			else
 			{
-				cout << 'x';								//	Seat is taken
+				cout << " x ";								//	Seat is taken
 			}
 		}
 		cout << endl;
 	}
 
-	cout << "\n\n";
+	cout << "\n";
+	////////////////
+	
+	
 
 
 	/*TEST TO SEE WHICH NUMBER*/
@@ -208,7 +238,8 @@ void Stoler::writeToFile(ofstream & out)
 void Stoler::display() {
 	
 	Sone::display();
-	cout << "Seats pr row*rows:  " << seatPrRow << "*" << rows << endl;
+	cout << "SEATS*ROWS:            " << seatPrRow << "*" << rows << endl;
 	
 	printSeatMap();
+	
 }

@@ -46,7 +46,7 @@ void Steder::newVenue() {
     
     tempVenue = new Sted(tempName);
     venueList->add(tempVenue);
-
+    lastUsedVenue = venueList->noOfElements();
 	cout << "\n\n\t\tVENUE CREATED!\n";
     
 }
@@ -165,17 +165,24 @@ void Steder::layoutNew()
 void Steder::layoutEdit()
 {
 	
-	Sted* tmpVenue;
+	Sted* tmpVenue = nullptr;
 	char buffer[STRLEN];
 
-	readAndUpcase("EDIT LAYOUT FOR?: ", buffer, STRLEN);
+	readAndUpcase("EDIT LAYOUT FOR?", buffer, STRLEN);
 
 	if (venueList->inList(buffer))
 	{
 		tmpVenue = (Sted*)venueList->remove(buffer);
 		venueList->add(tmpVenue);
-		venueList->displayElement(buffer);
-		tmpVenue->newLayout();
+		if (tmpVenue->returnLastUsedLayout() > 0)
+		{
+			
+			
+			venueList->displayElement(buffer);
+			tmpVenue->editExistingLayout();
+		}
+		else
+			printError("THIS VENUE DOESN'T HAVE ANY LAYOUTS YET!");
 	}
 	else
 		cout << "\n\n\t\t'" << buffer << "' IS NOT IN LIST!\n\n";
@@ -183,6 +190,36 @@ void Steder::layoutEdit()
 void Steder::layoutDelete()
 {
 	//TO DO 
+}
+List* Steder::getVenue(char venName[], int layoutN)
+{
+	/*//VÅR:
+	Sted* tmp;
+	List* listPtr;
+
+	cout << "\n2";
+
+	tmp = (Sted*)venueList->remove(venName);
+	listPtr = tmp->getLayout(layoutN);
+	venueList->add(tmp);
+	cout << "\n2.5";
+
+	return listPtr;
+	*/
+
+	//Frode
+	List* liste = NULL;
+	Sted* sted;
+
+	if ((sted = (Sted*)venueList->remove(venName))) {
+		liste = sted->getLayout(layoutN);
+		venueList->add(sted);
+	}
+	return liste;
+
+
+
+	
 }
 void Steder::layoutMenu() {		//	From main press 0
 	char command;
@@ -220,6 +257,22 @@ void Steder::layoutMenu() {		//	From main press 0
     else
         printError("DIDN'T FIND ANY VENUES WITH THAT NAME");
     */
+}
+int Steder::returnCurrentLayout(char venueName[])
+{
+	
+	Sted* tempVenue;
+	if (venueList->inList(venueName))
+	{
+		tempVenue = (Sted*)venueList->remove(venueName);
+		venueList->add(tempVenue);
+		return tempVenue->returnLastUsedLayout();
+	}
+	else
+	{
+		printError("VENUE NOT IN LIST!");
+		return 0;
+	}
 }
 int Steder::retLastUsedVenue() {
 	return lastUsedVenue;

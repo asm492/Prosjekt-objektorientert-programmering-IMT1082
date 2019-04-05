@@ -36,6 +36,7 @@ Sted::Sted(char n[], ifstream & inn) : TextElement(n) {
         
 		inn >> layoutNo; //inn.ignore();			//??????????????
 		layouts[i] = new Oppsett(layoutNo, inn);
+		//inn.ignore();
     }
 }
 void Sted::writeToFile(ofstream & out) {
@@ -116,7 +117,7 @@ void Sted::displayLayouts()			//	TESTING
 		}
 	}
 	else {
-		layouts[layoutNo]->printLayouts();
+		layouts[layoutNo]->display();
 	}
 
 	
@@ -124,6 +125,47 @@ void Sted::displayLayouts()			//	TESTING
 int Sted::returnLastUsedLayout()
 {
 	return lastUsedLayout;
+}
+void Sted::editExistingLayout()
+{
+	int nr;
+	char ch;
+
+	nr = read("WHICH LAYOUT TO EDIT?", 1, lastUsedLayout);
+
+	cout << "\nWHAT DO YOU WANT TO DO TO LAYOUT NR. " << nr << "?:" << endl;
+	cout << "\n\tA\tAdd new zone from scratch";
+	cout << "\n\tC\tAdd new zone from a copy";
+	cout << "\n\tR\tRemove a zone";
+	cout << "\n\tD\tChange the details" << endl;
+	ch = read();
+	switch (ch)
+	{
+	case 'A': layouts[nr]->addNewZone();		break;
+	case 'C': /*layouts[nr]->addNewCopy();*/	break;
+	case 'R': if (layouts[nr]->removeZone() == true)
+	{
+		layouts[nr] = nullptr;							//	Deletes layout if deleted
+		--lastUsedLayout;								//	zone was the last one in layout
+	}												break;
+	case 'D': if (layouts[nr]->deleteLayout() == true)
+	{
+		layouts[nr] = nullptr;
+		--lastUsedLayout;
+	}
+		break;
+	default: printError("INVALID COMMAND!");	break;
+	}
+
+}
+List* Sted::getLayout(int layoutN)
+{
+	List* listPtr;
+	cout << "\n3";
+	listPtr = layouts[layoutN]->copyZone();
+	cout << "\n3.5";
+	
+	return listPtr;
 }
 /*
 List * Sted::kopier(int nr)
@@ -165,9 +207,9 @@ void Sted::newLayout() {
 			case 'S':
 				cout << "\nCRATING LAYOUT NO. " << ++lastUsedLayout << " for " << name << ":\n\n";
 				layouts[lastUsedLayout] = new Oppsett(lastUsedLayout); 
-				layouts[lastUsedLayout]->newLayout(); break;		//PROGRAM STOPS HERE. TAKE A LOOK AT OPPSETT()....STED.CPP
+				//layouts[lastUsedLayout]->newLayout(); break;		//PROGRAM STOPS HERE. TAKE A LOOK AT OPPSETT()....STED.CPP
 
-			case 'C':
+			case 'C': /*newLayoutFromCopy();*/
 				//cout << "\nCRATING LAYOUT NO. " << ++lastUsedLayout << " for " << name << ":\n\n";
 				/*layouts[lastUsedLayout] = new Oppsett();*/				break;
 
@@ -180,7 +222,15 @@ void Sted::newLayout() {
     else
         printError("THIS VENUE HAS REACHED ITS MAX NO. OF LAYOUTS!");
 }
+void Sted::newLayoutFromCopy() {
+	char buffer[STRLEN];
+	
 
+	read("WHICH LAYOUT NR. TO COPY FROM?", buffer, STRLEN);
+
+	
+	++lastUsedLayout;
+}
 int Sted::compareVenueName(char text[]){
     return !strcmp(name, text);
     

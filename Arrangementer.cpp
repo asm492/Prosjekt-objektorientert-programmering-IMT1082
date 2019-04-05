@@ -57,52 +57,130 @@ void Arrangementer::searchChoice(){
 		printError("NO EVENTS IN EVENT LIST");
 }
 void Arrangementer::buyTickets() {
-    int evnr1, evnr2;
+	Arrangement* tempEvent;
+//	Oppsett* layout;
+	List* newVenueList;
+	int evnr1;
+	char eventName[STRLEN], venueName[STRLEN];
+	char ch;
+	int layoutNr;
 
 	if (eventList->noOfElements() > 0)
 	{
 		cout << "\nTICKET PURCHASE:" << endl;
-        evnr1 = findEvent();
-        if (evnr1 == 0){
-            cout << "VELG ET ARR NR"; cin >> evnr2;
-        }
-            
-        
+		evnr1 = findEvent();
+		
+		if (evnr1 != 0)
+		{
+			cout << "\nWOULD YOU LIKE TO SEE ALL THE ZONES? (Y/N): " << endl;
+			ch = read();
+
+			if (ch == 'Y')
+			{
+				cout << "\n1";
+				for (int i = 1; i <= eventList->noOfElements(); i++)
+				{
+					tempEvent = (Arrangement*)eventList->removeNo(i);
+
+					if (tempEvent->compareEventNumber(evnr1))
+					{
+						strcpy(eventName, tempEvent->getEventName());
+						strcpy(venueName, tempEvent->getVenueName());
+						layoutNr = tempEvent->getLayout();
+					}
+					eventList->add(tempEvent);
+					
+				}
+				cout << "\n4";
+				newVenueList = venueDatabase.getVenue(eventName, layoutNr);
+				cout << "\n5";
+				newVenueList->displayList();
+				//newVenueList->displayElement("ABC");
+				/*for (int i = 1; i <= newVenueList->noOfElements(); i++)
+				{
+					
+				}*/
+			}
+		}
+
+		       
 	}
 	else
 		printError("NO EVENTS IN DATABASE! CREATE ONE USING 'A N' INN MAIN MENU FIRST!");
-
-
 }
 int Arrangementer::findEvent() {							//	Use if multiple search results
-    Arrangement* eventPtr;
-    List* tempList;
+   
+	Arrangement* eventPtr;
     char eventName[STRLEN];
-    int noOfEvents;
+	int noOfEvents, nr;
     int searchResults = 0;
     int hit = 0;
-    tempList = new List(Sorted);
-    noOfEvents = eventList->noOfElements();
-    
+	int* results;											
+	bool validNumber = true;
+
+    noOfEvents = eventList->noOfElements();					//	Updates variable
+
+	results = new int[noOfEvents + 1];						//	Make new array with 'results' pointing to it
+
+	for (int i = 1; i <= noOfEvents; i++)
+	{
+		results[i] = 0;										//	Initializing array
+	}
+
     read("EVENT NAME", eventName, STRLEN);
     
     for (int i = 1; i <= noOfEvents; i++)                    //    Couldn't use listool:: inList()
     {                                                        //    Need to know exatly how many in list
         eventPtr = (Arrangement*)eventList->removeNo(i);
-        if (eventPtr->compareEventNameExact(eventName))
+
+        if (eventPtr->compareEventNameExact(eventName))		//	strcmp on each, if true then:
         {
-            searchResults++;
-            eventPtr->display();
+            searchResults++;								//	Increment counter
+            eventPtr->display();				
             hit = eventPtr->getEventNr();
+			results[i] = eventPtr->getEventNr();			//	Puts event no. in array for later
         }
             eventList->add(eventPtr);
-       }
-    if (searchResults == 1)
-        return hit;
+    }
     
-    else
-        return 0;
+	if (searchResults == 1) {									//	Returns event no. if only ONE result
+		return hit;
+	}
+    else if (searchResults > 1){							//	If results > 1
+		
+		cout << "\nMULTIPLE RESULTS, PLEASE ENTER ONE OF THE FOLLOWING NUMBERS:\n\t" ;
+		
+		for (int i = 1; i <= noOfEvents; i++)				//	Prints the event numbers of the events
+		{													//	that returned a match. User is presented 
+			if (results[i] != 0)							//	with a list that contains the event numbs
+			{												//	of the events that match the query.
+				cout  << results[i] << ' ';
+			}
+		}
+		cout << endl;
 
+		do
+		{
+			cout << "\nENTER NUMBER: ";						
+			cin >> nr;										//	User enters desired number
+
+			for (int i = 1; i <= noOfEvents; i++)
+			{
+				if (results[i] == nr)						//	Veryfies that number is in array.
+				{											//	All numbers in array are valid input.
+					return nr;								//	Retures a valid event number.
+				}
+				else
+				{
+					validNumber = false;					//	User entered invalid number. 
+				}											//	Triggers do-loop.
+			}
+		} while (validNumber == false);
+    }
+	else {
+		cout << "\n\n\t\tNO RESULTS FOR '" << eventName << "'!" << endl;
+		return 0;
+	}
 }
 
 void Arrangementer::allDataArrNr() {
@@ -295,19 +373,21 @@ void Arrangementer::newEvent(){
 		readAndUpcase("Enter venue name", venueName, STRLEN);
 		if (venueDatabase.venueExist(venueName))
 		{
-            read("Enter event name", eventName, STRLEN);
-            temp = new Arrangement(++lastEvent, eventName, venueName);
-            eventList->add(temp);
+			if (venueDatabase.returnCurrentLayout(venueName))
+			{
+				read("Enter event name", eventName, STRLEN);
+				temp = new Arrangement(++lastEvent, eventName, venueName);
+				eventList->add(temp);
+			}
+			else
+				printError("THIS VENUE DOES NOT HAVE ANY LAYOUTS YET!");
 		}
 		else
-		{
 			printError("VENUE NOT IN DATABASE!");
-		}
 	}
 	else
-	{
 		printError("VENUE LIST IS EMPTY! PLEASE REGISTER A VENUE USING 'S N' COMMAND IN MAIN MENU");
-	}
+	
 }
 
 void Arrangementer::writeEventsToFile() {
@@ -316,7 +396,7 @@ void Arrangementer::writeEventsToFile() {
     Arrangement* tempEvent;
     
     /********************************************************************************/
-    ofstream out("ARRANGEMENTER.DTA");                            //JUST FOR TESTING. 
+    ofstream out("ARRANGEMENTER_TEST.DTA");                            //JUST FOR TESTING. 
     
     noOfEvents = eventList->noOfElements();
     

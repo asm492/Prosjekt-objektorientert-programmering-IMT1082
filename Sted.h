@@ -28,10 +28,14 @@ public:
     void display();
     void displayName();
     void newLayout();
+	void newLayoutFromCopy();
     void newSeatLayout();
     void printSeatLayout();
 	void displayLayouts();					//	Testing
 	int returnLastUsedLayout();
+	void editExistingLayout();
+
+	List* getLayout(int layoutN);
 	//List* kopier(int nr);
 
 };

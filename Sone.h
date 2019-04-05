@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <fstream>
 #include "ListTool2B.h"
+#include "enums.h"
 
 using namespace std;
 
@@ -16,13 +17,15 @@ protected:
     //List* seatList;                                        //    Stoler
     //List* swarmList;                                    //    Vrimle
 public:
-	Sone(char n[], enum zoneType type);		//	NEW
+	Sone(char n[], enum zoneType type);						//	NEW
 	Sone(char n[], ifstream & inn, enum zoneType type);
+	Sone(Sone* s);
 	~Sone();
     
 	int returnZoneType();
     void display();
 	void writeToFile(ofstream & out);
+	
     
 };
 

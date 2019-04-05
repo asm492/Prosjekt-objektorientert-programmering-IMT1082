@@ -17,22 +17,24 @@ extern Steder venueDatabase;
 
 Arrangement::Arrangement(int eNr, char evntName[], char venName[]) : TextElement(evntName){
     char buffer[STRLEN];
-    int dd, mm, yyyy, nr;
-   
-    
+	int dd, mm, yyyy, nr, layoutNo;
+
+	eventNumber = eNr;
+	eventName = new char[strlen(evntName) + 1];            //Allocating enough space
+	strcpy(eventName, evntName);                            //for string + '\0'
+
+	venueName = new char[strlen(venName) + 1];            //Allocating enough space
+	strcpy(venueName, venName);                            //for string + '\0'
+
+
+
+	layoutNo = venueDatabase.returnCurrentLayout(venName);
+	layoutNumber = read("WHICH LAYOUT TO USE FOR EVENT?", 1, layoutNo);
 	
-		eventNumber = eNr;
 
-		eventName = new char[strlen(evntName) + 1];            //Allocating enough space
-		strcpy(eventName, evntName);                            //for string + '\0'
-
-		venueName = new char[strlen(venName) + 1];            //Allocating enough space
-		strcpy(venueName, venName);                            //for string + '\0'
-
-
-		read("Enter artist name", buffer, STRLEN);
-		artistName = new char[strlen(buffer) + 1];            //Allocating enough space
-		strcpy(artistName, buffer);                            //for string + '\0'
+	read("Enter artist name", buffer, STRLEN);
+	artistName = new char[strlen(buffer) + 1];            //Allocating enough space
+	strcpy(artistName, buffer);                            //for string + '\0'
 
 
 
@@ -86,7 +88,7 @@ void Arrangement::display(){
     cout << "Event Nr " << eventNumber << ':';
     cout << "\n\tEvent name:             " << eventName << endl;
     cout << "\tVenue:                  " << venueName << endl;
-
+	cout << "\tLayout no.:             " << layoutNumber << endl;
     cout << "\tArtist:                 " << artistName << endl;
 	cout << "\tEvent Type:             "; cout << enumDisplay(eventType) << endl;
 	cout << "\tEvent date and time:    ";
@@ -146,6 +148,10 @@ bool Arrangement::compareVenueName(char query[]) {
 const char* Arrangement::getEventName() {
     return eventName;
 }
+const char * Arrangement::getVenueName()
+{
+	return venueName;
+}
 const char* Arrangement::enumDisplay(enum eventType type){
     
     switch (type) 
@@ -171,6 +177,7 @@ void Arrangement::writeToFile(ofstream & out) {
     out << eventNumber << '\n';
     out << eventName << '\n';
     out << venueName << '\n';
+	out << layoutNumber << '\n';
     out << artistName << '\n';
     
     switch (eventType) {                   //  Status skrives som bokstaver:
@@ -220,6 +227,7 @@ Arrangement::Arrangement(int eNr, char n[], ifstream & inn) : TextElement(n) {
 	venueName = new char[strlen(buffer) + 1];
 	strcpy(venueName, buffer);
 	
+	inn >> layoutNumber; inn.ignore();
 
 	inn.getline(buffer, STRLEN);
 	artistName = new char[strlen(buffer) + 1];
@@ -255,4 +263,9 @@ Arrangement::~Arrangement() {
 
 int Arrangement::getEventNr(){
     return eventNumber;
+}
+
+int Arrangement::getLayout()
+{
+	return layoutNumber;
 }

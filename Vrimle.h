@@ -1,5 +1,6 @@
 #ifndef Vrimle_h
 #define Vrimle_h
+
 #include "Sone.h"
 #include "ListTool2B.h"
 #include <stdio.h>
@@ -12,14 +13,18 @@ class Vrimle : public Sone {
 private:
     
     int* space = nullptr;
-	enum zoneType typeOfZone = vrimle;
+	//enum zoneType type;
     //int soldToCustNo[ticketsForSale + 1]; MŒ ha dynamic array eller liste
 public:
-    Vrimle(char name[]);
+    
+	Vrimle(char name[], enum zoneType type);
 	Vrimle(char name[], ifstream & inn, enum zoneType type);
-
+	Vrimle(Vrimle & v);
+	~Vrimle();
+	
 	void writeToFile(ofstream & out);
     void display();
+	
     
 };
 
