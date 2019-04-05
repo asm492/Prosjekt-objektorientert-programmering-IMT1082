@@ -307,14 +307,25 @@ List* Oppsett::getZoneList()
 	return nullptr;
 }
 
-List * Oppsett::copyZone()
+List* Oppsett::copyZone()
 {
 	int totalZones, i, temp;
 	Sone *zonePtr, *zoneCopyPtr;
 	List* zoneListCopy = NULL;
 
+	cout << "\n10";
+	
 	totalZones = zoneList->noOfElements();
+	/*
+	if (totalZones)
+	{
 
+	}
+	else {
+		zoneCopyPtr = nullptr;
+	}*/
+
+	cout << "\n6";
 	zoneListCopy = new List(Sorted);
 	for (i = 1; i <= totalZones; i++) {
 		zonePtr = (Sone*)zoneList->removeNo(i);
@@ -331,9 +342,10 @@ List * Oppsett::copyZone()
 
 		zoneList->add(zonePtr);								//	Adds back to old list 
 		zoneListCopy->add(zonePtr);							//	and to new list
+		cout << "\n7";
 	}
 
-
+	cout << "\n8";
 	return zoneListCopy;
 }
 

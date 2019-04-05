@@ -58,7 +58,8 @@ void Arrangementer::searchChoice(){
 }
 void Arrangementer::buyTickets() {
 	Arrangement* tempEvent;
-	Oppsett* layout;
+//	Oppsett* layout;
+	List* newVenueList;
 	int evnr1;
 	char eventName[STRLEN], venueName[STRLEN];
 	char ch;
@@ -76,6 +77,7 @@ void Arrangementer::buyTickets() {
 
 			if (ch == 'Y')
 			{
+				cout << "\n1";
 				for (int i = 1; i <= eventList->noOfElements(); i++)
 				{
 					tempEvent = (Arrangement*)eventList->removeNo(i);
@@ -87,8 +89,17 @@ void Arrangementer::buyTickets() {
 						layoutNr = tempEvent->getLayout();
 					}
 					eventList->add(tempEvent);
+					
 				}
-				//eventlist
+				cout << "\n4";
+				newVenueList = venueDatabase.getVenue(eventName, layoutNr);
+				cout << "\n5";
+				newVenueList->displayList();
+				
+				/*for (int i = 1; i <= newVenueList->noOfElements(); i++)
+				{
+					
+				}*/
 			}
 		}
 

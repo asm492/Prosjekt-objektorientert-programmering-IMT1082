@@ -194,10 +194,17 @@ void Steder::layoutDelete()
 List* Steder::getVenue(char venName[], int layoutN)
 {
 	Sted* tmp;
+	List* listPtr;
+
+	cout << "\n2";
 
 	tmp = (Sted*)venueList->remove(venName);
-	//tmp->
-	return nullptr;
+	listPtr = tmp->getLayout(layoutN);
+	venueList->add(tmp);
+	cout << "\n2.5";
+
+	return listPtr;
+	
 }
 void Steder::layoutMenu() {		//	From main press 0
 	char command;

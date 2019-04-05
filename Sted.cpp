@@ -160,7 +160,12 @@ void Sted::editExistingLayout()
 }
 List* Sted::getLayout(int layoutN)
 {
-	return ( layouts[layoutN]->getZoneList());
+	List* listPtr;
+	cout << "\n3";
+	listPtr = layouts[layoutN]->copyZone();
+	cout << "\n3.5";
+	
+	return listPtr;
 }
 /*
 List * Sted::kopier(int nr)

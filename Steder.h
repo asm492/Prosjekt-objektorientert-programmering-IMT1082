@@ -38,7 +38,7 @@ public:
     
 	int returnCurrentLayout(char venueName[]);
 	int retLastUsedVenue();
-	const char* returnZoneName();
+	//const char* returnZoneName();
     
 	
 };
