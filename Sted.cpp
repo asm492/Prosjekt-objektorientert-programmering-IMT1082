@@ -160,14 +160,17 @@ void Sted::editExistingLayout()
 }
 List* Sted::getLayout(int layoutN)
 {
-	List* listPtr;
+	List* listPtr = nullptr;
 	cout << "\n3";
 	if (layouts[layoutN]->copyZone() == nullptr)
 	{
 		cout << "den peker til nullptr";
 	}
-
-	layouts[layoutN]->display();
+	else {
+		listPtr = layouts[layoutN]->copyZone();
+		//layouts[layoutN]->display();
+	}
+	//layouts[layoutN]->display();
 	cout << "\n3.5";
 	
 	return listPtr;

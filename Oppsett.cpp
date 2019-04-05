@@ -330,7 +330,7 @@ List* Oppsett::copyZone()
 	for (i = 1; i <= totalZones; i++) {
 		zonePtr = (Sone*)zoneList->removeNo(i);
 		temp = zonePtr->returnZoneType();
-		zoneList->add(zonePtr);
+		
 
 		if (temp == 0) {
 			zoneCopyPtr = new Stoler(*((Stoler*)zonePtr));		//	Makes new Stoler
@@ -340,8 +340,9 @@ List* Oppsett::copyZone()
 			zoneCopyPtr = new Vrimle(*((Vrimle*)zonePtr));
 		}
 
-		zoneList->add(zonePtr);								//	Adds back to old list 
-		zoneListCopy->add(zonePtr);							//	and to new list
+		//zoneList->add(zonePtr);								//	Adds back to old list 
+		zoneList->add(zonePtr);
+		zoneListCopy->add(zoneCopyPtr);							//	and to new list
 		cout << "\n7";
 	}
 
