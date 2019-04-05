@@ -39,7 +39,9 @@ public:
 	int returnCurrentLayout(char venueName[]);
 	int retLastUsedVenue();
 	//const char* returnZoneName();
-    
+
+	//FRODE:
+	List* kopier(char* nvn, int nr);
 	
 };
 

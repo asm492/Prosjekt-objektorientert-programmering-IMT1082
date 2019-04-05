@@ -84,7 +84,7 @@ void Arrangementer::buyTickets() {
 
 			if (ch == 'Y')
 			{
-				cout << "\n1";
+				cout << "\nARRANGEMENTER BEFORE FORLOOP";
 				for (int i = 1; i <= eventList->noOfElements(); i++)
 				{
 					tempEvent = (Arrangement*)eventList->removeNo(i);
@@ -94,13 +94,16 @@ void Arrangementer::buyTickets() {
 						strcpy(eventName, tempEvent->getEventName());
 						strcpy(venueName, tempEvent->getVenueName());
 						layoutNr = tempEvent->getLayout();
+
+						cout << '\n' << eventName << ' ' << venueName << ' ' << layoutNr << '\n';
 					}
 					eventList->add(tempEvent);
 					
 				}
-				cout << "\n4";
-				newVenueList = venueDatabase.getVenue(eventName, layoutNr);
-				cout << "\n5";
+				cout << "\nARRANGEMENTER AFTER FORLOOP";
+				//newVenueList = venueDatabase.getVenue(eventName, layoutNr);
+				newVenueList = venueDatabase.kopier(eventName, layoutNr);
+				cout << "\nARRANGEMENTER AFTER TRYING TO GET";
 				newVenueList->displayList();
 				//newVenueList->displayElement("ABC");
 				/*for (int i = 1; i <= newVenueList->noOfElements(); i++)
@@ -384,6 +387,7 @@ void Arrangementer::newEvent(){
 	char venueName[STRLEN];
 	char eventName[STRLEN];
     Arrangement* temp;
+
 
 	if (venueDatabase.retLastUsedVenue() > 0)
 	{

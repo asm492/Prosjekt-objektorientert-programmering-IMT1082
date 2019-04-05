@@ -36,7 +36,8 @@ public:
 	void editExistingLayout();
 
 	List* getLayout(int layoutN);
-	//List* kopier(int nr);
+	List* kopier(int nr);
+
 
 };
 

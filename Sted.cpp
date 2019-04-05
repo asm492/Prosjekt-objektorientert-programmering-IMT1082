@@ -160,18 +160,13 @@ void Sted::editExistingLayout()
 }
 List* Sted::getLayout(int layoutN)
 {
-	List* listPtr = nullptr;
-	cout << "\n3";
-	if (layouts[layoutN]->copyZone() == nullptr)
-	{
-		cout << "den peker til nullptr";
-	}
-	else {
-		listPtr = layouts[layoutN]->copyZone();
-		//layouts[layoutN]->display();
-	}
-	//layouts[layoutN]->display();
-	cout << "\n3.5";
+	List* listPtr = NULL;
+	Oppsett* op;
+	cout << "\nSTED TOP";
+	
+	//listPtr = (Oppsett*)
+	layouts[layoutN]->addNewZone();
+	//cout << "\nSTED BOTTOM";
 	
 	return listPtr;
 }
@@ -242,4 +237,11 @@ void Sted::newLayoutFromCopy() {
 int Sted::compareVenueName(char text[]){
     return !strcmp(name, text);
     
+}//FRODE
+List* Sted::kopier(int nr) {
+	List* liste = NULL;
+	
+	cout << "FRODE";
+	liste = layouts[nr]->copyZone();
+	return liste;
 }

@@ -194,16 +194,17 @@ void Steder::layoutDelete()
 List* Steder::getVenue(char venName[], int layoutN)
 {
 	//VÅR:
-	Sted* tmp = nullptr;
-	List* listPtr = nullptr;
+	Sted* tmp = NULL;
+	List* listPtr = NULL;
 
-	cout << "\n2";
+	cout << "\nSTEDER::GETVENUE() TOP";
 
 	tmp = (Sted*)venueList->remove(venName);
+	
+	listPtr = tmp->kopier(layoutN);
+	//listPtr->displayList();
 	venueList->add(tmp);
-	listPtr = tmp->getLayout(layoutN);
-	listPtr->displayList();
-	cout << "\n2.5";
+	cout << "\nSTEDER::GETVENUE() BOTTOM";
 
 	return listPtr;
 	
@@ -319,4 +320,15 @@ bool Steder::venueExist(char text[]){
         return false;
     }
     */
+}
+//FRODE:
+List* Steder::kopier(char* nvn, int nr) {
+	List* liste = NULL;
+	Sted* sted;
+
+	if ((sted = (Sted*)venueList->remove(nvn))) {
+		liste = sted->kopier(nr);
+		venueList->add(sted);
+	}
+	return liste;
 }
