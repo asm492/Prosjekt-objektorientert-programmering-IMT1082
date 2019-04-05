@@ -193,6 +193,7 @@ void Steder::layoutDelete()
 }
 List* Steder::getVenue(char venName[], int layoutN)
 {
+	/*//VÅR:
 	Sted* tmp;
 	List* listPtr;
 
@@ -204,6 +205,20 @@ List* Steder::getVenue(char venName[], int layoutN)
 	cout << "\n2.5";
 
 	return listPtr;
+	*/
+
+	//Frode
+	List* liste = NULL;
+	Sted* sted;
+
+	if ((sted = (Sted*)venueList->remove(venName))) {
+		liste = sted->getLayout(layoutN);
+		venueList->add(sted);
+	}
+	return liste;
+
+
+
 	
 }
 void Steder::layoutMenu() {		//	From main press 0

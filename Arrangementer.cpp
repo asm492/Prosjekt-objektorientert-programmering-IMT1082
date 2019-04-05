@@ -95,7 +95,7 @@ void Arrangementer::buyTickets() {
 				newVenueList = venueDatabase.getVenue(eventName, layoutNr);
 				cout << "\n5";
 				newVenueList->displayList();
-				
+				//newVenueList->displayElement("ABC");
 				/*for (int i = 1; i <= newVenueList->noOfElements(); i++)
 				{
 					
