@@ -193,7 +193,7 @@ void Steder::layoutDelete()
 }
 List* Steder::getVenue(char venName[], int layoutN)
 {
-	/*//VÅR:
+	//VÅR:
 	Sted* tmp;
 	List* listPtr;
 
@@ -205,8 +205,8 @@ List* Steder::getVenue(char venName[], int layoutN)
 	cout << "\n2.5";
 
 	return listPtr;
-	*/
-
+	
+	/*
 	//Frode
 	List* liste = NULL;
 	Sted* sted;
@@ -216,7 +216,7 @@ List* Steder::getVenue(char venName[], int layoutN)
 		venueList->add(sted);
 	}
 	return liste;
-
+	*/
 
 
 	

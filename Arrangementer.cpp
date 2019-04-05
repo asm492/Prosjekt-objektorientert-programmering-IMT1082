@@ -177,10 +177,10 @@ int Arrangementer::findEvent() {							//	Use if multiple search results
 			}
 		} while (validNumber == false);
     }
-	else {
+	
 		cout << "\n\n\t\tNO RESULTS FOR '" << eventName << "'!" << endl;
 		return 0;
-	}
+	
 }
 
 void Arrangementer::allDataArrNr() {

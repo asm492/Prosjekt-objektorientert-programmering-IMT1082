@@ -162,7 +162,12 @@ List* Sted::getLayout(int layoutN)
 {
 	List* listPtr;
 	cout << "\n3";
-	listPtr = layouts[layoutN]->copyZone();
+	if (layouts[layoutN]->copyZone() == nullptr)
+	{
+		cout << "den peker til nullptr";
+	}
+
+	layouts[layoutN]->display();
 	cout << "\n3.5";
 	
 	return listPtr;
