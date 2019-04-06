@@ -19,32 +19,32 @@ Kunde::Kunde(int n) : NumElement(n) {        //    Passes parameter on to base-c
     char bufferAddress[STRLEN];
     char bufferArea[STRLEN];
     
-    cout << "\n\tCustomer number: " << n << endl;
-    //Name:
+    cout << "\n\tCustomer number: " << n << endl;   //Name
+    
     read("Enter customer name", bufferName, STRLEN);
     name = new char[strlen(bufferName) + 1];            //Allocating enough space
     strcpy(name, bufferName);                            //for string + '\0'
     
-    //Address:
-    read("Enter street address", bufferAddress, STRLEN);
+    
+    read("Enter street address", bufferAddress, STRLEN); //Address
     streetAddress = new char[strlen(bufferAddress) + 1];//Allocating enough space
     strcpy(streetAddress, bufferAddress);                //for string + '\0'
     
     postalCode = read("Enter postal code", MINZIP, MAXZIP);
     
-    //Postal area / city:
-    read("Enter postal area (City)", bufferArea, STRLEN);
+    
+    read("Enter postal area (City)", bufferArea, STRLEN); //Postal area / city
     postalArea = new char[strlen(bufferArea) + 1];        //Allocating enough space
     strcpy(postalArea, bufferArea);                        //for string + '\0'
     
-    phoneNumber = read("Enter phone number", MINTLF, MAXTLF);
+    phoneNumber = read("Enter phone number", MINTLF, MAXTLF); //Reads phone number
     
-    //Email:
-    read("Enter email address", bufferEmail, STRLEN);
+    
+    read("Enter email address", bufferEmail, STRLEN);       //Email:
     email = new char[strlen(bufferEmail) + 1];            //Allocating enough space
     strcpy(email, bufferEmail);                            //for string + '\0'
 }
-void Kunde::display() {
+void Kunde::display() {      //Displays customer
     cout << "\nCustomer number: " << number << endl;
     cout << "Name:            " << name << endl;
     cout << "Street address:  " << streetAddress << endl;
@@ -67,8 +67,8 @@ void Kunde::display() {
     cout << "Email:           " << email << endl;
     
 }
-void Kunde::writeToFile(int custNumber, ofstream & out) {
-    out << custNumber << '\n';
+void Kunde::writeToFile(int custNumber, ofstream & out) { //Writes customer to file
+    out << custNumber << '\n';      // 2.line after number of all customers
     out << name << '\n';
     out << streetAddress << '\n';
     out << postalCode << '\n';
@@ -76,7 +76,7 @@ void Kunde::writeToFile(int custNumber, ofstream & out) {
     out << phoneNumber << '\n';
     out << email << '\n';
 }
-Kunde::Kunde(int n, ifstream & inn) : NumElement(n) {
+Kunde::Kunde(int n, ifstream & inn) : NumElement(n) {  //Reads customer from file
     
     char bufferName[STRLEN];
     char bufferEmail[STRLEN];
@@ -85,13 +85,13 @@ Kunde::Kunde(int n, ifstream & inn) : NumElement(n) {
     
     inn >> number; inn.ignore();
     
-    //Name:
-    inn.getline(bufferName, STRLEN);
+    
+    inn.getline(bufferName, STRLEN);                    //Name
     name = new char[strlen(bufferName) + 1];            //Allocating enough space
     strcpy(name, bufferName);                            //for string + '\0'
     //inn.ignore();
-    //Address:
-    inn.getline(bufferAddress, STRLEN);
+    
+    inn.getline(bufferAddress, STRLEN);                 //Address
     streetAddress = new char[strlen(bufferAddress) + 1];//Allocating enough space
     strcpy(streetAddress, bufferAddress);                //for string + '\0'
     //inn.ignore();
@@ -99,17 +99,17 @@ Kunde::Kunde(int n, ifstream & inn) : NumElement(n) {
     inn >> postalCode;
     inn.ignore();
     
-    //Postal area / city:
-    inn.getline(bufferArea, STRLEN);
+    
+    inn.getline(bufferArea, STRLEN);                    //Postal area / city
     postalArea = new char[strlen(bufferArea) + 1];        //Allocating enough space
     strcpy(postalArea, bufferArea);                        //for string + '\0'
     
     
-    inn >> phoneNumber;
+    inn >> phoneNumber;                                 //Reads phone number
     inn.ignore();
     
-    //Email:
-    inn.getline(bufferEmail, STRLEN);
+    
+    inn.getline(bufferEmail, STRLEN);                   //Email
     email = new char[strlen(bufferEmail) + 1];            //Allocating enough space
     strcpy(email, bufferEmail);                            //for string + '\0'
     
@@ -117,17 +117,18 @@ Kunde::Kunde(int n, ifstream & inn) : NumElement(n) {
     //inn.ignore();
     
 }
-Kunde::~Kunde() {
+Kunde::~Kunde() {               //Destrctor for customer
     delete[] name;
     delete[] streetAddress;
     delete[] postalArea;
     delete[] email;
 }
-bool Kunde::compareName(char query[]) {
-    
+bool Kunde::compareName(char query[])          //Compares customer number
+{
     return strstr(name, query);
-    //return strcmp(name, query);
+    
 }
-void Kunde::updateCustomerNumber(int newCustomerNr) {
+void Kunde::updateCustomerNumber(int newCustomerNr)  //Updates customer number
+{
     number = newCustomerNr;
 }

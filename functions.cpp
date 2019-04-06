@@ -45,12 +45,12 @@ void readAndUpcase(const char t[], char s[], const int LEN) {
 		}
 	} while (strlen(s) == 0);                    //  Sjekker at tekstlengden er ulik 0.
 }
-void printError(const char t[]) {
+void printError(const char t[]) {  //Function to print error messeges
     
     cout << "\n\n\t\t" << t << "\n\n";
     
 }
-int dayNumber(int dd, int mm, int yyyy) {
+int dayNumber(int dd, int mm, int yyyy) { //Checks if date input is valid
     int daysPrMonth[12] = { 31, 0, 31, 30, 31, 30, 31, 31, 30, 31, 30,
         31 };
     int totDayNumber, i;
@@ -70,7 +70,7 @@ bool leapyear(int yy) {
     //Leapyear?
     return ((yy % 400 == 0) || ((yy % 4 == 0) && (yy % 100) != 0));
 }
-void printMenu() {
+void printMenu() {        //Main menu
     cout << "\n\nMAIN MENU - Avalible commands:";
     cout << "\n\tK D - Kunde Display";
     cout << "\n\tK N - Kunde Ny";
@@ -87,15 +87,8 @@ void printMenu() {
     cout << "\n\tA K - Arrangement Kjop";
     cout << "\n\tQ   - Quit / avslutt\n\n";
 }
-void printError(char t[]) {
-    int n = strlen(t);
-    for (int i = 0; i < n; i++)                //    Uppercases the whole string
-    {
-        t[i] = toupper(t[i]);
-    }
-    cout << "\n\n\t\t" << t << "\n\n";        //    Prints stirng
-}
-bool checkDigit(const char t[]) {
+
+bool checkDigit(const char t[]) {   //Checks if input is only digits
     for (int i = 0; i < strlen(t); i++)
     {
         if (!isdigit(t[i]))
@@ -103,7 +96,7 @@ bool checkDigit(const char t[]) {
     }
     return true;
 }
-void printEventTypeMenu() {
+void printEventTypeMenu() {      //Event type menu
 	cout << "\n\nTYPE OF EVENT:";
 	cout << "\n\t0\tMusic";
 	cout << "\n\t1\tSport";
