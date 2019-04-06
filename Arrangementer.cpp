@@ -461,5 +461,5 @@ void Arrangementer::readEventsFromFile() {
 }
 /*NEW CODE AFTER REMOVAL OF Oppsett* layouts[]*/
 void Arrangementer::addNewEvent() {
-
+	//
 }
