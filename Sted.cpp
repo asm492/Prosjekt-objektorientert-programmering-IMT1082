@@ -17,10 +17,20 @@ using namespace std;
 
 Sted::Sted(char n[]) : TextElement(n) {
     
-    lastUsedLayout = 0;
+	lastUsedLayout = 0;
+
+	name = new char[strlen(n) + 1];
+	strcpy(name, n);
+
+	/*venueLayouts*/
+	for (int i = 0; i <= MAXLAYOUTS; i++)
+	{
+		venueLayouts[i] = nullptr;
+	}
+
+	/*venueLayouts END*/
+
     
-    name = new char[strlen(n) + 1];
-    strcpy(name, n);
     
 }
 Sted::Sted(char n[], ifstream & inn) : TextElement(n) {
@@ -160,18 +170,15 @@ void Sted::editExistingLayout()
 }
 List* Sted::getLayout(int layoutN)
 {
-	List* listPtr = nullptr;
-	cout << "\n3";
-	if (layouts[layoutN]->copyZone() == nullptr)
-	{
-		cout << "den peker til nullptr";
-	}
-	else {
-		listPtr = layouts[layoutN]->copyZone();
-		//layouts[layoutN]->display();
-	}
-	//layouts[layoutN]->display();
-	cout << "\n3.5";
+	List* listPtr = NULL;
+	Oppsett* op;
+	cout << "\nSTED TOP";
+	
+	//listPtr = (Oppsett*)
+	//listPtr = layouts[layoutN]->foo();
+	listPtr = layouts[layoutN]->copyZone();
+	//layouts[layoutN]->
+	cout << "\nSTED BOTTOM";
 	
 	return listPtr;
 }
@@ -242,4 +249,158 @@ void Sted::newLayoutFromCopy() {
 int Sted::compareVenueName(char text[]){
     return !strcmp(name, text);
     
+}//FRODE
+List* Sted::kopier(int nr) {
+	List* liste = NULL;
+	
+	cout << "FRODE";
+	liste = layouts[nr]->copyZone();
+	return liste;
 }
+/*NEW CODE AFTER REMOVAL OF Oppsett* layouts[]*/
+void Sted::newVenueLayout(){
+	char command;
+
+	cout << "\nCURRENT NUMBER OF LAYOUTS: " << lastUsedLayout;
+
+	if (lastUsedLayout < 5)
+	{
+		cout << "\nCreate layout from (S)cratch or (C)opy?: ";
+		command = read();
+
+		do
+		{
+			switch (command)
+			{
+			case 'S':
+				cout << "\nCRATING LAYOUT NO. " << ++lastUsedLayout << " for " << name << ":\n\n";
+				venueLayouts[lastUsedLayout] = new List(Sorted);
+				addZones(lastUsedLayout);									break;
+
+			case 'C': /*newLayoutFromCopy();*/
+				//cout << "\nCRATING LAYOUT NO. " << ++lastUsedLayout << " for " << name << ":\n\n";
+				/*layouts[lastUsedLayout] = new Oppsett();*/				break;
+
+			default: printError("INVALID COMMAND, TRY AGAIN. S/C: ");	break;
+			}
+		} while (command != 'S' && command != 'C');
+
+
+	}
+	else
+		printError("THIS VENUE HAS REACHED ITS MAX NO. OF LAYOUTS!");
+}
+void Sted::addZones(int nr) {
+	Stoler* tempSeat;
+	Vrimle* tempVrimle;
+	char command, ch;
+	char buffer[STRLEN];
+
+	cout << "\nADDING ZONES TO LAYOUT NO. " << nr << endl;
+
+	do
+	{
+		read("DESIRED NAME FOR NEW ZONE?", buffer, STRLEN);
+
+		cout << "\n(S)EATS or S(W)ARM?: ";
+		command = read();
+
+		switch (command)
+		{
+		case 'S':
+			tempSeat = new Stoler(buffer, stoler);
+			venueLayouts[nr]->add(tempSeat);			break;														
+		case 'W':
+			tempVrimle = new Vrimle(buffer, vrimle);
+			venueLayouts[nr]->add(tempVrimle);			break;
+
+		default: printError("INVALID COMMAND");			break;
+		}
+
+		cout << "\nCONTINIUE TO ADD MORE ZONES? (Y/N):   "; ch = read();
+
+	} while (ch == 'Y');
+}
+void Sted::editLayout() {
+	int nr;
+	char ch, command;
+
+	if (lastUsedLayout > 0)
+	{
+		nr = read("WHICH LAYOUT TO EDIT?", 1, lastUsedLayout);
+
+		cout << "\nWHAT DO YOU WANT TO DO TO LAYOUT NR. " << nr << "?:" << endl;
+		cout << "\n\tA\tAdd new zone from scratch";
+		cout << "\n\tC\tAdd new zone from a copy";
+		cout << "\n\tR\tRemove a zone";
+		cout << "\n\tD\tChange the details" << endl;
+		ch = read();
+		switch (ch)
+		{
+		case 'A': layouts[nr]->addNewZone();		break;
+		case 'C': /*layouts[nr]->addNewCopy();*/	break;
+		case 'R': 
+										
+			break;
+		case 'D': venueLayouts[nr]->destroy();
+			delete venueLayouts[nr];
+			--lastUsedLayout;
+
+				  break;
+		default: printError("INVALID COMMAND!");	break;
+		}
+	}
+	else {
+		printError("THIS VENUE HAS NO LAYOUTS! ADD NEW LAYOUT? (Y/N):");
+		command = read();
+		if (command == 'Y')
+		{
+			newVenueLayout();
+		}
+	}
+}
+void Sted::displayLayout() {
+	int layoutNo, seatOrSwarm;
+	Sone* tmpZone;
+	Stoler* tmpSeat;
+	Vrimle* tmpSwarm;
+
+	
+	if (lastUsedLayout > 0)
+	{
+		layoutNo = read("WHICH LAYOUT TO DISPLAY?", 1, lastUsedLayout);
+
+		for (int i = 1; i <= venueLayouts[layoutNo]->noOfElements(); i++)
+		{
+			/*
+			tmpZone = (Sone*)venueLayouts[layoutNo]->removeNo(i);
+			seatOrSwarm = tmpZone->getType();
+			venueLayouts[layoutNo]->add(tmpZone);
+
+			if (seatOrSwarm == 0)
+			{
+				tmpSeat = (Stoler*)venueLayouts[layoutNo]->removeNo(i);
+				tmpSeat->display();
+				venueLayouts[layoutNo]->add(tmpSeat);
+			}
+			else if (seatOrSwarm == 1)
+			{
+				tmpSwarm = (Vrimle*)venueLayouts[layoutNo]->removeNo(i);
+				tmpSwarm->display();
+				venueLayouts[layoutNo]->add(tmpSwarm);
+			}*/
+			tmpZone = (Sone*)venueLayouts[layoutNo]->removeNo(i);
+			tmpZone->display();
+			venueLayouts[layoutNo]->add(tmpZone);
+		}
+	}
+	else
+	{
+		printError("VENUE HAS NO LAYOUTS YET!");
+	}
+	
+
+
+}
+
+

@@ -9,6 +9,8 @@
 #include "conster.h"
 #include "enums.h"
 
+using namespace std;
+
 class Arrangementer
 {
 private:
@@ -32,6 +34,8 @@ public:
 	int findEvent();
     Arrangementer();
     //~Arrangementer();
+	/*NEW CODE AFTER REMOVAL OF Oppsett* layouts[]*/
+	void addNewEvent();
 };
 
 

@@ -64,8 +64,7 @@ Oppsett::Oppsett(int n, ifstream & inn) : NumElement(n) {
 	Vrimle* tempSwarm;
 		
 	zoneList = new List(Sorted);
-	//seatsLayout = new List(Sorted);
-	//swarmLayout = new List(Sorted);
+	
 	
 	inn >> noOfZones; //inn.ignore();
 	
@@ -311,9 +310,9 @@ List* Oppsett::copyZone()
 {
 	int totalZones, i, temp;
 	Sone *zonePtr, *zoneCopyPtr;
-	List* zoneListCopy = NULL;
+	List* zoneListCopy;
 
-	cout << "\n10";
+	cout << "\nOPPSETT::COPYZONE() TOP";
 	
 	totalZones = zoneList->noOfElements();
 	/*
@@ -325,7 +324,7 @@ List* Oppsett::copyZone()
 		zoneCopyPtr = nullptr;
 	}*/
 
-	cout << "\n6";
+	
 	zoneListCopy = new List(Sorted);
 	for (i = 1; i <= totalZones; i++) {
 		zonePtr = (Sone*)zoneList->removeNo(i);
@@ -343,13 +342,17 @@ List* Oppsett::copyZone()
 		//zoneList->add(zonePtr);								//	Adds back to old list 
 		zoneList->add(zonePtr);
 		zoneListCopy->add(zoneCopyPtr);							//	and to new list
-		cout << "\n7";
+		cout << "\nOPPSETT::COPYZONE() FORLOOP";
 	}
 
-	cout << "\n8";
+	cout << "\nOPPSETT::COPYZONE() BOTTOM";
 	return zoneListCopy;
 }
 
 void Oppsett::display() {
+	
 	zoneList->displayList();
+}
+void Oppsett::foo(){
+	cout << "\nOPPSETT::FOO\n";
 }

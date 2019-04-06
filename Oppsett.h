@@ -30,6 +30,8 @@ public:
 	
 	List* getZoneList();
 	List* copyZone();
+	/**/
+	void foo();
 	
 };
 

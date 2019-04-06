@@ -159,13 +159,17 @@ void Kunder::editCustomer() {
         if(checkDigit(query) == false && strlen(query) > 0){
             nr = customerNameSearch(query);
             
-            
+            /*if(nr != 0){
+             //customersList->destroy(nr);
+             //customersList->add(new Kunde(nr));
+             }*/
             
             if(nr == 0){
                 cin >> nr;
                 cout << "\nNOW EDITING CUSTOMER NO. " << nr << ": " << endl;
                 customersList->displayElement(nr);
-           
+                //customersList->destroy(nr);
+                //customersList->add(new Kunde(nr));
             }
         }
         

@@ -131,7 +131,7 @@ void Steder::layoutDisplay()
 		if (tmpVenue->returnLastUsedLayout() > 0)
 		{
 			venueList->displayElement(buffer);
-			tmpVenue->displayLayouts();					//	Calls Sted class' function
+			tmpVenue->displayLayout();					//	displayLayout is the new, displayLayoutS is the old
 		}
 		else {
 			cout << "\n\n\t\t'" << buffer; 
@@ -154,9 +154,11 @@ void Steder::layoutNew()
 	if (venueList->inList(buffer))
 	{
 		tmpVenue = (Sted*)venueList->remove(buffer);
-		venueList->add(tmpVenue);
+		//
 		venueList->displayElement(buffer);
-		tmpVenue->newLayout();
+		//tmpVenue->newLayout();	//OLD
+		tmpVenue->newVenueLayout();	//new
+		venueList->add(tmpVenue);	//moved
 	}
 	else
 		cout << "\n\n\t\t'" << buffer << "' IS NOT IN LIST!\n\n";
@@ -194,16 +196,17 @@ void Steder::layoutDelete()
 List* Steder::getVenue(char venName[], int layoutN)
 {
 	//VÅR:
-	Sted* tmp = nullptr;
-	List* listPtr = nullptr;
+	Sted* tmp = NULL;
+	List* listPtr = NULL;
 
-	cout << "\n2";
+	cout << "\nSTEDER::GETVENUE() TOP";
 
 	tmp = (Sted*)venueList->remove(venName);
-	venueList->add(tmp);
+	
 	listPtr = tmp->getLayout(layoutN);
-	listPtr->displayList();
-	cout << "\n2.5";
+	//listPtr->displayList();
+	venueList->add(tmp);
+	cout << "\nSTEDER::GETVENUE() BOTTOM";
 
 	return listPtr;
 	
@@ -320,3 +323,15 @@ bool Steder::venueExist(char text[]){
     }
     */
 }
+//FRODE:
+List* Steder::kopier(char* nvn, int nr) {
+	List* liste = NULL;
+	Sted* sted;
+
+	if ((sted = (Sted*)venueList->remove(nvn))) {
+		liste = sted->kopier(nr);
+		venueList->add(sted);
+	}
+	return liste;
+}
+/*NEW CODE AFTER REMOVAL OF Oppsett* layouts[]*/

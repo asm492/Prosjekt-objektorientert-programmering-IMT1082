@@ -39,7 +39,11 @@ public:
 	int returnCurrentLayout(char venueName[]);
 	int retLastUsedVenue();
 	//const char* returnZoneName();
-    
+
+	//FRODE:
+	List* kopier(char* nvn, int nr);
+
+	/*NEW CODE AFTER REMOVAL OF Oppsett* layouts[]*/
 	
 };
 
