@@ -22,7 +22,7 @@ private:
     
 public:
     
-    Arrangement(int eNr, char evntName[], char venName[]);
+    Arrangement(int eNr, char evntName[], char venName[], int layoutNo, List* zones);
     Arrangement(int eNr, char n[], ifstream & inn);
     ~Arrangement();
     
@@ -30,6 +30,7 @@ public:
     const char* getEventName();
 	const char* getVenueName();
    
+	void writeToARRXXFile(List* zones);
     void writeToFile(ofstream & out);
     void display();
 	

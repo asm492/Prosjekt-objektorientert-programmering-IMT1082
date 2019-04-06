@@ -10,15 +10,19 @@
 #include "enums.h"
 #include "Steder.h"
 #include "ListTool2B.h"
+#include "Stoler.h"
+#include "Vrimle.h"
+#include "Sone.h"
 
 using namespace std;
 
 extern Steder venueDatabase;
 
-Arrangement::Arrangement(int eNr, char evntName[], char venName[]) : TextElement(evntName){
+Arrangement::Arrangement(int eNr, char evntName[], char venName[], int layoutNo, List* zones) : TextElement(evntName){
     char buffer[STRLEN];
-	int dd, mm, yyyy, nr, layoutNo;
-
+	int dd, mm, yyyy, nr;
+	
+	layoutNumber = layoutNo;
 	eventNumber = eNr;                                     //Adds eventnumber from parametre
 	eventName = new char[strlen(evntName) + 1];            //Allocating enough space
 	strcpy(eventName, evntName);                            //for string + '\0'
@@ -26,17 +30,9 @@ Arrangement::Arrangement(int eNr, char evntName[], char venName[]) : TextElement
 	venueName = new char[strlen(venName) + 1];            //Allocating enough space
 	strcpy(venueName, venName);                            //for string + '\0'
 
-
-
-	layoutNo = venueDatabase.returnCurrentLayout(venName);  //Gets alle layouts for venue
-	layoutNumber = read("WHICH LAYOUT TO USE FOR EVENT?", 1, layoutNo);
-	
-
 	read("Enter artist name", buffer, STRLEN);
 	artistName = new char[strlen(buffer) + 1];            //Allocating enough space
 	strcpy(artistName, buffer);                            //for string + '\0'
-
-
 
 		do
 		{
@@ -70,11 +66,9 @@ Arrangement::Arrangement(int eNr, char evntName[], char venName[]) : TextElement
 		case 5:    eventType = Familie;			break;
 		case 6:    eventType = Festival;		break;
 		}
-	
 
-	
-    
-    
+		
+		writeToARRXXFile(zones);
 }
 
 void Arrangement::display(){         //Prints all data for one event
@@ -171,6 +165,50 @@ const char* Arrangement::enumDisplay(enum eventType type){ //Returns enumn name
     case Festival:	return "Festival";	break;
     }
     
+}
+
+void Arrangement::writeToARRXXFile(List * zones)
+{
+	Sone* zonePtr;
+	Stoler* seatPtr;
+	Vrimle* swarmPtr;
+	int zoneType;
+
+	char filePrefix[] = "ARR_";
+	char evntNo[STRLEN / 8];
+
+	sprintf(evntNo, "%d", eventNumber);
+	strcat(filePrefix, evntNo);
+	strcat(filePrefix, ".DTA");
+	
+	ofstream out(filePrefix);
+	out << "dette er en test";
+	for (int i = 1; i <= zones->noOfElements(); i++)
+	{
+		cout << "\nForloop\n";
+		zonePtr = (Sone*)zones->removeNo(i);
+		zoneType = zonePtr->returnZoneType();
+		zones->add(zonePtr);
+		cout << "\nForloop for if \n";
+		if (zoneType == 0)
+		{
+			cout << "\nStoler ut\n";
+			out << "stoler" << '\n';
+			seatPtr = (Stoler*)zones->removeNo(i);
+			seatPtr->writeToFile(out);
+			zones->add(seatPtr);
+		}
+		if (zoneType == 1)
+		{
+			cout << "\nvrimleut\n";
+			out << "vrimle" << '\n';
+			swarmPtr = (Vrimle*)zones->removeNo(i);
+			swarmPtr->writeToFile(out);
+			zones->add(swarmPtr);
+		}
+	}
+
+
 }
 
 void Arrangement::writeToFile(ofstream & out) {  //Writes events to file

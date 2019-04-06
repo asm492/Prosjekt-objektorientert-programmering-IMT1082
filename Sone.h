@@ -22,6 +22,7 @@ public:
 	Sone(Sone* s);
 	~Sone();
     
+
 	int returnZoneType();
     void display();
 	void writeToFile(ofstream & out);

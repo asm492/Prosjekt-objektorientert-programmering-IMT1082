@@ -43,6 +43,7 @@ public:
 	void addZones(int nr);
 	void editLayout();
 	void displayLayout();
+	void displayTest(int i);
 
 
 

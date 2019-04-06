@@ -34,8 +34,8 @@ public:
 	void layoutNew();
 	void layoutEdit();
 	void layoutDelete();
-	List* getVenue(char venName[], int layoutN);
-    
+	List* getVenue(char* venName, int layoutN);
+	
 	int returnCurrentLayout(char venueName[]);
 	int retLastUsedVenue();
 	//const char* returnZoneName();

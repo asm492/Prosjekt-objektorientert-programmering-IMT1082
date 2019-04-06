@@ -9,6 +9,7 @@
 #include "ListTool2B.h"
 #include "Arrangement.h"
 #include "conster.h"
+#include <cstring>
 
 
 using namespace std;
@@ -30,7 +31,7 @@ void Arrangementer::eventsMenu() {
         switch (command)
     {
         case 'D':   searchChoice();		break;            //    Display
-        case 'N':   newEvent();			break;            //    New
+        case 'N':   addNewEvent();			break;            //    New
         case 'E':						break;            //    Edit
         case 'S':						break;            //    Delete
 		case 'K':    buyTickets();		break;            //    Purchase
@@ -382,7 +383,7 @@ void Arrangementer::eventNameSearch() {
 }
 
 
-
+/*
 void Arrangementer::newEvent(){
 	char venueName[STRLEN];
 	char eventName[STRLEN];
@@ -410,7 +411,7 @@ void Arrangementer::newEvent(){
 		printError("VENUE LIST IS EMPTY! PLEASE REGISTER A VENUE USING 'S N' COMMAND IN MAIN MENU");
 	
 }
-
+*/
 void Arrangementer::writeEventsToFile() {
     
     int noOfEvents;
@@ -461,5 +462,54 @@ void Arrangementer::readEventsFromFile() {
 }
 /*NEW CODE AFTER REMOVAL OF Oppsett* layouts[]*/
 void Arrangementer::addNewEvent() {
-	//
+	char buffer[STRLEN];
+	char* venueName;
+	char eventName[STRLEN];
+	Arrangement* temp;
+	List* zonesList;
+	Sone* zonePtr;
+	int layoutNo, numberOfLayouts;
+
+
+	if (venueDatabase.retLastUsedVenue() > 0)
+	{
+		//read("Enter venue name", buffer, STRLEN);		//Reads venue name
+		readAndUpcase("Type venue name", buffer, STRLEN);
+
+		venueName = new char[strlen(buffer) + 1];
+		strcpy(venueName, buffer);
+
+		cout << venueName << " " << buffer << endl;
+		if (venueDatabase.venueExist(venueName))					//Checks if it exist
+		{
+			if (numberOfLayouts = venueDatabase.returnCurrentLayout(venueName))		//Checks if venue has layouts
+			{
+				cout << venueName << endl;
+				layoutNo = read("WHICH LAYOUT TO USE FOR EVENT?", 1, numberOfLayouts);
+				zonesList = venueDatabase.getVenue(venueName, layoutNo);
+				cout << "\n\nHAR HENTET LISTEN\n\n";
+				
+
+				for (int i = 1; i <= zonesList->noOfElements(); i++)
+				{
+					zonePtr = (Sone*)zonesList->removeNo(i);
+					zonesList->add(zonePtr);
+				}
+				
+				
+				read("Enter event name", eventName, STRLEN);					//Reads event name
+				temp = new Arrangement(++lastEvent, eventName, venueName, layoutNo, zonesList);		//	LAYOUT NR MÅ BLI TILSENDT
+				eventList->add(temp);											//Adds event to list
+			}
+			else
+				printError("THIS VENUE DOES NOT HAVE ANY LAYOUTS YET!");
+		}
+		else
+			printError("VENUE NOT IN DATABASE!");
+	}
+	else
+		printError("VENUE LIST IS EMPTY! PLEASE REGISTER A VENUE USING 'S N' COMMAND IN MAIN MENU");
+
+
+	
 }

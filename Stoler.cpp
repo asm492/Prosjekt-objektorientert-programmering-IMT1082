@@ -29,11 +29,11 @@ Stoler::Stoler(char name[], enum zoneType type) : Sone(name, type) {			//	Sends 
 
 	} while (seatPrRow*rows != ticketsForSale);
     
-    tempArray = new int*[seatPrRow + 1];					//	First pointer points to new int pointer
+    tempArray = new int*[rows + 1];					//	First pointer points to new int pointer
     
-    for (int i = 1; i <= seatPrRow; i++)
+    for (int i = 1; i <= rows; i++)
     {
-        tempArray[i] = new int[rows + 1];
+        tempArray[i] = new int[seatPrRow + 1];
     }
     
     for (int i = 1; i <= rows; i++)                    //    Fills with 0
@@ -83,11 +83,11 @@ Stoler::Stoler(char name[], enum zoneType type) : Sone(name, type) {			//	Sends 
 Stoler::Stoler(char name[], ifstream & inn, enum zoneType type) : Sone(name, inn, type)
 {
 	inn >> seatPrRow >> rows; inn.ignore();
-	tempArray = new int*[seatPrRow + 1];					//	First pointer points to new int pointer
+	tempArray = new int*[rows + 1];					//	First pointer points to new int pointer
 
-	for (int i = 1; i <= seatPrRow; i++)
+	for (int i = 1; i <= rows; i++)
 	{
-		tempArray[i] = new int[rows + 1];
+		tempArray[i] = new int[seatPrRow + 1];
 	}
 
 	for (int i = 1; i <= rows; i++)                    //    Fills with 0
@@ -100,11 +100,14 @@ Stoler::Stoler(char name[], ifstream & inn, enum zoneType type) : Sone(name, inn
 }
 Stoler::Stoler(Stoler & s) : Sone((Sone*)&s) {
 
+	seatPrRow = s.seatPrRow;
+	rows = s.rows;
+	
 	tempArray = new int*[seatPrRow + 1];					//	First pointer points to new int pointer
 
-	for (int i = 1; i <= seatPrRow; i++)
+	for (int i = 1; i <= rows; i++)
 	{
-		tempArray[i] = new int[rows + 1];
+		tempArray[i] = new int[seatPrRow + 1];
 	}
 
 	for (int i = 1; i <= rows; i++)                    //    Fills with 0

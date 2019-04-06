@@ -11,8 +11,8 @@
 
 using namespace std;
 
-Sone::Sone(char n[], enum zoneType type) : TextElement(n){			//	THIS CONSTRUCTOR IS USED BY STOLER() BECAUSE IT HAS
-																//	TO KNOW HOW MANY SEATS WERE CONFIGURED. 
+Sone::Sone(char n[], enum zoneType type) : TextElement(n){			
+																 
 																//	Total TicketsForSale must be equal to Stoler::seatPrRow * rows.
     zoneName = new char[strlen(n) + 1]; //	NEW
     strcpy(zoneName, n);
@@ -36,6 +36,7 @@ Sone::Sone(char n[], ifstream & inn, enum zoneType type) : TextElement(n)
 Sone::Sone(Sone* s) : TextElement(s->text) {
 	ticketsForSale = s->ticketsForSale;
 	ticketsSold = s->ticketsSold;
+	ticketPrice = s->ticketPrice;
 }
 Sone::~Sone() {						
 	delete zoneName;

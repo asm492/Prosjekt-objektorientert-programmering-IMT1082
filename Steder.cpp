@@ -193,35 +193,26 @@ void Steder::layoutDelete()
 {
 	//TO DO 
 }
-List* Steder::getVenue(char venName[], int layoutN)
+List* Steder::getVenue(char* venName, int layoutN)
 {
-	//VÅR:
-	Sted* tmp = NULL;
-	List* listPtr = NULL;
-
-	cout << "\nSTEDER::GETVENUE() TOP";
-
-	tmp = (Sted*)venueList->remove(venName);
 	
-	listPtr = tmp->getLayout(layoutN);
-	//listPtr->displayList();
-	venueList->add(tmp);
+	Sted* tmpVenue;
+	List* newList = NULL;
+
+	cout << "\nSTEDER::GETVENUE() TOP" << endl;
+	cout << venName << endl;
+	tmpVenue = (Sted*)venueList->remove(venName);
+	if (tmpVenue)
+	{
+		cout << "STEDER::getVenue IF" << endl;
+		newList = tmpVenue->getLayout(layoutN);
+		venueList->add(tmpVenue);
+	}
+	
+	
 	cout << "\nSTEDER::GETVENUE() BOTTOM";
 
-	return listPtr;
-	
-	/*
-	//Frode
-	List* liste = NULL;
-	Sted* sted;
-
-	if ((sted = (Sted*)venueList->remove(venName))) {
-		liste = sted->getLayout(layoutN);
-		venueList->add(sted);
-	}
-	return liste;
-	*/
-
+	return newList;	
 
 	
 }
@@ -266,11 +257,14 @@ int Steder::returnCurrentLayout(char venueName[])
 {
 	
 	Sted* tempVenue;
+	int nr;
 	if (venueList->inList(venueName))
 	{
 		tempVenue = (Sted*)venueList->remove(venueName);
+		nr = tempVenue->returnLastUsedLayout();
 		venueList->add(tempVenue);
-		return tempVenue->returnLastUsedLayout();
+
+		return nr;
 	}
 	else
 	{

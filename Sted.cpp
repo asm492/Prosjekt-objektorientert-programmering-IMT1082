@@ -170,17 +170,34 @@ void Sted::editExistingLayout()
 }
 List* Sted::getLayout(int layoutN)
 {
-	List* listPtr = NULL;
-	Oppsett* op;
-	cout << "\nSTED TOP";
+	List* newList = NULL;
+	Sone *zone = NULL, *copy = NULL;
+	cout << "\nSTED TOP: NO OF ELEMENTS IN layout nr " << layoutN << ' ' << venueLayouts[layoutN]->noOfElements() << endl;
+	if (layoutN >= 1 && layoutN <= lastUsedLayout)
+	{
+		newList = new List(Sorted);
+		for (int i = 1; i <= venueLayouts[layoutN]->noOfElements(); i++)
+		{
+			cout << "\nSTED FOR";
+			zone = (Sone*)venueLayouts[layoutN]->removeNo(i);
+			if (zone->returnZoneType() == 0)
+			{
+				copy = new Stoler(*((Stoler*)zone));
+			}
+			if (zone->returnZoneType() == 1)
+			{
+				copy = new Vrimle(*((Vrimle*)zone));
+			}
+			venueLayouts[layoutN]->add(zone);
+			newList->add(copy);
+		}
+	}
 	
-	//listPtr = (Oppsett*)
-	//listPtr = layouts[layoutN]->foo();
-	listPtr = layouts[layoutN]->copyZone();
-	//layouts[layoutN]->
+	
+	
 	cout << "\nSTED BOTTOM";
 	
-	return listPtr;
+	return newList;
 }
 /*
 List * Sted::kopier(int nr)
@@ -403,4 +420,15 @@ void Sted::displayLayout() {
 
 }
 
+void Sted::displayTest(int i) {
 
+	Sone* tmpZone;
+
+
+	for (int j = 1; j <= venueLayouts[i]->noOfElements(); j++)
+	{
+		tmpZone = (Sone*)venueLayouts[i]->removeNo(j);
+		tmpZone->display();
+		venueLayouts[i]->add(tmpZone);
+	}
+}
