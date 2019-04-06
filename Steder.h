@@ -42,6 +42,8 @@ public:
 
 	//FRODE:
 	List* kopier(char* nvn, int nr);
+
+	/*NEW CODE AFTER REMOVAL OF Oppsett* layouts[]*/
 	
 };
 

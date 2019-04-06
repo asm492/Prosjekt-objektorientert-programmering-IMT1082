@@ -101,8 +101,8 @@ void Arrangementer::buyTickets() {
 					
 				}
 				cout << "\nARRANGEMENTER AFTER FORLOOP";
-				//newVenueList = venueDatabase.getVenue(eventName, layoutNr);
-				newVenueList = venueDatabase.kopier(eventName, layoutNr);
+				newVenueList = venueDatabase.getVenue(eventName, layoutNr);
+				//newVenueList = venueDatabase.kopier(eventName, layoutNr);
 				cout << "\nARRANGEMENTER AFTER TRYING TO GET";
 				newVenueList->displayList();
 				//newVenueList->displayElement("ABC");
@@ -458,5 +458,8 @@ void Arrangementer::readEventsFromFile() {
     else
         printError("FILE 'ARRANGEMENTER.DTA' NOT FOUND!");
     
-    
+}
+/*NEW CODE AFTER REMOVAL OF Oppsett* layouts[]*/
+void Arrangementer::addNewEvent() {
+
 }

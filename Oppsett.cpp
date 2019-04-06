@@ -353,3 +353,6 @@ void Oppsett::display() {
 	
 	zoneList->displayList();
 }
+void Oppsett::foo(){
+	cout << "\nOPPSETT::FOO\n";
+}
