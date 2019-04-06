@@ -21,7 +21,10 @@ public:
     void writeCustomersToFile();
     void readCustomersFromFile();
     
+	bool customerExists(int nr);
+
     int customerNameSearch(char name[]);
+	int returnLastCustomer();
 };
 
 #endif 

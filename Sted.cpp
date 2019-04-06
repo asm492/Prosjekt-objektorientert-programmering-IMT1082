@@ -76,8 +76,7 @@ void Sted::newSeatLayout() {
     {                                                    //    To do: copy
         cout << "\nCreating new layout:" << endl;
         read("Enter name for zone", buffer, STRLEN);
-        //layouts[++lastUsedLayout] = 
-		(buffer);
+        //layouts[++lastUsedLayout] = (buffer);
         
     }
     else
@@ -171,28 +170,7 @@ void Sted::editExistingLayout()
 }
 List* Sted::getLayout(int layoutN)
 {
-	/*
-	List* newList = NULL;
-	Sone *zone = NULL, *copy = NULL;
-	cout << "\nSTED TOP: NO OF ELEMENTS IN layout nr " << layoutN << ' ' << venueLayouts[layoutN]->noOfElements() << endl;
-	if (layoutN >= 1 && layoutN <= lastUsedLayout)
-	{
-		newList = new List(Sorted);
-		for (int i = 1; i <= venueLayouts[layoutN]->noOfElements(); i++)
-		{
-			cout << "\nSTED FOR";
-			zone = (Sone*)venueLayouts[layoutN]->removeNo(i);
-			if (zone->returnZoneType() == 0)
-			{
-				copy = new Stoler(*((Stoler*) zone));
-			}
-			else {
-				copy = new Vrimle(*((Vrimle*) zone));
-			}
-			venueLayouts[layoutN]->add(zone);
-			newList->add(copy);
-		}
-	}*/
+
 
 	
 	List* liste = NULL;

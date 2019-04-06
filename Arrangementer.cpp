@@ -72,6 +72,7 @@ void Arrangementer::buyTickets() {
 	char eventName[STRLEN], venueName[STRLEN];
 	char ch;
 	int layoutNr;
+	Arrangement* tmp;
 
 	if (eventList->noOfElements() > 0)
 	{
@@ -80,38 +81,9 @@ void Arrangementer::buyTickets() {
 		
 		if (evnr1 != 0)
 		{
-			cout << "\nWOULD YOU LIKE TO SEE ALL THE ZONES? (Y/N): " << endl;
-			ch = read();
-
-			if (ch == 'Y')
-			{
-				cout << "\nARRANGEMENTER BEFORE FORLOOP";
-				for (int i = 1; i <= eventList->noOfElements(); i++)
-				{
-					tempEvent = (Arrangement*)eventList->removeNo(i);
-
-					if (tempEvent->compareEventNumber(evnr1))
-					{
-						strcpy(eventName, tempEvent->getEventName());
-						strcpy(venueName, tempEvent->getVenueName());
-						layoutNr = tempEvent->getLayout();
-
-						cout << '\n' << eventName << ' ' << venueName << ' ' << layoutNr << '\n';
-					}
-					eventList->add(tempEvent);
-					
-				}
-				cout << "\nARRANGEMENTER AFTER FORLOOP";
-				newVenueList = venueDatabase.getVenue(eventName, layoutNr);
-				//newVenueList = venueDatabase.kopier(eventName, layoutNr);
-				cout << "\nARRANGEMENTER AFTER TRYING TO GET";
-				newVenueList->displayList();
-				//newVenueList->displayElement("ABC");
-				/*for (int i = 1; i <= newVenueList->noOfElements(); i++)
-				{
-					
-				}*/
-			}
+			tmp = (Arrangement*)eventList->removeNo(evnr1);
+			tmp->purchaseTickets();
+			eventList->add(tmp);
 		}
 
 		       
@@ -518,27 +490,21 @@ void Arrangementer::ny() {
   Arrangement* arrangement;
   List* liste;
 
-  read("Sted", snvn, STRLEN);
+  readAndUpcase("VENUE", snvn, STRLEN);
   ant = venueDatabase.display(snvn);
 
 
-  if (ant == 1)
+  if (ant > 0)
   {
 	  read("\n\tNytt arrangements navn", anvn, STRLEN);
 	  nr = read("Oppsettnummer", 1, ant);
 	  liste = venueDatabase.getVenue(snvn, nr);
-	  
-	  /**/
-	  for (int i = 1; i <= liste->noOfElements(); i++)
-	  {
-		  zone = (Sone*)liste->removeNo(i);
-		  zone->display();
-		  liste->add(zone);
-	  }
-	  /**/
-	  
-	  arrangement = new Arrangement(++lastEvent, anvn, snvn, nr, liste);
-	  eventList->add(arrangement);
+
+	  eventList->add(new Arrangement(++lastEvent, anvn, snvn, nr, liste));
+	  /*arrangement = new Arrangement(++lastEvent, anvn, snvn, nr, liste);
+	  eventList->add(arrangement);*/
   }
+  else
+	  printError("ERROR");
 
 }

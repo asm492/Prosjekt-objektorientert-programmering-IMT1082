@@ -221,6 +221,10 @@ void Kunder::deleteCustomer() {
     else
         printError("NO CUSTOMERS IN DATABASE!");
 }
+bool Kunder::customerExists(int nr) {
+
+	return customersList->inList(nr) ? true : false;
+}
 int Kunder::customerNameSearch(char name[]){       //Customer namesearch, returns
     Kunde* tempCust;                               //   customer number
     int resultCounter = 0;
@@ -257,4 +261,9 @@ int Kunder::customerNameSearch(char name[]){       //Customer namesearch, return
         return 0;
     }
     
+}
+
+int Kunder::returnLastCustomer()
+{
+	return customersList->noOfElements();
 }

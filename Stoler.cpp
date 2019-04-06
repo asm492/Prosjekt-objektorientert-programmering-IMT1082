@@ -47,6 +47,7 @@ Stoler::Stoler(char name[], enum zoneType type) : Sone(name, type) {			//	Sends 
 }
 Stoler::Stoler(char name[], ifstream & inn, enum zoneType type) : Sone(name, inn, type)
 {
+	int tempSeat, tempRow, tempCust;
 	inn >> seatPrRow >> rows; inn.ignore();
 	tempArray = new int*[rows + 1];					//	First pointer points to new int pointer
 
@@ -62,6 +63,17 @@ Stoler::Stoler(char name[], ifstream & inn, enum zoneType type) : Sone(name, inn
 			tempArray[i][j] = 0;
 		}
 	}
+	//seatPrRow << ' ' << rows << '\n';
+	if (ticketsSold > 0)
+	{
+		for (int i = 1; i <= ticketsSold; i++)
+		{
+			inn >> tempCust >> tempSeat >> tempRow;
+			tempArray[tempSeat][tempRow] = tempCust;
+		}
+
+	}
+
 }
 Stoler::Stoler(Stoler & s) : Sone((Sone*)&s) {
 	int i, j;
@@ -201,6 +213,19 @@ void Stoler::writeToFile(ofstream & out)
 	
 	Sone::writeToFile(out);
 	out << seatPrRow << ' ' << rows << '\n';
+
+	for (int i = 1; i <= rows; i++)											
+	{
+		for (int j = 1; j <= seatPrRow; j++)
+		{
+			if (tempArray[i][j] != 0)									//	Enters only from Arrangement when writing ARR_XX
+			{
+				out << i << ' ' << j << ' ' << tempArray[i][j] << '\n';
+			}
+
+		}
+	}
+
 }
 
 void Stoler::display() {

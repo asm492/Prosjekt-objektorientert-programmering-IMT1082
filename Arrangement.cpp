@@ -14,10 +14,14 @@
 #include "Vrimle.h"
 #include "Sone.h"
 #include <fstream>
+#include "Kunder.h"
+#include "Kunde.h"
+#include <cstring>
 
 using namespace std;
 
 extern Steder venueDatabase;
+extern Kunder customerDatabase;
 
 Arrangement::Arrangement(int eNr, char evntName[], char venName[], int layoutNo, List* zones) : TextElement(evntName){
     char buffer[STRLEN];
@@ -68,7 +72,7 @@ Arrangement::Arrangement(int eNr, char evntName[], char venName[], int layoutNo,
 		case 6:    eventType = Festival;		break;
 		}
 
-		
+		cout << "\nKALL TIL WRITE TO FILE\n";
 		writeToARRXXFile(zones);
 }
 
@@ -115,6 +119,79 @@ void Arrangement::display(){         //Prints all data for one event
    cout << min << endl;
 	
     
+}
+void Arrangement::printTicket() {
+
+}
+List* Arrangement::readFromARRXXFile() {
+	List* zoneList = NULL;
+	
+	Vrimle* swarmTmp;
+	Stoler* seatTmp;
+	enum zoneType typeOfZone;
+	char buffer[STRLEN], nameOfZone[STRLEN];
+	char fileName[STRLEN / 4] = "ARR_";
+	char evntNo[STRLEN / 16];
+	int noOfZones;
+
+	zoneList = new List(Sorted);
+
+	sprintf(evntNo, "%d", eventNumber);								//	Tried using iota(), causes compiler error	
+	strcat(fileName, evntNo);
+	strcat(fileName, ".DTA");
+	
+	ifstream inn(fileName);
+	
+	if (inn)
+	{
+		inn >> noOfZones; //inn.ignore();
+
+		for (int i = 1; i <= noOfZones; i++)
+		{
+			inn.getline(buffer, STRLEN);	//inn.ignore();
+			cout << "\nBUFFER: " << buffer << endl;
+			if (strcmp(buffer, "stoler") == 0)
+			{
+				typeOfZone = stoler;
+				inn.getline(nameOfZone, STRLEN); //inn.ignore(); 
+				cout << "\nZONE NAME: " << nameOfZone << endl;
+				seatTmp = new Stoler(nameOfZone, inn, typeOfZone);
+				zoneList->add(seatTmp);
+			}
+			if (strcmp(buffer, "vrimle") == 0)
+			{
+				typeOfZone = vrimle;
+				inn.getline(nameOfZone, STRLEN); //inn.ignore();
+				cout << "\nZONE NAME: " << nameOfZone << endl;
+				swarmTmp = new Vrimle(nameOfZone, inn, typeOfZone);
+				zoneList->add(swarmTmp);
+			}
+		}
+	}
+	else
+		cout << "\n\n\t\tCOULD NOT FIND FILE '" << fileName << "'!\n\n";
+
+	return zoneList;
+}
+void Arrangement::purchaseTickets()
+{
+	List* zones = NULL;
+	int number, lastCust;
+
+	lastCust = customerDatabase.returnLastCustomer();
+	zones = readFromARRXXFile(); 
+	zones->displayList();
+
+	number = read("CUSTOMER NUMBER", 1, lastCust);
+
+	if (customerDatabase.customerExists(number))
+	{
+
+	}
+	else
+	{
+		printError("COULD NOT VERIFY CUSTOMER NUMBER!");
+	}
 }
 bool Arrangement::compareEventNumber(int eveNr) //compares event number
 {
@@ -174,19 +251,21 @@ void Arrangement::writeToARRXXFile(List * zones)
 	Stoler* seatPtr;
 	Vrimle* swarmPtr;
 	int zoneType;
-
-	char filePrefix[] = "ARR_";
+	
+	char filePrefix[STRLEN / 4] = "ARR_";
 	char evntNo[STRLEN / 8];
 
-	sprintf(evntNo, "%d", eventNumber);
+	cout << "\nINNE I WRITE TO FILE ARRXX\n";
+
+	sprintf(evntNo, "%d", eventNumber);						//	Tried using iota(), causes compiler error
 	strcat(filePrefix, evntNo);
 	strcat(filePrefix, ".DTA");
 	
 	ofstream out(filePrefix);
-	
+	out << zones->noOfElements() << '\n';					//	Number of zones
 	for (int i = 1; i <= zones->noOfElements(); i++)
 	{
-
+		
 		cout << "\nForloop\n";
 		zonePtr = (Sone*)zones->removeNo(i);
 		zoneType = zonePtr->returnZoneType();

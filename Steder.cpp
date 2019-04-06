@@ -117,10 +117,14 @@ void Steder::writeVenuesToFile() {
 }
 int Steder::display(char n[])
 {
+	Sted* tmp;
+	int layouts;
 	if (venueList->inList(n))
 	{
 		venueList->displayElement(n);
-		return 1;
+		tmp = (Sted*)venueList->remove(n);
+		layouts = tmp->returnLastUsedLayout();
+		return layouts;
 	}
 	
 }
@@ -139,7 +143,7 @@ void Steder::layoutDisplay()
 
 		if (tmpVenue->returnLastUsedLayout() > 0)
 		{
-			venueList->displayElement(buffer);
+			//venueList->displayElement(buffer);
 			tmpVenue->displayLayout();					//	displayLayout is the new, displayLayoutS is the old
 		}
 		else {

@@ -31,9 +31,11 @@ public:
 	const char* getVenueName();
    
 	void writeToARRXXFile(List* zones);
+	List* readFromARRXXFile();
     void writeToFile(ofstream & out);
     void display();
-	
+	void purchaseTickets();
+	void printTicket();
   //  void printEventTypeMenu();		//Moved to functions.cpp, because we need it in Arrangementer as well
     
     bool compareVenueName(char query[]);
@@ -44,6 +46,8 @@ public:
 	bool compareEventType(enum eventType type);
     bool compareEventNumber(int eveNr);
 	
+
+
     int getEventNr();
 	int getLayout();
 	int compare(Arrangement* arr);                //    Virtual fra listtool
