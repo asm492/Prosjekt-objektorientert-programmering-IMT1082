@@ -34,9 +34,11 @@ Sone::Sone(char n[], ifstream & inn, enum zoneType type) : TextElement(n)
 	inn.ignore();
 }
 Sone::Sone(Sone* s) : TextElement(s->text) {
+	
 	ticketsForSale = s->ticketsForSale;
 	ticketsSold = s->ticketsSold;
 	ticketPrice = s->ticketPrice;
+	typeOfZone = s->typeOfZone;
 }
 Sone::~Sone() {						
 	delete zoneName;
@@ -59,7 +61,7 @@ void Sone::display() {
 	}
 	
 	
-    cout << "\nZone name:             " << zoneName << endl;
+    cout << "\nZone name:             " << text << endl;
 	cout << "Total no. of tickets:  " << ticketsForSale << endl;
     cout << "Tickets left for sale: " << ticketsForSale - ticketsSold << endl;
     cout << "Ticket price:          " << ticketPrice << endl;
@@ -69,6 +71,6 @@ void Sone::display() {
 void Sone::writeToFile(ofstream & out)
 {
 	
-	out << zoneName << '\n';
+	out << text << '\n';
 	out << ticketsForSale << ' ' << ticketsSold << ' ' << ticketPrice << '\n';
 }

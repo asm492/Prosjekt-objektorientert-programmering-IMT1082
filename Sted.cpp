@@ -76,7 +76,8 @@ void Sted::newSeatLayout() {
     {                                                    //    To do: copy
         cout << "\nCreating new layout:" << endl;
         read("Enter name for zone", buffer, STRLEN);
-        //layouts[++lastUsedLayout] = new Stoler(buffer);
+        //layouts[++lastUsedLayout] = 
+		(buffer);
         
     }
     else
@@ -170,6 +171,7 @@ void Sted::editExistingLayout()
 }
 List* Sted::getLayout(int layoutN)
 {
+	/*
 	List* newList = NULL;
 	Sone *zone = NULL, *copy = NULL;
 	cout << "\nSTED TOP: NO OF ELEMENTS IN layout nr " << layoutN << ' ' << venueLayouts[layoutN]->noOfElements() << endl;
@@ -182,22 +184,40 @@ List* Sted::getLayout(int layoutN)
 			zone = (Sone*)venueLayouts[layoutN]->removeNo(i);
 			if (zone->returnZoneType() == 0)
 			{
-				copy = new Stoler(*((Stoler*)zone));
+				copy = new Stoler(*((Stoler*) zone));
 			}
-			if (zone->returnZoneType() == 1)
-			{
-				copy = new Vrimle(*((Vrimle*)zone));
+			else {
+				copy = new Vrimle(*((Vrimle*) zone));
 			}
 			venueLayouts[layoutN]->add(zone);
 			newList->add(copy);
 		}
+	}*/
+
+	
+	List* liste = NULL;
+	int i, ant;
+	Sone *sone, *kopi;
+
+	if (layoutN >= 1 && layoutN <= lastUsedLayout) {
+		ant = venueLayouts[layoutN]->noOfElements();
+
+		liste = new List(Sorted);
+		for (i = 1; i <= ant; i++) {
+			sone = (Sone*)venueLayouts[layoutN]->removeNo(i);
+			if (sone->returnZoneType() == 0)  kopi = new Stoler(*((Stoler*)sone));
+			else kopi = new Vrimle(*((Vrimle*)sone));
+			venueLayouts[layoutN]->add(sone);
+			liste->add(kopi);
+		}
 	}
-	
-	
-	
 	cout << "\nSTED BOTTOM";
+	return liste;
 	
-	return newList;
+	
+	
+	
+	//return newList;
 }
 /*
 List * Sted::kopier(int nr)

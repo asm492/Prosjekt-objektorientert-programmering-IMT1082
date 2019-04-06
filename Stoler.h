@@ -16,7 +16,7 @@ private:
     
     int seatPrRow, rows;
 	int** tempArray = nullptr;
-	//enum zoneType type;
+	
 	
 public:
 	~Stoler();

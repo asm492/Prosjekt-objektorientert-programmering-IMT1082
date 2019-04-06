@@ -44,41 +44,6 @@ Stoler::Stoler(char name[], enum zoneType type) : Sone(name, type) {			//	Sends 
         }
     }
 
-	//ticketsForSale = rows * seatPrRow;					//	Is this ok? How to distinguish stoler/vrimle?
-
-	/*
-	DELETE AFTER TEST
-	for (int i = 1; i <= rows; i++)
-	{
-		cout << "\t" << i << ". ";
-		for (int j = 1; j <= seatPrRow; j++)
-		{
-			if (temp[i][j] == 0)							//	THIS DOESNT WORK
-			{
-				cout << '-';								//	Seat is free
-			}
-			else
-			{
-				cout << 'x';								//	Seat is taken
-			}
-		}
-		cout << endl;
-	}
-    */
-	/*
-	for (int i = 0; i < seatPrRow; i++)
-	{
-		for (int j = 0; j < rows; j++)
-			cout << temp[i][j];
-
-		cout << endl;
-	}*/
-    
-    // deallocate memory using delete[] operator
-    //for (int i = 0; i < seatPrRow; i++)
-    //delete[] temp[i];
-    
-    //delete[] temp;
 }
 Stoler::Stoler(char name[], ifstream & inn, enum zoneType type) : Sone(name, inn, type)
 {
@@ -99,7 +64,7 @@ Stoler::Stoler(char name[], ifstream & inn, enum zoneType type) : Sone(name, inn
 	}
 }
 Stoler::Stoler(Stoler & s) : Sone((Sone*)&s) {
-
+	int i, j;
 	seatPrRow = s.seatPrRow;
 	rows = s.rows;
 	

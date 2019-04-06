@@ -36,6 +36,7 @@ public:
     //~Arrangementer();
 	/*NEW CODE AFTER REMOVAL OF Oppsett* layouts[]*/
 	void addNewEvent();
+	void ny();
 };
 
 

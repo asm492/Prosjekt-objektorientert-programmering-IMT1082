@@ -31,7 +31,7 @@ void Arrangementer::eventsMenu() {
         switch (command)
     {
         case 'D':   searchChoice();		break;            //    Display
-        case 'N':   addNewEvent();			break;            //    New
+        case 'N':   ny();			break;            //    New
         case 'E':						break;            //    Edit
         case 'S':						break;            //    Delete
 		case 'K':    buyTickets();		break;            //    Purchase
@@ -488,14 +488,9 @@ void Arrangementer::addNewEvent() {
 				layoutNo = read("WHICH LAYOUT TO USE FOR EVENT?", 1, numberOfLayouts);
 				zonesList = venueDatabase.getVenue(venueName, layoutNo);
 				cout << "\n\nHAR HENTET LISTEN\n\n";
-				
-
-				for (int i = 1; i <= zonesList->noOfElements(); i++)
-				{
-					zonePtr = (Sone*)zonesList->removeNo(i);
-					zonesList->add(zonePtr);
-				}
-				
+				zonePtr = (Sone*)zonesList->remove("A1");
+				zonePtr->display();
+				zonesList->displayList();			//	Skjer np feil her
 				
 				read("Enter event name", eventName, STRLEN);					//Reads event name
 				temp = new Arrangement(++lastEvent, eventName, venueName, layoutNo, zonesList);		//	LAYOUT NR MÅ BLI TILSENDT
@@ -512,4 +507,38 @@ void Arrangementer::addNewEvent() {
 
 
 	
+}
+//FRODE:
+
+void Arrangementer::ny() {
+	
+  char anvn[STRLEN], snvn[STRLEN];
+  int  nr, ant;
+  Sone* zone;
+  Arrangement* arrangement;
+  List* liste;
+
+  read("Sted", snvn, STRLEN);
+  ant = venueDatabase.display(snvn);
+
+
+  if (ant == 1)
+  {
+	  read("\n\tNytt arrangements navn", anvn, STRLEN);
+	  nr = read("Oppsettnummer", 1, ant);
+	  liste = venueDatabase.getVenue(snvn, nr);
+	  
+	  /**/
+	  for (int i = 1; i <= liste->noOfElements(); i++)
+	  {
+		  zone = (Sone*)liste->removeNo(i);
+		  zone->display();
+		  liste->add(zone);
+	  }
+	  /**/
+	  
+	  arrangement = new Arrangement(++lastEvent, anvn, snvn, nr, liste);
+	  eventList->add(arrangement);
+  }
+
 }

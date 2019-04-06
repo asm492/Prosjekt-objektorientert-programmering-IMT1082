@@ -30,6 +30,7 @@ public:
 	
     bool venueExist(char text[]);
     
+	
 	void layoutDisplay();
 	void layoutNew();
 	void layoutEdit();
@@ -42,7 +43,7 @@ public:
 
 	//FRODE:
 	List* kopier(char* nvn, int nr);
-
+	int display(char n[]);
 	/*NEW CODE AFTER REMOVAL OF Oppsett* layouts[]*/
 	
 };

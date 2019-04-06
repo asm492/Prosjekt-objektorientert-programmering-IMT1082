@@ -115,6 +115,15 @@ void Steder::writeVenuesToFile() {
     }
     
 }
+int Steder::display(char n[])
+{
+	if (venueList->inList(n))
+	{
+		venueList->displayElement(n);
+		return 1;
+	}
+	
+}
 void Steder::layoutDisplay()
 {
 	
@@ -295,8 +304,7 @@ bool Steder::venueExist(char text[]){
     for (int i = 1; i <= lastUsedVenue; i++)
     {
         
-        tempVenue = (Sted*)venueList->removeNo(i);        //    Takes customer out if list
-               //    Does a strstr comparison on customer
+        tempVenue = (Sted*)venueList->removeNo(i);        
         venueList->add(tempVenue);
         searchResult = tempVenue->compareVenueName(text);
 
@@ -306,16 +314,6 @@ bool Steder::venueExist(char text[]){
         
     }
     return false;
-/*
-    if (venueList->inList(text))
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-    */
 }
 //FRODE:
 List* Steder::kopier(char* nvn, int nr) {

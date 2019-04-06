@@ -13,6 +13,7 @@
 #include "Stoler.h"
 #include "Vrimle.h"
 #include "Sone.h"
+#include <fstream>
 
 using namespace std;
 
@@ -182,24 +183,30 @@ void Arrangement::writeToARRXXFile(List * zones)
 	strcat(filePrefix, ".DTA");
 	
 	ofstream out(filePrefix);
-	out << "dette er en test";
+	
 	for (int i = 1; i <= zones->noOfElements(); i++)
 	{
+
 		cout << "\nForloop\n";
 		zonePtr = (Sone*)zones->removeNo(i);
 		zoneType = zonePtr->returnZoneType();
-		zones->add(zonePtr);
+		
 		cout << "\nForloop for if \n";
 		if (zoneType == 0)
 		{
+			zones->add(zonePtr);
 			cout << "\nStoler ut\n";
 			out << "stoler" << '\n';
 			seatPtr = (Stoler*)zones->removeNo(i);
+			cout << "\nStoler 1";
 			seatPtr->writeToFile(out);
+			cout << "\nStoler 2";
 			zones->add(seatPtr);
+			cout << "\nStoler 3";
 		}
 		if (zoneType == 1)
 		{
+			zones->add(zonePtr);
 			cout << "\nvrimleut\n";
 			out << "vrimle" << '\n';
 			swarmPtr = (Vrimle*)zones->removeNo(i);
@@ -208,7 +215,7 @@ void Arrangement::writeToARRXXFile(List * zones)
 		}
 	}
 
-
+	
 }
 
 void Arrangement::writeToFile(ofstream & out) {  //Writes events to file
