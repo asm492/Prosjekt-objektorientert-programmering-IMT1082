@@ -18,6 +18,7 @@ private:
     int eventNumber;
     int date, hour, min;
     eventType eventType;
+	List* kopi;
 	
     
 public:

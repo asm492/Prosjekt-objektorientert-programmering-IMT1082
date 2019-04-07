@@ -76,8 +76,12 @@ Arrangement::Arrangement(int eNr, char evntName[], char venName[], int layoutNo)
 		
 }
 void Arrangement::getCopyOfList(List* zoneList) {
+
+	kopi = zoneList;
+	cout << "Test";
+	kopi->displayList();
 	
-	writeToARRXXFile(zoneList);
+	writeToARRXXFile(kopi);
 }
 void Arrangement::display(){         //Prints all data for one event
     int temp, day, month, year;

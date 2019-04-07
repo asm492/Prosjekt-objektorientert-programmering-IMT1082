@@ -35,7 +35,12 @@ Sted::Sted(char n[]) : TextElement(n) {
 }
 Sted::Sted(char n[], ifstream & inn) : TextElement(n) {
     int layoutNo;
-    
+	char nameOfZone[STRLEN];
+	char buffer[STRLEN];
+	enum zoneType typeOfZone;
+	int noOfZones, layNo, zoneNo;
+	Stoler* tempSeat;
+	Vrimle* tempSwarm;
     
     name = new char[strlen(n) + 1];					//	Name of the venue
     strcpy(name, n);
@@ -44,13 +49,7 @@ Sted::Sted(char n[], ifstream & inn) : TextElement(n) {
     
     for(int j = 1; j <= lastUsedLayout; j++){
         /************KODE FRA OPPSETT()***************/
-		char nameOfZone[STRLEN];
-		char buffer[STRLEN];
-		enum zoneType typeOfZone;
-		int noOfZones, zoneNo;
-		Stoler* tempSeat;
-		Vrimle* tempSwarm;
-
+		inn >> layNo;
 		venueLayouts[j] = new List(Sorted);
 
 
@@ -105,7 +104,7 @@ void Sted::writeToFile(ofstream & out) {
 	Vrimle* swarmPtr;
 	int temp;
 
-	out << name << '\n';
+	out << text << '\n';
 	out << lastUsedLayout << '\n';
 
 	for (int i = 1; i <= lastUsedLayout; i++)
@@ -115,18 +114,20 @@ void Sted::writeToFile(ofstream & out) {
 		for (int j = 1; j <= venueLayouts[i]->noOfElements(); j++)
 		{
 			zonePtr = (Sone*)venueLayouts[i]->removeNo(i);
-			temp = zonePtr->returnZoneType();
 			venueLayouts[i]->add(zonePtr);
 
-			if (temp == 0)
+			if (zonePtr->returnZoneType() == 0)
 			{
+				venueLayouts[i]->add(zonePtr);
 				out << "stoler" << '\n';
 				seatPtr = (Stoler*)venueLayouts[i]->removeNo(i);
 				seatPtr->writeToFile(out);
 				venueLayouts[i]->add(seatPtr);
 			}
-			if (temp == 1)
+			if (zonePtr->returnZoneType() == 1)
 			{
+
+				venueLayouts[i]->add(zonePtr);
 				out << "vrimle" << '\n';
 				swarmPtr = (Vrimle*)venueLayouts[i]->removeNo(i);
 				swarmPtr->writeToFile(out);
@@ -217,31 +218,35 @@ List* Sted::getLayout(int layoutN)
 {
 
 
-	
+
 	List* liste = NULL;
 	int i, ant;
 	Sone *sone, *kopi;
 
-	if (layoutN >= 1 && layoutN <= lastUsedLayout) {
+	if (layoutN <= lastUsedLayout) {
 		ant = venueLayouts[layoutN]->noOfElements();
 
 		liste = new List(Sorted);
+
 		for (i = 1; i <= ant; i++) {
+
 			sone = (Sone*)venueLayouts[layoutN]->removeNo(i);
-			if (sone->returnZoneType() == 0)  kopi = new Stoler(*((Stoler*)sone), stoler);
-			else kopi = new Vrimle(*((Vrimle*)sone), vrimle);
+
+			if (sone->returnZoneType() == 0)
+				kopi = new Stoler(*((Stoler*)sone), stoler);
+			else
+				kopi = new Vrimle(*((Vrimle*)sone), vrimle);
+
 			venueLayouts[layoutN]->add(sone);
 			liste->add(kopi);
 		}
 	}
-	cout << "\nSTED BOTTOM";
-	return liste;
-	
-	
-	
-	
-	//return newList;
+		cout << "\nSTED BOTTOM";
+		return liste;
 }
+	
+	
+	//return newList
 /*
 List * Sted::kopier(int nr)
 {

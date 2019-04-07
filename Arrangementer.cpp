@@ -465,7 +465,7 @@ void Arrangementer::addNewEvent() {
 				zonesList->displayList();			//	Skjer np feil her
 				
 				read("Enter event name", eventName, STRLEN);					//Reads event name
-				temp = new Arrangement(++lastEvent, eventName, venueName, layoutNo, zonesList);		//	LAYOUT NR MÅ BLI TILSENDT
+				temp = new Arrangement(++lastEvent, eventName, venueName, layoutNo);		//	LAYOUT NR MÅ BLI TILSENDT
 				eventList->add(temp);											//Adds event to list
 			}
 			else
@@ -501,6 +501,7 @@ void Arrangementer::ny() {
 	  liste = venueDatabase.getVenue(snvn, layoutNr);
 	  //bare send (++lastEvent, anvn
 	  //eventList->add(new Arrangement(++lastEvent, anvn, snvn, nr, liste));
+	  liste->displayList();
 	  evnt = new Arrangement(++lastEvent, anvn, snvn, layoutNr);
 	  evnt->getCopyOfList(liste);
 	  cout << "\nKALL TIL WRITE TO FILE\n";

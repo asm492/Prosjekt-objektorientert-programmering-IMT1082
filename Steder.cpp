@@ -52,18 +52,10 @@ void Steder::newVenue() {
     
 }
 void Steder::venueDisplay() {
-	char venueName[STRLEN];
 	
 	if ((venueList->noOfElements()) > 0)
 	{
-		readAndUpcase("WHICH VENUE TO DISPLAY?", venueName, STRLEN);
-		if (venueList->inList(venueName)) {
-			venueList->displayElement(venueName);
-		}
-		else {
-			cout << "\n\n\t\tNO VENUES IN THE LIST WITH NAME: '";
-			cout << venueName << "'!\n\n";
-		}
+		venueList->displayList();
 	}
 	else
 	{
@@ -108,8 +100,7 @@ void Steder::writeVenuesToFile() {
     
     out << lastUsedVenue << '\n';
     for (int i = 1; i <= lastUsedVenue; i++)
-    {
-		out << i << '\n';								//	Venue number
+    {		
         tempVenue = (Sted*)venueList->removeNo(i);
         tempVenue->writeToFile(out);
         venueList->add(tempVenue);
@@ -138,24 +129,19 @@ void Steder::layoutDisplay()
 
 	readAndUpcase("Which venue's layout would you like to display?", buffer, STRLEN);
 
-	if (venueList->inList(buffer))
+	tmpVenue = (Sted*)venueList->remove(buffer);
+	venueList->add(tmpVenue);
+
+	if (tmpVenue->returnLastUsedLayout() > 0)
 	{
-		tmpVenue = (Sted*)venueList->remove(buffer);
-		venueList->add(tmpVenue);
-
-		if (tmpVenue->returnLastUsedLayout() > 0)
-		{
-			//venueList->displayElement(buffer);
-			tmpVenue->displayLayout();					//	displayLayout is the new, displayLayoutS is the old
-		}
-		else {
-			cout << "\n\n\t\t'" << buffer; 
-			cout << "' HAS NO LAYOUTS! MAKE ONE WITH COMMAND 'O N' IN MAIN MENU\n\n";
-
-		}
+		//venueList->displayElement(buffer);
+		tmpVenue->displayLayout();					//	displayLayout is the new, displayLayoutS is the old
 	}
-	else
-		cout << "\n\n\t\t'" << buffer << "' IS NOT IN LIST!\n\n";
+	else {
+		cout << "\n\n\t\t'" << buffer;
+		cout << "' HAS NO LAYOUTS! MAKE ONE WITH COMMAND 'O N' IN MAIN MENU\n\n";
+
+	}
 }
 void Steder::layoutNew()
 {
@@ -216,8 +202,7 @@ List* Steder::getVenue(char* venName, int layoutN)
 
 	cout << "\nSTEDER::GETVENUE() TOP" << endl;
 	cout << venName << endl;
-	tmpVenue = (Sted*)venueList->remove(venName);
-	if (tmpVenue)
+	if ((tmpVenue = (Sted*)venueList->remove(venName)))
 	{
 		cout << "STEDER::getVenue IF" << endl;
 		newList = tmpVenue->getLayout(layoutN);
