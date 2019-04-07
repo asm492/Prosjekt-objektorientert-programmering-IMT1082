@@ -20,7 +20,7 @@ Vrimle::Vrimle(char name[], ifstream & inn, enum zoneType type) : Sone(name, inn
 	space = new int[ticketsForSale];  // +1 ???space = new int[ticketsForSale + 1];
 	inn.ignore();
 }
-Vrimle::Vrimle(Vrimle & v) : Sone((Sone*)&v) {
+Vrimle::Vrimle(Vrimle & v, enum zoneType type) : Sone((Sone*)&v, type ) {
 	space = new int[ticketsForSale + 1];			//	Make new array, '* space' points to this
 	for (int i = 1; i <= ticketsForSale; i++) {
 		space[i] = 0;								//	Initializing array

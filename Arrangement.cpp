@@ -184,7 +184,8 @@ void Arrangement::purchaseTickets()
 	List* zones = NULL;
 	int custNo, lastCust, zoneType, reservationStatus;
 	int seat, row, ticketPrice;
-	char selectedZone[STRLEN / 10], char eventCategory[STRLEN / 4];
+	char selectedZone[STRLEN / 10]; 
+	char eventCategory[STRLEN / 4];
 
 	lastCust = customerDatabase.returnLastCustomer();
 	zones = readFromARRXXFile(); 

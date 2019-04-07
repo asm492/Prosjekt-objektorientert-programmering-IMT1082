@@ -259,8 +259,8 @@ List* Sted::getLayout(int layoutN)
 		liste = new List(Sorted);
 		for (i = 1; i <= ant; i++) {
 			sone = (Sone*)venueLayouts[layoutN]->removeNo(i);
-			if (sone->returnZoneType() == 0)  kopi = new Stoler(*((Stoler*)sone));
-			else kopi = new Vrimle(*((Vrimle*)sone));
+			if (sone->returnZoneType() == 0)  kopi = new Stoler(*((Stoler*)sone), stoler);
+			else kopi = new Vrimle(*((Vrimle*)sone), vrimle);
 			venueLayouts[layoutN]->add(sone);
 			liste->add(kopi);
 		}

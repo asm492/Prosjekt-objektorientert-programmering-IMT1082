@@ -75,8 +75,10 @@ Stoler::Stoler(char name[], ifstream & inn, enum zoneType type) : Sone(name, inn
 	}
 
 }
-Stoler::Stoler(Stoler & s) : Sone((Sone*)&s) {
+Stoler::Stoler(Stoler & s, enum zoneType type) : Sone((Sone*)&s, type) {
 	int i, j;
+
+
 	seatPrRow = s.seatPrRow;
 	rows = s.rows;
 	

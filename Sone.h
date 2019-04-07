@@ -19,7 +19,7 @@ protected:
 public:
 	Sone(char n[], enum zoneType type);						//	NEW
 	Sone(char n[], ifstream & inn, enum zoneType type);
-	Sone(Sone* s);
+	Sone(Sone* s, enum zoneType type);
 	~Sone();
     
 	int getPrice();

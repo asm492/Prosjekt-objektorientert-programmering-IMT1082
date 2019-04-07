@@ -19,7 +19,7 @@ public:
     
 	Vrimle(char name[], enum zoneType type);
 	Vrimle(char name[], ifstream & inn, enum zoneType type);
-	Vrimle(Vrimle & v);
+	Vrimle(Vrimle & v, enum zoneType type);
 	~Vrimle();
 	
 	int purchaseSwarm(int cNr);
