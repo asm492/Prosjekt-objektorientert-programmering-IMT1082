@@ -485,9 +485,9 @@ void Arrangementer::addNewEvent() {
 void Arrangementer::ny() {
 	
   char anvn[STRLEN], snvn[STRLEN];
-  int  nr, ant;
+  int  layoutNr, ant;
   Sone* zone;
-  Arrangement* arrangement;
+  Arrangement* evnt;
   List* liste;
 
   readAndUpcase("VENUE", snvn, STRLEN);
@@ -497,12 +497,15 @@ void Arrangementer::ny() {
   if (ant > 0)
   {
 	  read("\n\tNEW EVENT NAME", anvn, STRLEN);
-	  nr = read("LAYOUT NO", 1, ant);
-	  liste = venueDatabase.getVenue(snvn, nr);
+	  layoutNr = read("LAYOUT NO", 1, ant);
+	  liste = venueDatabase.getVenue(snvn, layoutNr);
+	  //bare send (++lastEvent, anvn
+	  //eventList->add(new Arrangement(++lastEvent, anvn, snvn, nr, liste));
+	  evnt = new Arrangement(++lastEvent, anvn, snvn, layoutNr);
+	  evnt->getCopyOfList(liste);
+	  cout << "\nKALL TIL WRITE TO FILE\n";
+	  eventList->add(evnt);
 
-	  eventList->add(new Arrangement(++lastEvent, anvn, snvn, nr, liste));
-	  /*arrangement = new Arrangement(++lastEvent, anvn, snvn, nr, liste);
-	  eventList->add(arrangement);*/
   }
   else
 	  printError("ERROR");

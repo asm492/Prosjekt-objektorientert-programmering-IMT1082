@@ -23,7 +23,7 @@ using namespace std;
 extern Steder venueDatabase;
 extern Kunder customerDatabase;
 
-Arrangement::Arrangement(int eNr, char evntName[], char venName[], int layoutNo, List* zones) : TextElement(evntName){
+Arrangement::Arrangement(int eNr, char evntName[], char venName[], int layoutNo) : TextElement(evntName){
     char buffer[STRLEN];
 	int dd, mm, yyyy, nr;
 	
@@ -72,10 +72,13 @@ Arrangement::Arrangement(int eNr, char evntName[], char venName[], int layoutNo,
 		case 6:    eventType = Festival;		break;
 		}
 
-		cout << "\nKALL TIL WRITE TO FILE\n";
-		writeToARRXXFile(zones);
+		;
+		
 }
-
+void Arrangement::getCopyOfList(List* zoneList) {
+	
+	writeToARRXXFile(zoneList);
+}
 void Arrangement::display(){         //Prints all data for one event
     int temp, day, month, year;
     
@@ -489,3 +492,4 @@ int Arrangement::getLayout()       //Returns layout number for event
 {
 	return layoutNumber;
 }
+

@@ -22,7 +22,7 @@ private:
     
 public:
     
-    Arrangement(int eNr, char evntName[], char venName[], int layoutNo, List* zones);
+    Arrangement(int eNr, char evntName[], char venName[], int layoutNo);
     Arrangement(int eNr, char n[], ifstream & inn);
     ~Arrangement();
     
@@ -36,6 +36,7 @@ public:
     void display();
 	void purchaseTickets();
 	void printTicket();
+	void getCopyOfList(List* zoneList);
   //  void printEventTypeMenu();		//Moved to functions.cpp, because we need it in Arrangementer as well
     
     bool compareVenueName(char query[]);
