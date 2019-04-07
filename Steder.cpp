@@ -126,7 +126,8 @@ int Steder::display(char n[])
 		layouts = tmp->returnLastUsedLayout();
 		return layouts;
 	}
-	
+	else
+        return 0;
 }
 void Steder::layoutDisplay()
 {

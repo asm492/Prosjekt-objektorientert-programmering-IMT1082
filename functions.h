@@ -1,8 +1,9 @@
 #ifndef functions_h
 #define functions_h
 
-
+#include <fstream>
 //Sort by type:
+using namespace std;
 
 char read();
 
