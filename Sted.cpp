@@ -371,8 +371,8 @@ void Sted::editLayout() {
             ch = read();
             switch (ch)
             {
-            case 'A': addZones(nr);		break;					//	Add zones to existing layout
-            case 'R': venueLayouts[nr]->destroy(sone);                     break;
+            case 'A': addZones(nr);									break;					//	Add zones to existing layout
+            case 'R': venueLayouts[nr]->destroy(sone);              break;
             case 'D':
                 default: printError("INVALID COMMAND!");	break;
             }

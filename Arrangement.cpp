@@ -71,8 +71,7 @@ Arrangement::Arrangement(int eNr, char evntName[], char venName[], int layoutNo)
 		case 5:    eventType = Familie;			break;
 		case 6:    eventType = Festival;		break;
 		}
-
-		;
+		
 		
 }
 void Arrangement::getCopyOfList(List* zoneList) {

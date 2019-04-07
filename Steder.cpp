@@ -110,6 +110,7 @@ int Steder::display(char n[])
 		venueList->displayElement(n);
 		tmp = (Sted*)venueList->remove(n);
 		layouts = tmp->returnLastUsedLayout();
+		venueList->add(tmp);							//	THIS IS WHERE THE PROGRAM CRASHED, FORGOT TO ADD IT BACK
 		return layouts;
 	}
 	else
@@ -139,20 +140,17 @@ void Steder::layoutDisplay()
 }
 void Steder::layoutNew()
 {
-	//tmpVenue->newLayout();
-
 	Sted* tmpVenue;
 	char buffer[STRLEN];
 
 	readAndUpcase("Which venue would you like to add layout to?", buffer, STRLEN);
 
-	if (venueList->inList(buffer))
+	if (venueList->inList(buffer))													//	Checks if 'buffer' exists
 	{
-		tmpVenue = (Sted*)venueList->remove(buffer);
-		
-		venueList->displayElement(buffer);
-		tmpVenue->newVenueLayout();	//new
-		venueList->add(tmpVenue);	//moved
+		tmpVenue = (Sted*)venueList->remove(buffer);								//	Takes out of list
+		venueList->displayElement(buffer);											//	Displays it
+		tmpVenue->newVenueLayout();													//	Makes new layout
+		venueList->add(tmpVenue);													//	Adds back to list			
 	}
 	else
 		cout << "\n\n\t\t'" << buffer << "' IS NOT IN LIST!\n\n";
@@ -189,21 +187,28 @@ void Steder::layoutDelete()
 }
 List* Steder::getVenue(char* venName, int layoutN)
 {
-	
-	Sted* tmpVenue;
+	Sted* tmpVenue = NULL;
 	List* newList = NULL;
 
-	cout << "\nSTEDER::GETVENUE() TOP" << endl;
-	cout << venName << endl;
-	if ((tmpVenue = (Sted*)venueList->remove(venName)))
+	cout << "\nSTEDER::GETVENUE() TOP" << endl;					//	FOR TESTING
+	cout << venName <<  ' ' << layoutN << endl;										//	FOR TESTING
+	
+	
+							/*tmpVenue = (Sted*)venueList->remove(venName);
+							tmpVenue->addZones(layoutN);
+							venueList->add(tmpVenue);*/
+	//	THIS IS WHERE IT GOES WRONG: WE KNOW IT IS IN THE LIST 
+	//	BECAUSE THE CODE ABOVE WHICH IS COMMENTED OUT RUNS FINE.
+	//	THE ->REMOVE(NAME) FUNCTION SOMEHOW RETURNS FALSE
+	if ((tmpVenue = ((Sted*)venueList->remove(venName))))
 	{
-		cout << "STEDER::getVenue IF" << endl;
+		cout << "STEDER::getVenue IF" << endl;						//	FOR TESTING
 		newList = tmpVenue->getLayout(layoutN);
 		venueList->add(tmpVenue);
 	}
 	
 	
-	cout << "\nSTEDER::GETVENUE() BOTTOM";
+	cout << "\nSTEDER::GETVENUE() BOTTOM";								//	FOR TESTING
 
 	return newList;	
 

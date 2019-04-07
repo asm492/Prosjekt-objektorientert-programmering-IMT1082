@@ -482,27 +482,28 @@ void Arrangementer::addNewEvent() {
 }
 //FRODE:
 
-void Arrangementer::ny() {
-	
-  char anvn[STRLEN], snvn[STRLEN];
-  int  layoutNr, ant;
-  Sone* zone;
-  Arrangement* evnt;
-  List* liste;
+void Arrangementer::ny() 
+{
+	char eventName[STRLEN];
+	char venueN[STRLEN];
+	int  layoutNr, ant;
+	Sone* zone;
+	Arrangement* evnt;
+	List* liste;
 
-  readAndUpcase("VENUE", snvn, STRLEN);
-  ant = venueDatabase.display(snvn);
+	readAndUpcase("VENUE", venueN, STRLEN);
+	ant = venueDatabase.display(venueN);
 
 
   if (ant > 0)
   {
-	  read("\n\tNEW EVENT NAME", anvn, STRLEN);
+	  read("\n\tNEW EVENT NAME", eventName, STRLEN);
 	  layoutNr = read("LAYOUT NO", 1, ant);
-	  liste = venueDatabase.getVenue(snvn, layoutNr);
+	  liste = venueDatabase.getVenue(venueN, layoutNr);
 	  //bare send (++lastEvent, anvn
 	  //eventList->add(new Arrangement(++lastEvent, anvn, snvn, nr, liste));
 	  liste->displayList();
-	  evnt = new Arrangement(++lastEvent, anvn, snvn, layoutNr);
+	  evnt = new Arrangement(++lastEvent, eventName, venueN, layoutNr);
 	  evnt->getCopyOfList(liste);
 	  cout << "\nKALL TIL WRITE TO FILE\n";
 	  eventList->add(evnt);
