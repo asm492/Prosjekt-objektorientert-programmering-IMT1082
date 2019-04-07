@@ -48,7 +48,8 @@ Stoler::Stoler(char name[], enum zoneType type) : Sone(name, type) {			//	Sends 
 Stoler::Stoler(char name[], ifstream & inn, enum zoneType type) : Sone(name, inn, type)
 {
 	int tempSeat, tempRow, tempCust;
-	inn >> seatPrRow >> rows; inn.ignore();
+	inn >> seatPrRow >> rows; 
+	inn.ignore();
 	tempArray = new int*[rows + 1];					//	First pointer points to new int pointer
 
 	for (int i = 1; i <= rows; i++)

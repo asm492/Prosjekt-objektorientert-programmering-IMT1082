@@ -12,6 +12,8 @@
 #include "Oppsett.h"
 #include "ListTool2B.h"
 #include <cstring>
+#include "enums.h"
+#include "conster.h"
 
 using namespace std;
 
@@ -34,7 +36,7 @@ Sted::Sted(char n[]) : TextElement(n) {
     
 }
 Sted::Sted(char n[], ifstream & inn) : TextElement(n) {
-    int layoutNo;
+    
 	char nameOfZone[STRLEN];
 	char buffer[STRLEN];
 	enum zoneType typeOfZone;
@@ -48,18 +50,15 @@ Sted::Sted(char n[], ifstream & inn) : TextElement(n) {
     inn >> lastUsedLayout; //inn.ignore();
     
     for(int j = 1; j <= lastUsedLayout; j++){
-        /************KODE FRA OPPSETT()***************/
+        
 		inn >> layNo;
-		venueLayouts[j] = new List(Sorted);
+		venueLayouts[layNo] = new List(Sorted);
 
 
-		inn >> noOfZones; //inn.ignore();
+		inn >> noOfZones; inn.ignore();
 
 		for (int i = 1; i <= noOfZones; i++)
 		{
-			inn >> zoneNo;
-			inn.ignore();
-
 			inn.getline(buffer, STRLEN); //inn.ignore();					//????????????
 
 			if (strcmp(buffer, "stoler") == 0)
@@ -102,25 +101,24 @@ void Sted::writeToFile(ofstream & out) {
 	Sone* zonePtr;
 	Stoler* seatPtr;
 	Vrimle* swarmPtr;
-	int temp;
+	
 
-	out << text << '\n';
-	out << lastUsedLayout << '\n';
+	out << text << '\n';									//	Name
+	out << lastUsedLayout << '\n';							//	NoOfLayouts/lastUsedLayout
 
 	for (int i = 1; i <= lastUsedLayout; i++)
 	{
 		out << i << '\n';									//Layout number
-		out << venueLayouts[i]->noOfElements() << '\n';		//Zone number
+		out << venueLayouts[i]->noOfElements() << '\n';		//Number of zones
 		for (int j = 1; j <= venueLayouts[i]->noOfElements(); j++)
 		{
-			zonePtr = (Sone*)venueLayouts[i]->removeNo(i);
-			venueLayouts[i]->add(zonePtr);
+			zonePtr = (Sone*)venueLayouts[i]->removeNo(j);
 
 			if (zonePtr->returnZoneType() == 0)
 			{
 				venueLayouts[i]->add(zonePtr);
 				out << "stoler" << '\n';
-				seatPtr = (Stoler*)venueLayouts[i]->removeNo(i);
+				seatPtr = (Stoler*)venueLayouts[i]->removeNo(j);
 				seatPtr->writeToFile(out);
 				venueLayouts[i]->add(seatPtr);
 			}
@@ -129,12 +127,13 @@ void Sted::writeToFile(ofstream & out) {
 
 				venueLayouts[i]->add(zonePtr);
 				out << "vrimle" << '\n';
-				swarmPtr = (Vrimle*)venueLayouts[i]->removeNo(i);
+				swarmPtr = (Vrimle*)venueLayouts[i]->removeNo(j);
 				swarmPtr->writeToFile(out);
 				venueLayouts[i]->add(swarmPtr);
 			}
 		}
 	}
+
 }
 
 void Sted::display(){
@@ -410,7 +409,7 @@ void Sted::editLayout() {
             command = read();
             if (command == 'Y')
             {
-			newVenueLayout();
+				newVenueLayout();
             }
         }
     }

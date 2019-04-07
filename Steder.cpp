@@ -64,25 +64,19 @@ void Steder::venueDisplay() {
 }
 void Steder::readVenuesFromFile() {
 
-//    Sted* temp;
+
 	char bufferName[STRLEN];
 	int venueNr;
-	ifstream inn("STEDER.DTA");
-	//ifstream inn("STEDER_TEST.DTA");
+	//ifstream inn("STEDER.DTA");
+	ifstream inn("STEDER_TEST.DTA");
 
 	if (inn)
 	{
-		inn >> lastUsedVenue; //inn.ignore();
+		inn >> lastUsedVenue; inn.ignore();		
 
 		for (int i = 1; i <= lastUsedVenue; i++) {
-			
-			inn >> venueNr; inn.ignore();
-			inn.getline(bufferName, STRLEN);
-			//inn.ignore();
-			
-			cout << "Steder.cpp: Buffer/strlen(buffer): " << bufferName << ' ' << strlen(bufferName) << endl;
-			
-			//temp = new Sted(bufferName, inn);
+			inn.ignore();								//	Ignores \n before each venue name
+			inn.getline(bufferName, STRLEN);		
 			venueList->add(new Sted(bufferName, inn));
 		}
 	}
@@ -101,6 +95,7 @@ void Steder::writeVenuesToFile() {
     out << lastUsedVenue << '\n';
     for (int i = 1; i <= lastUsedVenue; i++)
     {		
+		out << '\n';									//	New line before each venue name
         tempVenue = (Sted*)venueList->removeNo(i);
         tempVenue->writeToFile(out);
         venueList->add(tempVenue);
