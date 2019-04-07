@@ -1,4 +1,4 @@
-#ifndef Oppsett_h
+/*#ifndef Oppsett_h
 #define Oppsett_h
 
 #include <iostream>
@@ -31,8 +31,9 @@ public:
 	List* getZoneList();
 	List* copyZone();
 	/**/
-	void foo();
+	/*void foo();
 	
 };
 
 #endif
+*/

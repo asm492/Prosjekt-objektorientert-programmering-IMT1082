@@ -15,7 +15,7 @@ private:
     char* name;
     int lastUsedLayout;
 	List* venueLayouts[MAXLAYOUTS + 1];
-	Oppsett* layouts[MAXLAYOUTS + 1];        //    Init to 1;  Pointers to all the different seat layouts
+	//Oppsett* layouts[MAXLAYOUTS + 1];        //    Init to 1;  Pointers to all the different seat layouts
     
 	
     //List* zoneList;
@@ -34,9 +34,9 @@ public:
     void printSeatLayout();
 	void displayLayouts();					//	Testing
 	int returnLastUsedLayout();
-	void editExistingLayout();
+	//void editExistingLayout();
 	List* getLayout(int layoutN);
-	List* kopier(int nr);
+	//List* kopier(int nr);
 
 	/*NEW CODE AFTER REMOVAL OF Oppsett* layouts[]*/
 	void newVenueLayout();

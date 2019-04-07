@@ -8,7 +8,7 @@
 #include "conster.h"
 #include "ListTool2B.h"
 #include "Sted.h"
-
+#include "Sone.h"
 
 using namespace std;
 
@@ -30,6 +30,7 @@ Steder::Steder(){
     venueList = new List(Sorted);
 }
 void Steder::newVenue() {
+ 
     Sted* tempVenue;
     char tempName[STRLEN];
     
@@ -71,7 +72,7 @@ void Steder::venueDisplay() {
 }
 void Steder::readVenuesFromFile() {
 
-	//Sted* temp;
+//    Sted* temp;
 	char bufferName[STRLEN];
 	int venueNr;
 	ifstream inn("STEDER.DTA");
@@ -195,7 +196,7 @@ void Steder::layoutEdit()
 			
 			
 			venueList->displayElement(buffer);
-			tmpVenue->editExistingLayout();
+			tmpVenue->editLayout();
 		}
 		else
 			printError("THIS VENUE DOESN'T HAVE ANY LAYOUTS YET!");
@@ -320,15 +321,5 @@ bool Steder::venueExist(char text[]){
     }
     return false;
 }
-//FRODE:
-List* Steder::kopier(char* nvn, int nr) {
-	List* liste = NULL;
-	Sted* sted;
 
-	if ((sted = (Sted*)venueList->remove(nvn))) {
-		liste = sted->kopier(nr);
-		venueList->add(sted);
-	}
-	return liste;
-}
-/*NEW CODE AFTER REMOVAL OF Oppsett* layouts[]*/
+

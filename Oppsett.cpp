@@ -1,4 +1,4 @@
-#ifdef _MSC_VER
+/*#ifdef _MSC_VER
 #define _CRT_SECURE_NO_WARNINGS
 #endif
 
@@ -156,7 +156,7 @@ void Oppsett::newLayout() {			//	SHOULD THIS BE INN THE OPPSETT() constructor in
 
 	} while (ch == 'Y');
 	*/
-}
+/*}
 
 void Oppsett::addNewZone()
 {										//	Almost the same as Oppsett(), but doesnt
@@ -286,7 +286,7 @@ List* Oppsett::getZoneList()
 	DENNE KAN EVT KALLE PÅ DEN*/
 
 	//Nullptr er bare midlertidig for å få dette til å funke
-	return nullptr;
+	/*return nullptr;
 }
 
 List* Oppsett::copyZone()
@@ -307,7 +307,7 @@ List* Oppsett::copyZone()
 		zoneCopyPtr = nullptr;
 	}*/
 
-	
+	/*
 	zoneListCopy = new List(Sorted);
 	for (i = 1; i <= totalZones; i++) {
 		zonePtr = (Sone*)zoneList->removeNo(i);
@@ -339,3 +339,4 @@ void Oppsett::display() {
 void Oppsett::foo(){
 	cout << "\nOPPSETT::FOO\n";
 }
+*/
