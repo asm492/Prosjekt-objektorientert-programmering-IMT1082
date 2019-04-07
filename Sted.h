@@ -28,7 +28,6 @@ public:
 	void writeToFile(ofstream & out);
     void display();
     void displayName();
-    void newLayout();
 	void newLayoutFromCopy();
     void newSeatLayout();
     void printSeatLayout();

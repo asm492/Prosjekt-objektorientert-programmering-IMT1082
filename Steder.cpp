@@ -93,14 +93,13 @@ void Steder::writeVenuesToFile() {
     lastUsedVenue = venueList->noOfElements();
     
     out << lastUsedVenue << '\n';
-    for (int i = 1; i <= lastUsedVenue; i++)
-    {		
+	for (int i = 1; i <= lastUsedVenue; i++)
+	{
 		out << '\n';									//	New line before each venue name
-        tempVenue = (Sted*)venueList->removeNo(i);
-        tempVenue->writeToFile(out);
-        venueList->add(tempVenue);
-    }
-    
+		tempVenue = (Sted*)venueList->removeNo(i);
+		tempVenue->writeToFile(out);
+		venueList->add(tempVenue);
+	}
 }
 int Steder::display(char n[])
 {
@@ -150,9 +149,8 @@ void Steder::layoutNew()
 	if (venueList->inList(buffer))
 	{
 		tmpVenue = (Sted*)venueList->remove(buffer);
-		//
+		
 		venueList->displayElement(buffer);
-		//tmpVenue->newLayout();	//OLD
 		tmpVenue->newVenueLayout();	//new
 		venueList->add(tmpVenue);	//moved
 	}

@@ -215,9 +215,6 @@ int Sted::returnLastUsedLayout()
 
 List* Sted::getLayout(int layoutN)
 {
-
-
-
 	List* liste = NULL;
 	int i, ant;
 	Sone *sone, *kopi;
@@ -269,46 +266,23 @@ List * Sted::kopier(int nr)
 	}
 	return list;
 }*/
-void Sted::newLayout() {
-	char command;
-
-	cout << "\nCURRENT NUMBER OF LAYOUTS: " << lastUsedLayout;
-    
-	if (lastUsedLayout < 5)
-    {
-		cout << "\nCreate layout from (S)cratch or (C)opy?: ";
-		command = read();
-
-		do
-		{
-			switch (command)
-			{
-			case 'S':
-				cout << "\nCRATING LAYOUT NO. " << ++lastUsedLayout << " for " << name << ":\n\n";
-				venueLayouts[lastUsedLayout] = new List(Sorted);
-				//layouts[lastUsedLayout]->newLayout(); break;		//PROGRAM STOPS HERE. TAKE A LOOK AT OPPSETT()....STED.CPP
-
-			case 'C': /*newLayoutFromCopy();*/
-				//cout << "\nCRATING LAYOUT NO. " << ++lastUsedLayout << " for " << name << ":\n\n";
-				/*layouts[lastUsedLayout] = new Oppsett();*/				break;
-
-			default: printError("INVALID COMMAND, TRY AGAIN. S/C: ");	break;
-			}
-		} while (command != 'S' && command != 'C');
-
-		
-    }
-    else
-        printError("THIS VENUE HAS REACHED ITS MAX NO. OF LAYOUTS!");
-}
 void Sted::newLayoutFromCopy() {
 	char buffer[STRLEN];
+	int layNo;
+
+	layNo = read("LAYOUT TO COPY FROM? 0 TO CANCEL", 0, lastUsedLayout);
+	
+	if (layNo != 0)
+	{		
+		venueLayouts[++lastUsedLayout] = getLayout(layNo);
+	}
+	else
+		printError("NEW LAYOUT REGISTRATION ABORTED BY USER");
+
 	
 
-	read("WHICH LAYOUT NR. TO COPY FROM?", buffer, STRLEN);
-
 	
-	++lastUsedLayout;
+	
 }
 int Sted::compareVenueName(char text[]){
     return !strcmp(name, text);
@@ -322,19 +296,20 @@ void Sted::newVenueLayout(){
 	if (lastUsedLayout < 5)
 	{
 		cout << "\nCreate layout from (S)cratch or (C)opy?: ";
-		command = read();
+		
 
 		do
 		{
+			command = read();
 			switch (command)
 			{
 			case 'S':
-				cout << "\nCRATING LAYOUT NO. " << ++lastUsedLayout << " for " << name << ":\n\n";
+				cout << "\nCRATING LAYOUT NO. " << ++lastUsedLayout << " for " << name << ":\n\n";			//	Increments layout counter, points to a new list
 				venueLayouts[lastUsedLayout] = new List(Sorted);
 				addZones(lastUsedLayout);									break;
 
-			case 'C': /*newLayoutFromCopy();*/
-				//cout << "\nCRATING LAYOUT NO. " << ++lastUsedLayout << " for " << name << ":\n\n";
+			case 'C': newLayoutFromCopy();
+				
 				/*layouts[lastUsedLayout] = new Oppsett();*/				break;
 
 			default: printError("INVALID COMMAND, TRY AGAIN. S/C: ");	break;
@@ -390,15 +365,13 @@ void Sted::editLayout() {
         {
             cout << "\nWHAT DO YOU WANT TO DO TO SONE. " << sone << "?:" << endl;
             cout << "\n\tA\tAdd new zone from scratch";
-            cout << "\n\tC\tAdd new zone from a copy";
             cout << "\n\tR\tRemove a zone";
             cout << "\n\tD\tChange the details" << endl;
            
             ch = read();
             switch (ch)
             {
-            case 'A': addZones(nr);		break;
-            case 'C': /*layouts[nr]->addNewCopy();*/	break;
+            case 'A': addZones(nr);		break;					//	Add zones to existing layout
             case 'R': venueLayouts[nr]->destroy(sone);                     break;
             case 'D':
                 default: printError("INVALID COMMAND!");	break;
