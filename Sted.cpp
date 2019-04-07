@@ -42,21 +42,97 @@ Sted::Sted(char n[], ifstream & inn) : TextElement(n) {
     
     inn >> lastUsedLayout; //inn.ignore();
     
-    for(int i = 1; i <= lastUsedLayout; i++){
-        
-		inn >> layoutNo; //inn.ignore();			//??????????????
-		layouts[i] = new Oppsett(layoutNo, inn);
-		//inn.ignore();
+    for(int j = 1; j <= lastUsedLayout; j++){
+        /************KODE FRA OPPSETT()***************/
+		char nameOfZone[STRLEN];
+		char buffer[STRLEN];
+		enum zoneType typeOfZone;
+		int noOfZones, zoneNo;
+		Stoler* tempSeat;
+		Vrimle* tempSwarm;
+
+		venueLayouts[j] = new List(Sorted);
+
+
+		inn >> noOfZones; //inn.ignore();
+
+		for (int i = 1; i <= noOfZones; i++)
+		{
+			inn >> zoneNo;
+			inn.ignore();
+
+			inn.getline(buffer, STRLEN); //inn.ignore();					//????????????
+
+			if (strcmp(buffer, "stoler") == 0)
+			{
+				typeOfZone = stoler;
+				inn.getline(nameOfZone, STRLEN); //inn.ignore();
+				tempSeat = new Stoler(nameOfZone, inn, typeOfZone);
+				venueLayouts[j]->add(tempSeat);
+			}
+
+			if (strcmp(buffer, "vrimle") == 0)
+			{
+				typeOfZone = vrimle;
+				inn.getline(nameOfZone, STRLEN); //inn.ignore();
+				tempSwarm = new Vrimle(nameOfZone, inn, typeOfZone);
+				venueLayouts[j]->add(tempSwarm);
+			}
+
+
+			//	FOR TESTING
+
+			if (strcmp(buffer, "stoler") == 0 && strcmp(buffer, "vrimle") == 0)
+			{
+				cout << "OPPSETT::OPPSETT(ifstream): DON'T MIND ME! AN ERROR OCCURED, I AM JUST HERE TO HELP YOU:\n";
+				cout << "\n\nBUFFER/ZONE NAME: " << buffer << " / " << nameOfZone;
+				cout << "\nSTRLEN(BUFFER) / STRLEN(ZONENAME): " << strlen(buffer) << " / " << strlen(nameOfZone) << endl;
+			}
+
+
+
+		}
+		/***********KODE FRA OPPSETT() SLUTT *********/
+
+		
     }
 }
-void Sted::writeToFile(ofstream & out) {
+void Sted::writeToFile(ofstream & out) {				
+	
+	//HENTET FRA OPPSETT
+	Sone* zonePtr;
+	Stoler* seatPtr;
+	Vrimle* swarmPtr;
+	int temp;
+
 	out << name << '\n';
 	out << lastUsedLayout << '\n';
 
 	for (int i = 1; i <= lastUsedLayout; i++)
 	{
-		out << i << '\n';							//Layout number
-		layouts[i]->writeToFile(out);
+		out << i << '\n';									//Layout number
+		out << venueLayouts[i]->noOfElements() << '\n';		//Zone number
+		for (int j = 1; j <= venueLayouts[i]->noOfElements(); j++)
+		{
+			zonePtr = (Sone*)venueLayouts[i]->removeNo(i);
+			temp = zonePtr->returnZoneType();
+			venueLayouts[i]->add(zonePtr);
+
+			if (temp == 0)
+			{
+				out << "stoler" << '\n';
+				seatPtr = (Stoler*)venueLayouts[i]->removeNo(i);
+				seatPtr->writeToFile(out);
+				venueLayouts[i]->add(seatPtr);
+			}
+			if (temp == 1)
+			{
+				out << "vrimle" << '\n';
+				swarmPtr = (Vrimle*)venueLayouts[i]->removeNo(i);
+				swarmPtr->writeToFile(out);
+				venueLayouts[i]->add(swarmPtr);
+			}
+		}
 	}
 }
 

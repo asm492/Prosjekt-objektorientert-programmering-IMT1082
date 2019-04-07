@@ -121,6 +121,8 @@ void Arrangement::display(){         //Prints all data for one event
     
 }
 void Arrangement::printTicket() {
+	
+	
 
 }
 List* Arrangement::readFromARRXXFile() {
@@ -175,23 +177,110 @@ List* Arrangement::readFromARRXXFile() {
 }
 void Arrangement::purchaseTickets()
 {
+	Sone* zonePtr;
+	Stoler* seatPtr;
+	Vrimle* swarmPtr;
+
 	List* zones = NULL;
-	int number, lastCust;
+	int custNo, lastCust, zoneType, reservationStatus;
+	int seat, row, ticketPrice;
+	char selectedZone[STRLEN / 10], char eventCategory[STRLEN / 4];
 
 	lastCust = customerDatabase.returnLastCustomer();
 	zones = readFromARRXXFile(); 
 	zones->displayList();
 
-	number = read("CUSTOMER NUMBER", 1, lastCust);
-
-	if (customerDatabase.customerExists(number))
+	custNo = read("CUSTOMER NUMBER", 1, lastCust);
+	
+	if (customerDatabase.customerExists(custNo))
 	{
+		zones->displayList();
+		read("ZONE NAME", selectedZone, STRLEN / 10);
+		
+		if (zones->inList(selectedZone))
+		{
+			zonePtr = (Sone*)zones->remove(selectedZone);
+			zoneType = zonePtr->returnZoneType();
+			ticketPrice = zonePtr->getPrice();
+			zones->add(zonePtr);
+
+			if (zoneType == 0)
+			{
+				
+				seatPtr = (Stoler*)zones->remove(selectedZone);
+				do
+				{
+					cout << "\n\tSEAT: "; cin >> seat;
+					cout << "\n\tROW:  "; cin >> row;
+					reservationStatus = seatPtr->purchaseSeat(seat, row, custNo);
+
+				} while (reservationStatus != 1);
+				
+				zones->add(seatPtr);
+			}
+			if (zoneType == 1)
+			{
+				
+				swarmPtr = (Vrimle*)zones->remove(selectedZone);
+				reservationStatus = swarmPtr->purchaseSwarm(custNo);
+				zones->add(swarmPtr);
+			}
+		}
+		else
+			printError("INVALID ZONE!");
 
 	}
 	else
 	{
 		printError("COULD NOT VERIFY CUSTOMER NUMBER!");
 	}
+
+	
+	if (reservationStatus == 1)										
+	{
+		ofstream out("BILLETTER.DTA", ios::app);						//	Appends to the existing file
+			
+		writeCharToFile('*', 40, out); out << '\n';
+		out << "TICKET NO.: " << (eventNumber * 100000) + custNo << '\n';
+		out << "Customer:   " << custNo << '\n';
+		//strcpy(eventCategory, enumDisplay(eventType));
+		out << "(" << enumDisplay(eventType) << ") ";
+		out << eventName << ", " << artistName << '\n';
+		out << venueName << '\n';
+		out << date << ' ';
+		
+		if (hour < 10)
+			out << '0';
+
+		out << hour << ':';
+
+		if (min < 10)
+			out << '0';
+
+		out << min << '\n';
+		out << selectedZone << '\n';
+		if (zoneType == 0)
+			out << "SEAT/ROW: " << seat << "/" << row << '\n';
+		else
+			out << "Vrimle" << '\n';
+
+		out << ticketPrice << '\n';
+		writeCharToFile('*', 40, out); out << '\n';
+	}
+	
+
+
+	
+
+
+
+	//writeToARRXXFile(zones);
+
+	for (int i = 1; i <= zones->noOfElements(); i++)				//	Deletes list
+	{
+		zones->destroy(i);
+	}
+	delete zones;
 }
 bool Arrangement::compareEventNumber(int eveNr) //compares event number
 {
@@ -262,6 +351,7 @@ void Arrangement::writeToARRXXFile(List * zones)
 	strcat(filePrefix, ".DTA");
 	
 	ofstream out(filePrefix);
+	cout << "\nI WRITEFILE ETTER OFSTREAM. ANTALL SONER: '" << zones->noOfElements() << "'";
 	out << zones->noOfElements() << '\n';					//	Number of zones
 	for (int i = 1; i <= zones->noOfElements(); i++)
 	{

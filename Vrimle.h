@@ -22,6 +22,7 @@ public:
 	Vrimle(Vrimle & v);
 	~Vrimle();
 	
+	int purchaseSwarm(int cNr);
 	void writeToFile(ofstream & out);
     void display();
 	

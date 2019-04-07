@@ -14,7 +14,7 @@
 #include <iostream>
 #include <cstring>              //  strlen
 #include <cctype>               //  toupper
-
+#include <fstream>
 
 using namespace std;
 // *******************   DEFINISJON AV GLOBALE FUNKSJONER:    ******************
@@ -105,4 +105,10 @@ void printEventTypeMenu() {      //Event type menu
 	cout << "\n\t4\tCinema";
 	cout << "\n\t5\tFamily";
 	cout << "\n\t6\tFestival" << endl;
+}
+void writeCharToFile(const char ch, int nr, ofstream & out) {
+	for (int i = 1; i <= nr; i++)
+	{
+		out << ch;
+	}
 }

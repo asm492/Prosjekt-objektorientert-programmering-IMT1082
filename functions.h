@@ -12,12 +12,11 @@ int dayNumber(int dd, int mm, int yyyy);
 bool leapyear(int yy);
 bool checkDigit(const char t[]);
 
-
-
 void read(const char t[], char s[], const int LEN);
 void printError(const char t[]);
 void printMenu();
 void printEventTypeMenu();
 void readAndUpcase(const char t[], char s[], const int LEN);
+void writeCharToFile(const char ch, int nr, ofstream & out);
 
 #endif 

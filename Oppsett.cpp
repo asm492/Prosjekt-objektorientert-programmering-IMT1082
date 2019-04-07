@@ -120,24 +120,7 @@ void Oppsett::writeToFile(ofstream & out) {
 	for (int i = 1; i <= totalZones; i++)
 	{
 		out << i << '\n';
-		zonePtr = (Sone*)zoneList->removeNo(i);
-		temp = zonePtr->returnZoneType();
-		zoneList->add(zonePtr);
-
-		if (temp == 0)
-		{
-			out << "stoler" << '\n';
-			seatPtr = (Stoler*)zoneList->removeNo(i);
-			seatPtr->writeToFile(out);
-			zoneList->add(seatPtr);
-		}
-		if (temp == 1)
-		{
-			out << "vrimle" << '\n';
-			swarmPtr = (Vrimle*)zoneList->removeNo(i);
-			swarmPtr->writeToFile(out);
-			zoneList->add(swarmPtr);
-		}
+	
 	}
 
 	

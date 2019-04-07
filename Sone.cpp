@@ -74,3 +74,6 @@ void Sone::writeToFile(ofstream & out)
 	out << text << '\n';
 	out << ticketsForSale << ' ' << ticketsSold << ' ' << ticketPrice << '\n';
 }
+int Sone::getPrice() {
+	return ticketPrice;
+}

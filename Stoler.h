@@ -28,6 +28,7 @@ public:
     void printSeatMap();
 	void printSeatMapAvailibility();
 	void writeToFile(ofstream & out);
+	int purchaseSeat(int seat, int row, int custNo);
 };
 
 #endif

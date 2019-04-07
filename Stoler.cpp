@@ -228,6 +228,29 @@ void Stoler::writeToFile(ofstream & out)
 
 }
 
+int Stoler::purchaseSeat(int seat, int row, int custNo)
+{
+	if (seat <= seatPrRow && row <= rows)
+	{
+		if (tempArray[seat][row] == 0)							//	Seat is free
+		{
+			tempArray[seat][row] = custNo;
+			ticketsSold++;
+			return 1;											//	Purchase OK
+		}
+		else
+		{
+			printError("SEAT IS TAKEN!");						//	Taken
+			return 0;
+		}
+	}
+	else
+	{
+		printError("SEAT DOESN'T EXIST!");
+		return -1;												//	Seat doesnt exist								
+	}
+}
+
 void Stoler::display() {
 	
 	Sone::display();

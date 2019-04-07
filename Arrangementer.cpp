@@ -496,8 +496,8 @@ void Arrangementer::ny() {
 
   if (ant > 0)
   {
-	  read("\n\tNytt arrangements navn", anvn, STRLEN);
-	  nr = read("Oppsettnummer", 1, ant);
+	  read("\n\tNEW EVENT NAME", anvn, STRLEN);
+	  nr = read("LAYOUT NO", 1, ant);
 	  liste = venueDatabase.getVenue(snvn, nr);
 
 	  eventList->add(new Arrangement(++lastEvent, anvn, snvn, nr, liste));
