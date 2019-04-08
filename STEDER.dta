@@ -1,30 +1,26 @@
 1
-1
+
 ABC
 2
 1
 2
-1
-Stoler
+stoler
 A1
-100 0 199
-10 10
-2
-Vrimle
+50 0 100
+10 5
+stoler
 A2
-1000 0 149
+300 0 200
+30 10
 2
 3
-1
-Stoler
+stoler
 B1
 500 0 300
 50 10
-2
-Vrimle
+vrimle
 B2
 1000 0 100
-3
-Vrimle
+vrimle
 B3
 2000 0 200

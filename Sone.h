@@ -22,6 +22,7 @@ public:
 	Sone(Sone* s, enum zoneType type);
 	~Sone();
     
+	char* returnZoneName();
 	int getPrice();
 	int returnZoneType();
     void display();

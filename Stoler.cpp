@@ -69,8 +69,8 @@ Stoler::Stoler(char name[], ifstream & inn, enum zoneType type) : Sone(name, inn
 	{
 		for (int i = 1; i <= ticketsSold; i++)
 		{
-			inn >> tempCust >> tempSeat >> tempRow;
-			tempArray[tempSeat][tempRow] = tempCust;
+			inn >> tempRow >> tempSeat >> tempCust;
+			tempArray[tempRow][tempSeat] = tempCust;
 		}
 
 	}
@@ -137,19 +137,6 @@ void Stoler::printSeatMap() {		//	Used to display seat layout
 
 	cout << "\n";
 
-
-	/*TEST TO SEE WHICH NUMBER*/
-	/*
-	for (int i = 1; i <= rows; i++)
-	{
-		cout << "\t" << i << ". ";
-		for (int j = 1; j <= seatPrRow; j++)
-		{
-			cout << tempArray[i][j] << ' ';
-		}
-		cout << endl;
-	}
-	*/
 }
 void Stoler::printSeatMapAvailibility() {		//	USED TO DISPLAY IF A SEAT IS 
 												//	RESERVED OR FREE
@@ -192,23 +179,7 @@ void Stoler::printSeatMapAvailibility() {		//	USED TO DISPLAY IF A SEAT IS
 	}
 
 	cout << "\n";
-	////////////////
-	
-	
 
-
-	/*TEST TO SEE WHICH NUMBER*/
-	/*
-	for (int i = 1; i <= rows; i++)
-	{
-		cout << "\t" << i << ". ";
-		for (int j = 1; j <= seatPrRow; j++)
-		{
-			cout << tempArray[i][j] << ' ';
-		}
-		cout << endl;
-	}
-	*/
 }
 
 void Stoler::writeToFile(ofstream & out)
@@ -235,9 +206,9 @@ int Stoler::purchaseSeat(int seat, int row, int custNo)
 {
 	if (seat <= seatPrRow && row <= rows)
 	{
-		if (tempArray[seat][row] == 0)							//	Seat is free
+		if (tempArray[row][seat] == 0)							//	Seat is free
 		{
-			tempArray[seat][row] = custNo;
+			tempArray[row][seat] = custNo;
 			ticketsSold++;
 			return 1;											//	Purchase OK
 		}
@@ -258,7 +229,8 @@ void Stoler::display() {
 	
 	Sone::display();
 	cout << "SEATS*ROWS:            " << seatPrRow << "*" << rows << endl;
+	//printSeatMap();
+	printSeatMapAvailibility();
 	
-	printSeatMap();
 	
 }

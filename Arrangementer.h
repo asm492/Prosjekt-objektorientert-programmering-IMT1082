@@ -18,7 +18,7 @@ private:
     List* eventList;
     
 public:
-    void newEvent();
+   
     void eventsMenu();
     void searchChoice();
     void eventNameSearch();
@@ -33,9 +33,7 @@ public:
 	void buyTickets();
 	int findEvent();
     Arrangementer();
-    //~Arrangementer();
-	/*NEW CODE AFTER REMOVAL OF Oppsett* layouts[]*/
-	void addNewEvent();
+    
 	void ny();
 };
 

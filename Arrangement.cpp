@@ -76,11 +76,7 @@ Arrangement::Arrangement(int eNr, char evntName[], char venName[], int layoutNo)
 }
 void Arrangement::getCopyOfList(List* zoneList) {
 
-	kopi = zoneList;
-	cout << "Test";
-	kopi->displayList();
-	
-	writeToARRXXFile(kopi);
+	writeToARRXXFile(zoneList);
 }
 void Arrangement::display(){         //Prints all data for one event
     int temp, day, month, year;
@@ -126,6 +122,18 @@ void Arrangement::display(){         //Prints all data for one event
 	
     
 }
+void Arrangement::displayAllData()
+{
+	List* zones = NULL;
+
+	zones = readFromARRXXFile();
+	display();
+	zones->displayList();
+
+	delete zones;
+
+
+}
 void Arrangement::printTicket() {
 	
 	
@@ -152,25 +160,33 @@ List* Arrangement::readFromARRXXFile() {
 	
 	if (inn)
 	{
+		inn.ignore(STRLEN, '\n');		//	Skips the first 8 lines of Arr_xx files
+		inn.ignore(STRLEN, '\n'); 
+		inn.ignore(STRLEN, '\n'); 
+		inn.ignore(STRLEN, '\n'); 
+		inn.ignore(STRLEN, '\n'); 
+		inn.ignore(STRLEN, '\n');
+		inn.ignore(STRLEN, '\n'); 
+		inn.ignore(STRLEN, '\n'); 
+		
+		
 		inn >> noOfZones; //inn.ignore();
 
 		for (int i = 1; i <= noOfZones; i++)
 		{
+			inn.ignore();
 			inn.getline(buffer, STRLEN);	//inn.ignore();
-			cout << "\nBUFFER: " << buffer << endl;
 			if (strcmp(buffer, "stoler") == 0)
 			{
 				typeOfZone = stoler;
 				inn.getline(nameOfZone, STRLEN); //inn.ignore(); 
-				cout << "\nZONE NAME: " << nameOfZone << endl;
 				seatTmp = new Stoler(nameOfZone, inn, typeOfZone);
 				zoneList->add(seatTmp);
 			}
 			if (strcmp(buffer, "vrimle") == 0)
 			{
 				typeOfZone = vrimle;
-				inn.getline(nameOfZone, STRLEN); //inn.ignore();
-				cout << "\nZONE NAME: " << nameOfZone << endl;
+				inn.getline(nameOfZone, STRLEN); //inn.ignore
 				swarmTmp = new Vrimle(nameOfZone, inn, typeOfZone);
 				zoneList->add(swarmTmp);
 			}
@@ -188,23 +204,24 @@ void Arrangement::purchaseTickets()
 	Vrimle* swarmPtr;
 
 	List* zones = NULL;
-	int custNo, lastCust, zoneType, reservationStatus;
-	int seat, row, ticketPrice;
-
-	char selectedZone[STRLEN / 10]; 
+	int custNo, lastCust, zoneType, reservationStatus = 0;
+	int seat, row, ticketPrice, day, month, year, temp;
+	
+	char selectedZone[STRLEN]; 
 	char eventCategory[STRLEN / 4];
 
 
 	lastCust = customerDatabase.returnLastCustomer();
 	zones = readFromARRXXFile(); 
-	zones->displayList();
+	
 
-	custNo = read("CUSTOMER NUMBER", 1, lastCust);
+	custNo = read("\nCUSTOMER NUMBER", 1, lastCust);
 	
 	if (customerDatabase.customerExists(custNo))
-	{
+	{ 
+		cout << "\n\nZONES LIST DISPLAY LIST";
 		zones->displayList();
-		read("ZONE NAME", selectedZone, STRLEN / 10);
+		read("\nZONE NAME", selectedZone, STRLEN);
 		
 		if (zones->inList(selectedZone))
 		{
@@ -220,7 +237,7 @@ void Arrangement::purchaseTickets()
 				do
 				{
 					cout << "\n\tSEAT: "; cin >> seat;
-					cout << "\n\tROW:  "; cin >> row;
+					cout << "\tROW:  "; cin >> row;
 					reservationStatus = seatPtr->purchaseSeat(seat, row, custNo);
 
 				} while (reservationStatus != 1);
@@ -248,15 +265,23 @@ void Arrangement::purchaseTickets()
 	if (reservationStatus == 1)										
 	{
 		ofstream out("BILLETTER.DTA", ios::app);						//	Appends to the existing file
-			
+		
+		day = date / 1000000;											//makes date to 3 int's
+		temp = date % 1000000;
+		month = temp / 10000;
+		year = temp % 10000;
+
+
 		writeCharToFile('*', 40, out); out << '\n';
+
+		out << day << '/' << month << '-' << year << '\n';	
 		out << "TICKET NO.: " << (eventNumber * 100000) + custNo << '\n';
 		out << "Customer:   " << custNo << '\n';
-		//strcpy(eventCategory, enumDisplay(eventType));
+		
 		out << "(" << enumDisplay(eventType) << ") ";
 		out << eventName << ", " << artistName << '\n';
 		out << venueName << '\n';
-		out << date << ' ';
+		out << day << '/' << month << '-' << year << ' ';
 		
 		if (hour < 10)
 			out << '0';
@@ -275,6 +300,38 @@ void Arrangement::purchaseTickets()
 
 		out << ticketPrice << '\n';
 		writeCharToFile('*', 40, out); out << '\n';
+
+		writeToARRXXFile(zones);										//	Writes to file
+		
+		// Moved TO writeARRXXX()																
+		/*
+		for (int i = 1; i <= zones->noOfElements(); i++)				//	Deletes list
+		{
+			zonePtr = (Sone*)zones->removeNo(i);
+			strcpy(tempZoneName, zonePtr->returnZoneName());
+			zones->add(zonePtr);
+			zones->destroy(tempZoneName);
+			/*
+			if (zonePtr->returnZoneType() == 0)
+			{
+				strcpy(tempZoneName, zonePtr->returnZoneName());
+				zones->add(zonePtr);
+				seatPtr = (Stoler*)zones->removeNo(i);
+				zones->destroy(tempZoneName);
+
+			}
+			if (zonePtr->returnZoneType() == 1)
+			{
+				strcpy(tempZoneName, zonePtr->returnZoneName());
+				zones->add(zonePtr);
+				swarmPtr = (Vrimle*)zones->removeNo(i);
+				delete seatPtr;
+
+			}
+
+			zones->destroy(i);
+		}
+		delete zones;*/
 	}
 	
 
@@ -283,13 +340,7 @@ void Arrangement::purchaseTickets()
 
 
 
-	//writeToARRXXFile(zones);
-
-	for (int i = 1; i <= zones->noOfElements(); i++)				//	Deletes list
-	{
-		zones->destroy(i);
-	}
-	delete zones;
+	
 }
 bool Arrangement::compareEventNumber(int eveNr) //compares event number
 {
@@ -349,49 +400,79 @@ void Arrangement::writeToARRXXFile(List * zones)
 	Stoler* seatPtr;
 	Vrimle* swarmPtr;
 	int zoneType;
-	
+	char tempZoneName[STRLEN / 8];
 	char filePrefix[STRLEN / 4] = "ARR_";
 	char evntNo[STRLEN / 8];
 
-	cout << "\nINNE I WRITE TO FILE ARRXX\n";
+	
 
 	sprintf(evntNo, "%d", eventNumber);						//	Tried using iota(), causes compiler error
 	strcat(filePrefix, evntNo);
 	strcat(filePrefix, ".DTA");
 	
 	ofstream out(filePrefix);
-	cout << "\nI WRITEFILE ETTER OFSTREAM. ANTALL SONER: '" << zones->noOfElements() << "'";
+	writeToFile(out);
 	out << zones->noOfElements() << '\n';					//	Number of zones
 	for (int i = 1; i <= zones->noOfElements(); i++)
-	{
-		
-		cout << "\nForloop\n";
+	{		
 		zonePtr = (Sone*)zones->removeNo(i);
 		zoneType = zonePtr->returnZoneType();
 		
-		cout << "\nForloop for if \n";
+
 		if (zoneType == 0)
 		{
 			zones->add(zonePtr);
-			cout << "\nStoler ut\n";
 			out << "stoler" << '\n';
 			seatPtr = (Stoler*)zones->removeNo(i);
-			cout << "\nStoler 1";
 			seatPtr->writeToFile(out);
-			cout << "\nStoler 2";
 			zones->add(seatPtr);
-			cout << "\nStoler 3";
 		}
 		if (zoneType == 1)
 		{
 			zones->add(zonePtr);
-			cout << "\nvrimleut\n";
 			out << "vrimle" << '\n';
 			swarmPtr = (Vrimle*)zones->removeNo(i);
 			swarmPtr->writeToFile(out);
 			zones->add(swarmPtr);
 		}
 	}
+
+
+
+	/*HELE PROGRAMMET HENGER SEG HVIS MAN GJØR DETTE::::::*/
+	/*FINN EN ANNEN MÅTE Å SLETTE PÅ^!!!!!!!!!!!*/
+
+
+
+	/*
+	for (int i = 1; i <= zones->noOfElements(); i++)				//	Deletes list
+	{
+		zonePtr = (Sone*)zones->removeNo(i);
+		strcpy(tempZoneName, zonePtr->returnZoneName());
+		zones->add(zonePtr);
+		zones->destroy(tempZoneName);
+		/*
+		if (zonePtr->returnZoneType() == 0)
+		{
+			strcpy(tempZoneName, zonePtr->returnZoneName());
+			zones->add(zonePtr);
+			seatPtr = (Stoler*)zones->removeNo(i);
+			zones->destroy(tempZoneName);
+
+		}
+		if (zonePtr->returnZoneType() == 1)
+		{
+			strcpy(tempZoneName, zonePtr->returnZoneName());
+			zones->add(zonePtr);
+			swarmPtr = (Vrimle*)zones->removeNo(i);
+			delete seatPtr;
+
+		}
+
+		zones->destroy(i);
+	}
+	delete zones;
+	*/
 
 	
 }

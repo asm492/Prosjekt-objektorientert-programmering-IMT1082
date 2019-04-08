@@ -19,11 +19,6 @@ extern Steder venueDatabase;
 Arrangementer::Arrangementer() {
     eventList = new List(Sorted);
 }
-/*Arrangementer::~Arrangementer() {
- 
- } */
-
-
 void Arrangementer::eventsMenu() {
     char command;
     
@@ -54,30 +49,25 @@ void Arrangementer::searchChoice(){
 		switch (command) {
 		case 1: eventList->displayList();		break;				//	Displays all events
 		case 2: eventNameSearch();              break;				//	Search by event name
-		case 3: venueSearch();					break;		//	To do
+		case 3: venueSearch();					break;				
 		case 4: dateSearch();					break;				//	Search by date
 		case 5: typeSearch();					break;				//	Search by event type
 		case 6: artistNameSearch();				break;				//	Search by artist name
-		case 7: allDataArrNr();                 break;		//	To do
+		case 7: allDataArrNr();                 break;		
 		}
 	}
 	else
 		printError("NO EVENTS IN EVENT LIST");
 }
 void Arrangementer::buyTickets() {
-	Arrangement* tempEvent;
-//	Oppsett* layout;
-	List* newVenueList;
+	
 	int evnr1;
-	char eventName[STRLEN], venueName[STRLEN];
-	char ch;
-	int layoutNr;
 	Arrangement* tmp;
 
 	if (eventList->noOfElements() > 0)
 	{
 		cout << "\nTICKET PURCHASE:" << endl;
-		evnr1 = findEvent();
+		evnr1 = findEvent();						//Used to find the a unique event without using event number
 		
 		if (evnr1 != 0)
 		{
@@ -167,24 +157,14 @@ int Arrangementer::findEvent() {							//	Use if multiple search results
 }
 
 void Arrangementer::allDataArrNr() {
-    //Skal ha en kopi av oppsettet her
+    int evntNo;
+    Arrangement* tempEvent;
     
-    int arrNr;
-    
-    Arrangement* tempeEvent;
-    
-    if (lastEvent >= 1){
-    arrNr = read("Write event number: ", 1, lastEvent);
-        
-        for (int i = 1; i <= lastEvent; i++) {
-            tempeEvent = (Arrangement*)eventList->removeNo(i);
-            eventList->add(tempeEvent);
-            
-            if(tempeEvent->compareEventNumber(arrNr))
-                tempeEvent->display();
-            
-        }
-    }
+	evntNo = findEvent();
+	tempEvent = (Arrangement*)eventList->removeNo(evntNo);
+	tempEvent->displayAllData();
+	eventList->add(tempEvent);
+   
 }
 
 void Arrangementer::typeSearch() { //For searching for an event by type
@@ -255,9 +235,6 @@ void Arrangementer::dateSearch() {
 		tempEvent = (Arrangement*)eventList->removeNo(i);        //    Takes event out if list
 		eventList->add(tempEvent);
 		searchResult = tempEvent->compareEventDate(searchDate);
-		//searchResult = tempEvent->compareEvent(searchName);    //    Does a strcmp  comparison on event
-		//    Adds it back to the list
-		//        Bruke ListTool til å compare???
 		if (searchResult == 1)                                //    Displays if EXACT match
 		{
 			tempEvent->display();
@@ -353,43 +330,12 @@ void Arrangementer::eventNameSearch() {
     cout << "\n\tSearch: '" << searchName << "' returned " << numberOfResults
     << " result(s)" << endl;
 }
-
-
-/*
-void Arrangementer::newEvent(){
-	char venueName[STRLEN];
-	char eventName[STRLEN];
-    Arrangement* temp;
-
-
-	if (venueDatabase.retLastUsedVenue() > 0)
-	{
-		readAndUpcase("Enter venue name", venueName, STRLEN); //Reads venue name
- 		if (venueDatabase.venueExist(venueName))          //Checks if it exist
-		{
-			if (venueDatabase.returnCurrentLayout(venueName)) //Checks if venue has layouts
-			{
-				read("Enter event name", eventName, STRLEN);   //Reads event name
-				temp = new Arrangement(++lastEvent, eventName, venueName);
-				eventList->add(temp);                      //Adds event to list
-			}
-			else
-				printError("THIS VENUE DOES NOT HAVE ANY LAYOUTS YET!");
-		}
-		else
-			printError("VENUE NOT IN DATABASE!");
-	}
-	else
-		printError("VENUE LIST IS EMPTY! PLEASE REGISTER A VENUE USING 'S N' COMMAND IN MAIN MENU");
-	
-}
-*/
 void Arrangementer::writeEventsToFile() {
     
     int noOfEvents;
     Arrangement* tempEvent;
     
-    /********************************************************************************/
+    
     ofstream out("ARRANGEMENTER_TEST.DTA");                            //JUST FOR TESTING. 
     
     noOfEvents = eventList->noOfElements();
@@ -433,81 +379,33 @@ void Arrangementer::readEventsFromFile() {
     
 }
 /*NEW CODE AFTER REMOVAL OF Oppsett* layouts[]*/
-void Arrangementer::addNewEvent() {
-	char buffer[STRLEN];
-	char* venueName;
-	char eventName[STRLEN];
-	Arrangement* temp;
-	List* zonesList;
-	Sone* zonePtr;
-	int layoutNo, numberOfLayouts;
-
-
-	if (venueDatabase.retLastUsedVenue() > 0)
-	{
-		//read("Enter venue name", buffer, STRLEN);		//Reads venue name
-		readAndUpcase("Type venue name", buffer, STRLEN);
-
-		venueName = new char[strlen(buffer) + 1];
-		strcpy(venueName, buffer);
-
-		cout << venueName << " " << buffer << endl;
-		if (venueDatabase.venueExist(venueName))					//Checks if it exist
-		{
-			if (numberOfLayouts = venueDatabase.returnCurrentLayout(venueName))		//Checks if venue has layouts
-			{
-				cout << venueName << endl;
-				layoutNo = read("WHICH LAYOUT TO USE FOR EVENT?", 1, numberOfLayouts);
-				zonesList = venueDatabase.getVenue(venueName, layoutNo);
-				cout << "\n\nHAR HENTET LISTEN\n\n";
-				zonePtr = (Sone*)zonesList->remove("A1");
-				zonePtr->display();
-				zonesList->displayList();			//	Skjer np feil her
-				
-				read("Enter event name", eventName, STRLEN);					//Reads event name
-				temp = new Arrangement(++lastEvent, eventName, venueName, layoutNo);		//	LAYOUT NR MÅ BLI TILSENDT
-				eventList->add(temp);											//Adds event to list
-			}
-			else
-				printError("THIS VENUE DOES NOT HAVE ANY LAYOUTS YET!");
-		}
-		else
-			printError("VENUE NOT IN DATABASE!");
-	}
-	else
-		printError("VENUE LIST IS EMPTY! PLEASE REGISTER A VENUE USING 'S N' COMMAND IN MAIN MENU");
-
-
-	
-}
-//FRODE:
 
 void Arrangementer::ny() 
 {
 	char eventName[STRLEN];
 	char venueN[STRLEN];
 	int  layoutNr, ant;
-	Sone* zone;
+	
 	Arrangement* evnt;
 	List* liste;
 
 	readAndUpcase("VENUE", venueN, STRLEN);
-	ant = venueDatabase.display(venueN);
+	ant = venueDatabase.display(venueN);									//	Displays venue with that name, 
+																			//	and gets its lastUsedEvent
 
 
   if (ant > 0)
   {
 	  read("\n\tNEW EVENT NAME", eventName, STRLEN);
 	  layoutNr = read("LAYOUT NO", 1, ant);
-	  liste = venueDatabase.getVenue(venueN, layoutNr);
-	  //bare send (++lastEvent, anvn
-	  //eventList->add(new Arrangement(++lastEvent, anvn, snvn, nr, liste));
-	  liste->displayList();
+	  liste = venueDatabase.getVenue(venueN, layoutNr);						// Gets list from steder->sted	
+	  liste->displayList();													// Displays list
 	  evnt = new Arrangement(++lastEvent, eventName, venueN, layoutNr);
-	  evnt->getCopyOfList(liste);
-	  cout << "\nKALL TIL WRITE TO FILE\n";
 	  eventList->add(evnt);
-
+	  evnt = (Arrangement*)eventList->removeNo(layoutNr);
+	  evnt->getCopyOfList(liste);											//	Sends the list to the newly created event
+	  eventList->add(evnt);
+	  
   }
   else
 	  printError("ERROR");

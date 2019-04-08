@@ -77,3 +77,6 @@ void Sone::writeToFile(ofstream & out)
 int Sone::getPrice() {
 	return ticketPrice;
 }
+char* Sone::returnZoneName() {
+	return zoneName;
+}

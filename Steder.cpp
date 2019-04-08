@@ -67,8 +67,8 @@ void Steder::readVenuesFromFile() {
 
 	char bufferName[STRLEN];
 	int venueNr;
-	//ifstream inn("STEDER.DTA");
-	ifstream inn("STEDER_TEST.DTA");
+	
+	ifstream inn("STEDER.DTA");
 
 	if (inn)
 	{
@@ -125,7 +125,7 @@ void Steder::layoutDisplay()
 	readAndUpcase("Which venue's layout would you like to display?", buffer, STRLEN);
 
 	tmpVenue = (Sted*)venueList->remove(buffer);
-	venueList->add(tmpVenue);
+	
 
 	if (tmpVenue->returnLastUsedLayout() > 0)
 	{
@@ -137,6 +137,7 @@ void Steder::layoutDisplay()
 		cout << "' HAS NO LAYOUTS! MAKE ONE WITH COMMAND 'O N' IN MAIN MENU\n\n";
 
 	}
+	venueList->add(tmpVenue);
 }
 void Steder::layoutNew()
 {
@@ -180,6 +181,7 @@ void Steder::layoutEdit()
 	}
 	else
 		cout << "\n\n\t\t'" << buffer << "' IS NOT IN LIST!\n\n";
+	
 }
 void Steder::layoutDelete()
 {
@@ -200,14 +202,15 @@ List* Steder::getVenue(char* venName, int layoutN)
 	//	THIS IS WHERE IT GOES WRONG: WE KNOW IT IS IN THE LIST 
 	//	BECAUSE THE CODE ABOVE WHICH IS COMMENTED OUT RUNS FINE.
 	//	THE ->REMOVE(NAME) FUNCTION SOMEHOW RETURNS FALSE
-	if ((tmpVenue = ((Sted*)venueList->remove(venName))))
+	tmpVenue = (Sted*)venueList->remove(venName);
+	if (tmpVenue)
 	{
-		cout << "STEDER::getVenue IF" << endl;						//	FOR TESTING
+		
 		newList = tmpVenue->getLayout(layoutN);
-		venueList->add(tmpVenue);
+		
 	}
 	
-	
+	venueList->add(tmpVenue);
 	cout << "\nSTEDER::GETVENUE() BOTTOM";								//	FOR TESTING
 
 	return newList;	
@@ -294,8 +297,9 @@ bool Steder::venueExist(char text[]){
     {
         
         tempVenue = (Sted*)venueList->removeNo(i);        
-        venueList->add(tempVenue);
-        searchResult = tempVenue->compareVenueName(text);
+		searchResult = tempVenue->compareVenueName(text);
+		venueList->add(tempVenue);
+        
 
         if (searchResult) {
             return true;

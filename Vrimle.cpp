@@ -19,6 +19,10 @@ Vrimle::Vrimle(char name[], ifstream & inn, enum zoneType type) : Sone(name, inn
 {
 	space = new int[ticketsForSale];  // +1 ???space = new int[ticketsForSale + 1];
 	//inn.ignore();
+	for (int i = 1; i <= ticketsSold; i++)
+	{
+		inn >> space[i];
+	}
 }
 Vrimle::Vrimle(Vrimle & v, enum zoneType type) : Sone((Sone*)&v, type ) {
 	space = new int[ticketsForSale + 1];			//	Make new array, '* space' points to this
@@ -42,6 +46,10 @@ int Vrimle::purchaseSwarm(int cNr)
 void Vrimle::writeToFile(ofstream & out)
 {
 	Sone::writeToFile(out);
+	for (int i = 1; i <= ticketsSold; i++)
+	{
+		out << space[i] << '\n';
+	}
 }
 void Vrimle::display(){
     

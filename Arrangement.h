@@ -18,7 +18,7 @@ private:
     int eventNumber;
     int date, hour, min;
     eventType eventType;
-	List* kopi;
+	//List* kopi;
 	
     
 public:
@@ -35,6 +35,7 @@ public:
 	List* readFromARRXXFile();
     void writeToFile(ofstream & out);
     void display();
+	void displayAllData();
 	void purchaseTickets();
 	void printTicket();
 	void getCopyOfList(List* zoneList);

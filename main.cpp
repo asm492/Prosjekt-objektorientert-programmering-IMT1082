@@ -28,7 +28,7 @@ int main() {
     
 	venueDatabase.readVenuesFromFile();
     customerDatabase.readCustomersFromFile(); 
-	//eventDatabase.readEventsFromFile();
+	eventDatabase.readEventsFromFile();
     
     printMenu();                  //  Meny av brukerens valg.
     
@@ -45,9 +45,9 @@ int main() {
         command = read();           //  Leser brukerens ›nske/valg.
 		
     }
-    
+		/*FEIL I PROGRAMMET: MÅ AVSLUTTE HVER GANG MAN HAR LAGT TIL ET NYTT ARR FOR Å LESE INN FRA ARRxxx igjen*/
 	cout << "\n\nWRITING TO FILE...\n\n";
-	eventDatabase.writeEventsToFile();
+	eventDatabase.writeEventsToFile();		 
 	venueDatabase.writeVenuesToFile();
 	
     return 0;

@@ -1,0 +1,26 @@
+1		Ant steder
+
+ABC		Stednavn
+2		Ant layouts
+1		  Layout nr
+2		    soner i layout 
+stoler		type
+A1		Sone navn	
+50 0 100	Ant bill tot for salg / solgt / pris
+10 5		Seter pr rad /rader
+stoler		type
+A2		Sone navn
+300 0 200	Ant bill tot for salg / solgt / pris	
+30 10		seter/rader
+2		  Layout nr
+3		    soner i layout
+stoler		Type
+B1		navn
+500 0 300	Ant bill tot for salg / solgt / pris
+50 10		seter pr rad/rader
+vrimle		type
+B2		navn
+1000 0 100	Ant bill tot for salg / solgt / pris
+vrimle		type
+B3		navn
+2000 0 200	Ant bill tot for salg / solgt / pris

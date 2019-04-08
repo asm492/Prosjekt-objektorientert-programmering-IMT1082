@@ -237,7 +237,7 @@ List* Sted::getLayout(int layoutN)
 			liste->add(kopi);
 		}
 	}
-		cout << "\nSTED BOTTOM";
+		cout << "\nSTED BOTTOM";									//	For testing
 		return liste;
 }
 	
