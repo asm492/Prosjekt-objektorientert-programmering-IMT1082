@@ -26,11 +26,10 @@ void Arrangementer::eventsMenu() {
         switch (command)
     {
         case 'D':   searchChoice();		break;            //    Display
-        case 'N':   ny();			break;            //    New
-        case 'E':						break;            //    Edit
-        case 'S':						break;            //    Delete
-		case 'K':    buyTickets();		break;            //    Purchase
-        case 'R':    break;            //    Return
+        case 'N':   ny();			break;					
+		case 'S':	deleteAnEvent();		break;            //    Delete
+		case 'K':   buyTickets();		break;            //    Purchase
+
             
         default:
             printError("INVALID INPUT! GOING BACK TO MAIN MENU");    break;
@@ -336,7 +335,7 @@ void Arrangementer::writeEventsToFile() {
     Arrangement* tempEvent;
     
     
-    ofstream out("ARRANGEMENTER_TEST.DTA");                            //JUST FOR TESTING. 
+    ofstream out("ARRANGEMENTER.DTA");
     
     noOfEvents = eventList->noOfElements();
     
@@ -378,7 +377,7 @@ void Arrangementer::readEventsFromFile() {
         printError("FILE 'ARRANGEMENTER.DTA' NOT FOUND!");
     
 }
-/*NEW CODE AFTER REMOVAL OF Oppsett* layouts[]*/
+
 
 void Arrangementer::ny() 
 {
@@ -409,5 +408,22 @@ void Arrangementer::ny()
   }
   else
 	  printError("ERROR");
+
+}
+void Arrangementer::deleteAnEvent() {
+	char buffer[STRLEN];
+	Arrangement* eventPtr = NULL;
+
+	read("WHICH EVENT TO DELETE?", buffer, STRLEN);
+	
+	if (eventList->inList(buffer))
+	{
+		eventPtr = (Arrangement*)eventList->remove(buffer);
+		eventPtr->deleteMe();
+		eventList->add(eventPtr);
+		eventList->destroy(buffer);
+	}
+	else
+		printError("NOT IN LIST");
 
 }

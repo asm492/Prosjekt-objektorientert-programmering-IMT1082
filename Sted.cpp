@@ -9,7 +9,6 @@
 #include "Stoler.h"
 #include "Vrimle.h"
 #include "Sone.h"
-#include "Oppsett.h"
 #include "ListTool2B.h"
 #include <cstring>
 #include "enums.h"
@@ -21,16 +20,16 @@ Sted::Sted(char n[]) : TextElement(n) {
     
 	lastUsedLayout = 0;
 
-	name = new char[strlen(n) + 1];
+	name = new char[strlen(n) + 1];         //Reads venue name
 	strcpy(name, n);
 
-	/*venueLayouts*/
+	
 	for (int i = 0; i <= MAXLAYOUTS; i++)
 	{
-		venueLayouts[i] = nullptr;
+		venueLayouts[i] = nullptr;          //All objects inn array to nullptr
 	}
 
-	/*venueLayouts END*/
+	
 
     
     
@@ -47,7 +46,7 @@ Sted::Sted(char n[], ifstream & inn) : TextElement(n) {
     name = new char[strlen(n) + 1];					//	Name of the venue
     strcpy(name, n);
     
-    inn >> lastUsedLayout; //inn.ignore();
+    inn >> lastUsedLayout;                         //Reading number of layouts
     
     for(int j = 1; j <= lastUsedLayout; j++){
         
@@ -55,49 +54,41 @@ Sted::Sted(char n[], ifstream & inn) : TextElement(n) {
 		venueLayouts[layNo] = new List(Sorted);
 
 
-		inn >> noOfZones; inn.ignore();
+		inn >> noOfZones; inn.ignore();           //Reading number of zones
 
 		for (int i = 1; i <= noOfZones; i++)
 		{
-			inn.getline(buffer, STRLEN); //inn.ignore();					//????????????
+			inn.getline(buffer, STRLEN);          //Reads zone type
 
 			if (strcmp(buffer, "stoler") == 0)
 			{
 				typeOfZone = stoler;
-				inn.getline(nameOfZone, STRLEN); //inn.ignore();
+				inn.getline(nameOfZone, STRLEN);   //Zone name
 				tempSeat = new Stoler(nameOfZone, inn, typeOfZone);
-				venueLayouts[j]->add(tempSeat);
+				venueLayouts[j]->add(tempSeat);    //To list
 			}
 
 			if (strcmp(buffer, "vrimle") == 0)
 			{
 				typeOfZone = vrimle;
-				inn.getline(nameOfZone, STRLEN); //inn.ignore();
+				inn.getline(nameOfZone, STRLEN);   //Zone list
 				tempSwarm = new Vrimle(nameOfZone, inn, typeOfZone);
-				venueLayouts[j]->add(tempSwarm);
+				venueLayouts[j]->add(tempSwarm);   //To list
 			}
 
-
-			//	FOR TESTING
-
-			if (strcmp(buffer, "stoler") == 0 && strcmp(buffer, "vrimle") == 0)
+            if (strcmp(buffer, "stoler") == 0 && strcmp(buffer, "vrimle") == 0)
 			{
 				cout << "OPPSETT::OPPSETT(ifstream): DON'T MIND ME! AN ERROR OCCURED, I AM JUST HERE TO HELP YOU:\n";
 				cout << "\n\nBUFFER/ZONE NAME: " << buffer << " / " << nameOfZone;
 				cout << "\nSTRLEN(BUFFER) / STRLEN(ZONENAME): " << strlen(buffer) << " / " << strlen(nameOfZone) << endl;
 			}
-
-
-
-		}
-		/***********KODE FRA OPPSETT() SLUTT *********/
-
+        }
 		
     }
 }
 void Sted::writeToFile(ofstream & out) {				
 	
-	//HENTET FRA OPPSETT
+	
 	Sone* zonePtr;
 	Stoler* seatPtr;
 	Vrimle* swarmPtr;
@@ -114,21 +105,21 @@ void Sted::writeToFile(ofstream & out) {
 		{
 			zonePtr = (Sone*)venueLayouts[i]->removeNo(j);
 
-			if (zonePtr->returnZoneType() == 0)
+			if (zonePtr->returnZoneType() == 0)        //If stoler
 			{
-				venueLayouts[i]->add(zonePtr);
+				venueLayouts[i]->add(zonePtr);         //Writes zone type to file
 				out << "stoler" << '\n';
 				seatPtr = (Stoler*)venueLayouts[i]->removeNo(j);
-				seatPtr->writeToFile(out);
+				seatPtr->writeToFile(out);             //Writes stoler info to file
 				venueLayouts[i]->add(seatPtr);
 			}
-			if (zonePtr->returnZoneType() == 1)
+			if (zonePtr->returnZoneType() == 1)        //If vrimle
 			{
 
-				venueLayouts[i]->add(zonePtr);
+				venueLayouts[i]->add(zonePtr);          //Writes zone type to file
 				out << "vrimle" << '\n';
 				swarmPtr = (Vrimle*)venueLayouts[i]->removeNo(j);
-				swarmPtr->writeToFile(out);
+				swarmPtr->writeToFile(out);           //Writes vrimle info to file
 				venueLayouts[i]->add(swarmPtr);
 			}
 		}
@@ -136,23 +127,22 @@ void Sted::writeToFile(ofstream & out) {
 
 }
 
-void Sted::display(){
+void Sted::display(){       //Displayes venue
     cout << "\nVenue:             " << name;
 	cout << "\nNumber of layouts: " << lastUsedLayout << endl;
 }
 
-void Sted::displayName(){
+void Sted::displayName(){           //Only displayes name
     cout << name;
 }
 
-void Sted::newSeatLayout() {
+void Sted::newSeatLayout() {        //New layout
     char buffer[STRLEN];
-   // Oppsett* tmp;
-    if (lastUsedLayout < 5)
-    {                                                    //    To do: copy
-        cout << "\nCreating new layout:" << endl;
+   
+    if (lastUsedLayout < 5)         //Checks if layouts is maxed
+    {
+        cout << "\nCreating new layout: " << endl;
         read("Enter name for zone", buffer, STRLEN);
-        //layouts[++lastUsedLayout] = (buffer);
         
     }
     else
@@ -163,48 +153,25 @@ void Sted::newSeatLayout() {
     }
     
 }
-void Sted::printSeatLayout() {
-    int nr;
-    
-    if (lastUsedLayout > 0)
-    {
-        nr = read("Which layout do you want to display? Press '0' for all:", 0, lastUsedLayout);
-        cout << '\n';
-        if (nr != 0)
-        {
-            //layouts[nr]->printSeatMap();
-        }
-        else
-        {
-            for (int i = 1; i <= lastUsedLayout; i++)
-            {
-                //layouts[nr]->printSeatMap();
-            }
-        }
-    }
-    else
-    {
-        printError("NO LAYOUTS IN THE DATABASE");
-    }
-}
-void Sted::displayLayouts()			//	TESTING
+
+void Sted::displayLayouts() //Sone display
 {
 	int layoutNo, sone, layTemp;
     
-    if (lastUsedLayout > 0){
+    if (lastUsedLayout > 0){                    //If layout exist
 	
         layoutNo = read("WHICH LAYOUT TO DISPLAY?", 1, lastUsedLayout);
         layTemp = venueLayouts[layoutNo]->noOfElements();
         sone = read("WHICH SONE DO YOU WANT TP DISPLAY? (0 for all)", 0, layTemp);
 	
-        if (sone == 0)
+        if (sone == 0)      //If typed zero, displayes all
         {
             cout << "\nLAYOUT NO " << layoutNo << " FOR " << name << ':' << endl;
             venueLayouts[layoutNo]->displayList();
             
         }
 	else
-		venueLayouts[layoutNo]->displayElement(sone);
+		venueLayouts[layoutNo]->displayElement(sone);   //displayes wanted sone
 	
     }
 }
@@ -219,53 +186,29 @@ List* Sted::getLayout(int layoutN)
 	int i, ant;
 	Sone *sone, *kopi;
 
-	if (layoutN <= lastUsedLayout) {
+	if (layoutN <= lastUsedLayout) {        //checks if layout number is correct
 		ant = venueLayouts[layoutN]->noOfElements();
 
-		liste = new List(Sorted);
+		liste = new List(Sorted);               //Makes new list
 
 		for (i = 1; i <= ant; i++) {
 
 			sone = (Sone*)venueLayouts[layoutN]->removeNo(i);
 
-			if (sone->returnZoneType() == 0)
+			if (sone->returnZoneType() == 0)    //if stoler, add to list as stoler
 				kopi = new Stoler(*((Stoler*)sone), stoler);
 			else
-				kopi = new Vrimle(*((Vrimle*)sone), vrimle);
+				kopi = new Vrimle(*((Vrimle*)sone), vrimle); //Add to list as vrimle
 
 			venueLayouts[layoutN]->add(sone);
-			liste->add(kopi);
+			liste->add(kopi);                           //add to copy
 		}
 	}
-		cout << "\nSTED BOTTOM";									//	For testing
-		return liste;
+		return liste;                           //Returns copy of list
 }
 	
 	
-	//return newList
-/*
-List * Sted::kopier(int nr)
-{
-	
-	List* list = NULL;
-	int i, ant;
-	Sone *sone, *kopi;
 
-	if (nr >= 1 && nr <= lastUsedLayout) {
-		
-		ant = layouts[nr]->noOfElements();
-
-		list = new List(Sorted);
-		for (i = 1; i <= ant; i++) {
-			sone = (Sone*)layouts[nr]->removeNo(i);
-			if (*sone == 'S')  kopi = new Stoler(*((Stoler*)sone));
-			else kopi = new Vrimle(*((Vrimle*)sone));
-			oppsett[nr]->add(sone);
-			list->add(kopi);
-		}
-	}
-	return list;
-}*/
 void Sted::newLayoutFromCopy() {
 	char buffer[STRLEN];
 	int layNo;
@@ -274,17 +217,14 @@ void Sted::newLayoutFromCopy() {
 	
 	if (layNo != 0)
 	{		
-		venueLayouts[++lastUsedLayout] = getLayout(layNo);
+		venueLayouts[++lastUsedLayout] = getLayout(layNo); //Makes layout copy
 	}
 	else
 		printError("NEW LAYOUT REGISTRATION ABORTED BY USER");
 
-	
-
-	
-	
 }
-int Sted::compareVenueName(char text[]){
+
+int Sted::compareVenueName(char text[]){        //Compares venue name
     return !strcmp(name, text);
 }
 
@@ -293,7 +233,7 @@ void Sted::newVenueLayout(){
 
 	cout << "\nCURRENT NUMBER OF LAYOUTS: " << lastUsedLayout;
 
-	if (lastUsedLayout < 5)
+	if (lastUsedLayout < 5)                 //Checks if room in list
 	{
 		cout << "\nCreate layout from (S)cratch or (C)opy?: ";
 		
@@ -301,16 +241,13 @@ void Sted::newVenueLayout(){
 		do
 		{
 			command = read();
-			switch (command)
+			switch (command)    //Switch for choosing from scratch or copy
 			{
 			case 'S':
-				cout << "\nCRATING LAYOUT NO. " << ++lastUsedLayout << " for " << name << ":\n\n";			//	Increments layout counter, points to a new list
+				cout << "\nCRATING LAYOUT NO. " << ++lastUsedLayout << " for " << name << ":\n\n";			    //	Increments layout counter, points to a new list
 				venueLayouts[lastUsedLayout] = new List(Sorted);
 				addZones(lastUsedLayout);									break;
-
-			case 'C': newLayoutFromCopy();
-				
-				/*layouts[lastUsedLayout] = new Oppsett();*/				break;
+                case 'C': newLayoutFromCopy();								break;
 
 			default: printError("INVALID COMMAND, TRY AGAIN. S/C: ");	break;
 			}
@@ -336,56 +273,72 @@ void Sted::addZones(int nr) {
 		cout << "\n(S)EATS or S(W)ARM?: ";
 		command = read();
 
-		switch (command)
+		switch (command)    //Switch for seats or for swarm
 		{
 		case 'S':
 			tempSeat = new Stoler(buffer, stoler);
-			venueLayouts[nr]->add(tempSeat);			break;														
+			venueLayouts[nr]->add(tempSeat);			break;		//adds seat to list
 		case 'W':
 			tempVrimle = new Vrimle(buffer, vrimle);
-			venueLayouts[nr]->add(tempVrimle);			break;
+			venueLayouts[nr]->add(tempVrimle);			break;      //add swarm to list
 
-		default: printError("INVALID COMMAND");			break;
+		default: printError("INVALID COMMAND");			break;  //error
 		}
 
 		cout << "\nCONTINIUE TO ADD MORE ZONES? (Y/N):   "; ch = read();
 
-	} while (ch == 'Y');
+	} while (ch == 'Y');  //loops till user types something other than 'Y'
 }
 void Sted::editLayout() {
 	int nr;
 	char ch, command;
     char sone[STRLEN];
-	if (lastUsedLayout > 0)
+	
+	if (lastUsedLayout > 0)               //Checks if layout exist
 	{
 		nr = read("WHICH LAYOUT TO EDIT?", 1, lastUsedLayout);
-        read("WHICH ZONE TO EDIT?: ", sone, STRLEN);
-        
-        if (venueLayouts[nr]->inList(sone))
-        {
-            cout << "\nWHAT DO YOU WANT TO DO TO SONE. " << sone << "?:" << endl;
-            cout << "\n\tA\tAdd new zone from scratch";
-            cout << "\n\tR\tRemove a zone";
-            cout << "\n\tD\tChange the details" << endl;
-           
-            ch = read();
-            switch (ch)
-            {
-            case 'A': addZones(nr);									break;					//	Add zones to existing layout
-            case 'R': venueLayouts[nr]->destroy(sone);              break;
-            case 'D':
-                default: printError("INVALID COMMAND!");	break;
-            }
-        }
-        else {
-            printError("THIS VENUE HAS NO LAYOUTS! ADD NEW LAYOUT? (Y/N):");
-            command = read();
-            if (command == 'Y')
-            {
-				newVenueLayout();
-            }
-        }
+		venueLayouts[nr]->displayList();
+
+		cout << "\nWHAT DO YOU WANT TO DO TO THE LAYOUT? " << endl;
+		cout << "\n\tA\tAdd new zone from scratch";
+		cout << "\n\tR\tRemove a zone";
+		cout << "\n\tD\tChange the details" << endl;
+
+		ch = read();
+		switch (ch)
+		{
+		case 'A': addZones(nr);									break;	//	Add zones to existing layout
+		case 'R': 
+			read("WHICH ZONE TO REMOVE?: ", sone, STRLEN); 
+			venueLayouts[nr]->destroy(sone); printError("ZONE DELETED"); //Deletes zone
+			venueLayouts[nr]->displayList();				    		break;
+		case 'D': 
+			read("WHICH ZONE TO CHANGE?: ", sone, STRLEN);
+			changeDetails(nr, sone);					     //Calls to change function to change zone
+			venueLayouts[nr]->displayElement(sone);						break;
+		default: printError("INVALID COMMAND!");						break;
+		}        
     }
+}
+void Sted::changeDetails(int nr, char* zName) {
+	Sone* zonePtr;
+	int zoneTyp;
+	
+	zonePtr = (Sone*)venueLayouts[nr]->remove(zName);			//	Removes from list
+	zoneTyp = zonePtr->returnZoneType();						//	Checks if Stoler or vrimle
+	venueLayouts[nr]->add(zonePtr);								//	Adds back
+	venueLayouts[nr]->destroy(zName);							//	Deletes it
+
+	if (zoneTyp == 0)
+	{
+		venueLayouts[nr]->add(new Stoler(zName, stoler));		//	Makes new with same name
+	}
+	if (zoneTyp == 1)
+	{
+		venueLayouts[nr]->add(new Vrimle(zName, vrimle));		//	Makes new with same name
+	}
+
+	
 }
 void Sted::displayLayout() {
 	int layoutNo, seatOrSwarm;
@@ -398,27 +351,10 @@ void Sted::displayLayout() {
 	{
 		layoutNo = read("WHICH LAYOUT TO DISPLAY?", 1, lastUsedLayout);
 
-		for (int i = 1; i <= venueLayouts[layoutNo]->noOfElements(); i++)
+		for (int i = 1; i <= venueLayouts[layoutNo]->noOfElements(); i++) //Loops thru all sones
 		{
-			/*
 			tmpZone = (Sone*)venueLayouts[layoutNo]->removeNo(i);
-			seatOrSwarm = tmpZone->getType();
-			venueLayouts[layoutNo]->add(tmpZone);
-
-			if (seatOrSwarm == 0)
-			{
-				tmpSeat = (Stoler*)venueLayouts[layoutNo]->removeNo(i);
-				tmpSeat->display();
-				venueLayouts[layoutNo]->add(tmpSeat);
-			}
-			else if (seatOrSwarm == 1)
-			{
-				tmpSwarm = (Vrimle*)venueLayouts[layoutNo]->removeNo(i);
-				tmpSwarm->display();
-				venueLayouts[layoutNo]->add(tmpSwarm);
-			}*/
-			tmpZone = (Sone*)venueLayouts[layoutNo]->removeNo(i);
-			tmpZone->display();
+			tmpZone->display();                     //Displayes zones
 			venueLayouts[layoutNo]->add(tmpZone);
 		}
 	}
@@ -431,15 +367,3 @@ void Sted::displayLayout() {
 
 }
 
-void Sted::displayTest(int i) {
-
-	Sone* tmpZone;
-
-
-	for (int j = 1; j <= venueLayouts[i]->noOfElements(); j++)
-	{
-		tmpZone = (Sone*)venueLayouts[i]->removeNo(j);
-		tmpZone->display();
-		venueLayouts[i]->add(tmpZone);
-	}
-}

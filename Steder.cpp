@@ -17,8 +17,8 @@ void Steder::venuesMenu(){
     char command = read();
     
     switch (command) {
-        case 'D': venueDisplay();            break;
-        case 'N': newVenue();                break;
+        case 'D': venueDisplay();            break;     //Goes to display function
+        case 'N': newVenue();                break;     //Goes to new venue function
         default: printError("INVALID INPUT! GOING BACK TO MAIN MENU");
             break;
     }
@@ -88,7 +88,7 @@ void Steder::writeVenuesToFile() {
     int lastUsedVenue;
     Sted* tempVenue;
     
-    ofstream out("STEDER_TEST.DTA");
+    ofstream out("STEDER.DTA");
     
     lastUsedVenue = venueList->noOfElements();
     
@@ -129,7 +129,7 @@ void Steder::layoutDisplay()
 
 	if (tmpVenue->returnLastUsedLayout() > 0)
 	{
-		//venueList->displayElement(buffer);
+		
 		tmpVenue->displayLayout();					//	displayLayout is the new, displayLayoutS is the old
 	}
 	else {
@@ -168,7 +168,7 @@ void Steder::layoutEdit()
 	if (venueList->inList(buffer))
 	{
 		tmpVenue = (Sted*)venueList->remove(buffer);
-		venueList->add(tmpVenue);
+		
 		if (tmpVenue->returnLastUsedLayout() > 0)
 		{
 			
@@ -181,27 +181,14 @@ void Steder::layoutEdit()
 	}
 	else
 		cout << "\n\n\t\t'" << buffer << "' IS NOT IN LIST!\n\n";
-	
-}
-void Steder::layoutDelete()
-{
-	//TO DO 
+	venueList->add(tmpVenue);
 }
 List* Steder::getVenue(char* venName, int layoutN)
 {
 	Sted* tmpVenue = NULL;
 	List* newList = NULL;
 
-	cout << "\nSTEDER::GETVENUE() TOP" << endl;					//	FOR TESTING
-	cout << venName <<  ' ' << layoutN << endl;										//	FOR TESTING
-	
-	
-							/*tmpVenue = (Sted*)venueList->remove(venName);
-							tmpVenue->addZones(layoutN);
-							venueList->add(tmpVenue);*/
-	//	THIS IS WHERE IT GOES WRONG: WE KNOW IT IS IN THE LIST 
-	//	BECAUSE THE CODE ABOVE WHICH IS COMMENTED OUT RUNS FINE.
-	//	THE ->REMOVE(NAME) FUNCTION SOMEHOW RETURNS FALSE
+    
 	tmpVenue = (Sted*)venueList->remove(venName);
 	if (tmpVenue)
 	{
@@ -211,11 +198,9 @@ List* Steder::getVenue(char* venName, int layoutN)
 	}
 	
 	venueList->add(tmpVenue);
-	cout << "\nSTEDER::GETVENUE() BOTTOM";								//	FOR TESTING
 
 	return newList;	
 
-	
 }
 void Steder::layoutMenu() {		//	From main press 0
 	char command;
@@ -229,7 +214,7 @@ void Steder::layoutMenu() {		//	From main press 0
 		case 'D': layoutDisplay();	break;
 		case 'N': layoutNew();		break;
 		case 'E': layoutEdit();		break;
-		case 'S': layoutDelete();	break;
+		
 		
 		
 		default:
@@ -239,20 +224,6 @@ void Steder::layoutMenu() {		//	From main press 0
 	else
 		printError("VENUE LIST IS EMPTY. YOU MUST ADD A VENUE IN ORDER TO CONFIGURE OR DISPLAY A LAYOUT!");
 
-	
-	/*Sted* tempVenue;
-    char venueName[STRLEN];
-    read("ENTER NAME OF VENUE", venueName, STRLEN);
-    
-    if (venueList->inList(venueName))
-    {
-        tempVenue = (Sted*)venueList->remove(venueName);
-        tempVenue->newLayout();
-        venueList->add(tempVenue);
-    }
-    else
-        printError("DIDN'T FIND ANY VENUES WITH THAT NAME");
-    */
 }
 int Steder::returnCurrentLayout(char venueName[])
 {
@@ -275,17 +246,7 @@ int Steder::returnCurrentLayout(char venueName[])
 }
 int Steder::retLastUsedVenue() {
 	return lastUsedVenue;
-}/*
-List* Steder::kopier(char* nvn, int nr) {
-	List* listPtr = NULL;
-	Sted* venue;
-
-	if ((venue = (Sted*)venueList->remove(nvn))) {
-		listPtr = venue->kopier(nr);
-		venueList->add(venue);
-	}
-	return listPtr;
-}*/
+}
 
 bool Steder::venueExist(char text[]){
     Sted* tempVenue;

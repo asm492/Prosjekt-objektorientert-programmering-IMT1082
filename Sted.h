@@ -6,7 +6,6 @@
 #include "conster.h"
 #include "Stoler.h"
 #include "functions.h"
-#include "Oppsett.h"
 #include "Sone.h"
 using namespace std;
 
@@ -15,13 +14,13 @@ private:
     char* name;
     int lastUsedLayout;
 	List* venueLayouts[MAXLAYOUTS + 1];
-	//Oppsett* layouts[MAXLAYOUTS + 1];        //    Init to 1;  Pointers to all the different seat layouts
+	
     
 	
-    //List* zoneList;
+
     
 public:
-    Sted(char n[]);						//	Updated
+    Sted(char n[]);
     Sted(char n[], ifstream & inn);
     
     int compareVenueName(char text[]);
@@ -30,23 +29,20 @@ public:
     void displayName();
 	void newLayoutFromCopy();
     void newSeatLayout();
-    void printSeatLayout();
-	void displayLayouts();					//	Testing
+   
+	void changeDetails(int nr, char* zName);
+	void displayLayouts();
 	int returnLastUsedLayout();
-	//void editExistingLayout();
+    
 	List* getLayout(int layoutN);
-	//List* kopier(int nr);
+	
 
-	/*NEW CODE AFTER REMOVAL OF Oppsett* layouts[]*/
+	
 	void newVenueLayout();
 	void addZones(int nr);
 	void editLayout();
 	void displayLayout();
-	void displayTest(int i);
-
-
-
-
+	
 };
 
 

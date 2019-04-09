@@ -13,9 +13,7 @@
 using namespace std;
 
 Stoler::Stoler(char name[], enum zoneType type) : Sone(name, type) {			//	Sends name to base class
-    //int** temp;									//	Declaring an int pointer to int pointer
-												//	Makes a 2D dynamic int array
-	//int tempTicketsForSale, tempTicketsSold, tempTicketPrice;
+
 	
 
 	do
@@ -138,7 +136,7 @@ void Stoler::printSeatMap() {		//	Used to display seat layout
 	cout << "\n";
 
 }
-void Stoler::printSeatMapAvailibility() {		//	USED TO DISPLAY IF A SEAT IS 
+void Stoler::printSeatMapAvailibility() {		//  USED TO DISPLAY IF A SEAT IS
 												//	RESERVED OR FREE
 	
 	cout << "\n\t\tAVAILIBLE SEATS:" << endl;
@@ -229,7 +227,6 @@ void Stoler::display() {
 	
 	Sone::display();
 	cout << "SEATS*ROWS:            " << seatPrRow << "*" << rows << endl;
-	//printSeatMap();
 	printSeatMapAvailibility();
 	
 	

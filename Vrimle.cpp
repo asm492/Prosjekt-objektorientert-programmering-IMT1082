@@ -12,13 +12,13 @@
 using namespace std;
 
 Vrimle::Vrimle(char name[], enum zoneType type) : Sone(name, type) {
-    space = new int[ticketsForSale];
+    space = new int[ticketsForSale + 1];
 }
 
 Vrimle::Vrimle(char name[], ifstream & inn, enum zoneType type) : Sone(name, inn, type)
 {
-	space = new int[ticketsForSale];  // +1 ???space = new int[ticketsForSale + 1];
-	//inn.ignore();
+	space = new int[ticketsForSale + 1];
+	
 	for (int i = 1; i <= ticketsSold; i++)
 	{
 		inn >> space[i];

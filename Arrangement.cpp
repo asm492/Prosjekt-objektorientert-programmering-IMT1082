@@ -34,7 +34,8 @@ Arrangement::Arrangement(int eNr, char evntName[], char venName[], int layoutNo)
 
 	venueName = new char[strlen(venName) + 1];            //Allocating enough space
 	strcpy(venueName, venName);                            //for string + '\0'
-
+    
+    cout << '\n';
 	read("Enter artist name", buffer, STRLEN);
 	artistName = new char[strlen(buffer) + 1];            //Allocating enough space
 	strcpy(artistName, buffer);                            //for string + '\0'
@@ -77,6 +78,25 @@ Arrangement::Arrangement(int eNr, char evntName[], char venName[], int layoutNo)
 void Arrangement::getCopyOfList(List* zoneList) {
 
 	writeToARRXXFile(zoneList);
+}
+void Arrangement::deleteMe()
+{
+	char fileName[STRLEN / 4] = "ARR_";
+	char evntNo[STRLEN / 16];
+
+	
+	sprintf(evntNo, "%d", eventNumber);								//	Tried using iota(), causes compiler error	
+	strcat(fileName, evntNo);
+	strcat(fileName, ".DTA");
+
+	if (remove(fileName) == 0)
+	{
+		cout << "\n\nFILE '" << fileName << "' SUCCESSFULLY DELETED!\n";
+	}
+	else {
+		cout << "\n\nFILE '" << fileName << "' COULD NOT BE DELETED!\n";
+	}
+
 }
 void Arrangement::display(){         //Prints all data for one event
     int temp, day, month, year;
@@ -127,7 +147,7 @@ void Arrangement::displayAllData()
 	List* zones = NULL;
 
 	zones = readFromARRXXFile();
-	display();
+	
 	zones->displayList();
 
 	delete zones;
@@ -170,11 +190,11 @@ List* Arrangement::readFromARRXXFile() {
 		inn.ignore(STRLEN, '\n'); 
 		
 		
-		inn >> noOfZones; //inn.ignore();
-
+		inn >> noOfZones; inn.ignore();
+		
 		for (int i = 1; i <= noOfZones; i++)
 		{
-			inn.ignore();
+			//inn.ignore();
 			inn.getline(buffer, STRLEN);	//inn.ignore();
 			if (strcmp(buffer, "stoler") == 0)
 			{
@@ -262,7 +282,7 @@ void Arrangement::purchaseTickets()
 	}
 
 	
-	if (reservationStatus == 1)										
+	if (reservationStatus == 1)											//	Writes tickets
 	{
 		ofstream out("BILLETTER.DTA", ios::app);						//	Appends to the existing file
 		
@@ -298,49 +318,13 @@ void Arrangement::purchaseTickets()
 		else
 			out << "Vrimle" << '\n';
 
-		out << ticketPrice << '\n';
+		out << "KR " << ticketPrice << ",-" << '\n';
 		writeCharToFile('*', 40, out); out << '\n';
 
 		writeToARRXXFile(zones);										//	Writes to file
 		
-		// Moved TO writeARRXXX()																
-		/*
-		for (int i = 1; i <= zones->noOfElements(); i++)				//	Deletes list
-		{
-			zonePtr = (Sone*)zones->removeNo(i);
-			strcpy(tempZoneName, zonePtr->returnZoneName());
-			zones->add(zonePtr);
-			zones->destroy(tempZoneName);
-			/*
-			if (zonePtr->returnZoneType() == 0)
-			{
-				strcpy(tempZoneName, zonePtr->returnZoneName());
-				zones->add(zonePtr);
-				seatPtr = (Stoler*)zones->removeNo(i);
-				zones->destroy(tempZoneName);
-
-			}
-			if (zonePtr->returnZoneType() == 1)
-			{
-				strcpy(tempZoneName, zonePtr->returnZoneName());
-				zones->add(zonePtr);
-				swarmPtr = (Vrimle*)zones->removeNo(i);
-				delete seatPtr;
-
-			}
-
-			zones->destroy(i);
-		}
-		delete zones;*/
+		
 	}
-	
-
-
-	
-
-
-
-	
 }
 bool Arrangement::compareEventNumber(int eveNr) //compares event number
 {
@@ -406,7 +390,7 @@ void Arrangement::writeToARRXXFile(List * zones)
 
 	
 
-	sprintf(evntNo, "%d", eventNumber);						//	Tried using iota(), causes compiler error
+	sprintf(evntNo, "%d", eventNumber);						
 	strcat(filePrefix, evntNo);
 	strcat(filePrefix, ".DTA");
 	
@@ -437,44 +421,7 @@ void Arrangement::writeToARRXXFile(List * zones)
 		}
 	}
 
-
-
-	/*HELE PROGRAMMET HENGER SEG HVIS MAN GJØR DETTE::::::*/
-	/*FINN EN ANNEN MÅTE Å SLETTE PÅ^!!!!!!!!!!!*/
-
-
-
-	/*
-	for (int i = 1; i <= zones->noOfElements(); i++)				//	Deletes list
-	{
-		zonePtr = (Sone*)zones->removeNo(i);
-		strcpy(tempZoneName, zonePtr->returnZoneName());
-		zones->add(zonePtr);
-		zones->destroy(tempZoneName);
-		/*
-		if (zonePtr->returnZoneType() == 0)
-		{
-			strcpy(tempZoneName, zonePtr->returnZoneName());
-			zones->add(zonePtr);
-			seatPtr = (Stoler*)zones->removeNo(i);
-			zones->destroy(tempZoneName);
-
-		}
-		if (zonePtr->returnZoneType() == 1)
-		{
-			strcpy(tempZoneName, zonePtr->returnZoneName());
-			zones->add(zonePtr);
-			swarmPtr = (Vrimle*)zones->removeNo(i);
-			delete seatPtr;
-
-		}
-
-		zones->destroy(i);
-	}
-	delete zones;
-	*/
-
-	
+	 delete zones;
 }
 
 void Arrangement::writeToFile(ofstream & out) {  //Writes events to file

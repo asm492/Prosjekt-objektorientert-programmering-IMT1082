@@ -34,17 +34,15 @@ public:
 	void layoutDisplay();
 	void layoutNew();
 	void layoutEdit();
-	void layoutDelete();
 	List* getVenue(char* venName, int layoutN);
 	
 	int returnCurrentLayout(char venueName[]);
 	int retLastUsedVenue();
-	//const char* returnZoneName();
+	
 
-	//FRODE:
 	List* kopier(char* nvn, int nr);
 	int display(char n[]);
-	/*NEW CODE AFTER REMOVAL OF Oppsett* layouts[]*/
+	
 	
 };
 

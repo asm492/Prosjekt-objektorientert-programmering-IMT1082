@@ -100,8 +100,8 @@ void Kunder::writeCustomersToFile() {
     int noOfCustomers;
     Kunde* tempKunde;
     
-    /********************************************************************************/
-    ofstream out("KUNDER_TEST.DTA");                            //JUST FOR TESTING. CHANGE TO KUNDER.DTA
+    
+    ofstream out("KUNDER.DTA");
     
     noOfCustomers = customersList->noOfElements();
     

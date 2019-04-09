@@ -3,7 +3,7 @@
 #endif
 
 #include <iostream>
-#include "conster.h"                    //    Test
+#include "conster.h"                    
 #include "functions.h"
 #include "ListTool2B.h"
 #include "Kunder.h"
@@ -13,10 +13,7 @@
 
 
 using namespace std;
-//List* customerList;
-//List* eventList;
-//List* layoutList;
-//List* venueList;
+/
 
 Kunder customerDatabase;
 Arrangementer eventDatabase;
@@ -45,7 +42,7 @@ int main() {
         command = read();           //  Leser brukerens ›nske/valg.
 		
     }
-		/*FEIL I PROGRAMMET: MÅ AVSLUTTE HVER GANG MAN HAR LAGT TIL ET NYTT ARR FOR Å LESE INN FRA ARRxxx igjen*/
+		
 	cout << "\n\nWRITING TO FILE...\n\n";
 	eventDatabase.writeEventsToFile();		 
 	venueDatabase.writeVenuesToFile();

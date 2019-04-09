@@ -19,7 +19,6 @@ Sone::Sone(char n[], enum zoneType type) : TextElement(n){
 	typeOfZone = type;	
 	//ticketsForSale = sumSeats;
 	cout << "\nNO. OF TICKETS FOR SALE?:   "; cin >> ticketsForSale;
-	//ticketsForSale = read("NO. OF TICKETS FOR SALE?", MINTICKETSSALE, MAXTICKETSSALE);		//	How to distinguish between STOLER AND VRIMLE?
 	ticketsSold = 0;
 	ticketPrice = read("TICKET PRICE FOR ZONE", MINTICKETPRICE, MAXTICKETPRICE);
 
@@ -38,7 +37,7 @@ Sone::Sone(Sone* s, enum zoneType type) : TextElement(s->text) {
 	ticketsForSale = s->ticketsForSale;
 	ticketsSold = s->ticketsSold;
 	ticketPrice = s->ticketPrice;
-	//typeOfZone = s->typeOfZone;
+	
 }
 Sone::~Sone() {						
 	delete zoneName;

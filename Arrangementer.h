@@ -31,6 +31,7 @@ public:
     void readEventsFromFile();
     void writeEventsToFile();
 	void buyTickets();
+	void deleteAnEvent();
 	int findEvent();
     Arrangementer();
     
