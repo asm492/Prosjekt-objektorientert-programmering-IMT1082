@@ -13,7 +13,7 @@
 
 
 using namespace std;
-/
+
 
 Kunder customerDatabase;
 Arrangementer eventDatabase;
@@ -35,7 +35,7 @@ int main() {
             case 'K': customerDatabase.customersMenu();			break;
             case 'A': eventDatabase.eventsMenu();				break;
             case 'S': venueDatabase.venuesMenu();				break;
-            case 'O': venueDatabase.layoutMenu(); /*layoutMenu();*/                        break;
+            case 'O': venueDatabase.layoutMenu();               break;
             default:  printError("INPUT NOT VALID!");    break;
         }
         printMenu();

@@ -18,7 +18,7 @@ private:
     int eventNumber;
     int date, hour, min;
     eventType eventType;
-	//List* kopi;
+	
 	
     
 public:
@@ -37,10 +37,10 @@ public:
     void display();
 	void displayAllData();
 	void purchaseTickets();
-	void printTicket();
+	
 	void getCopyOfList(List* zoneList);
 	void deleteMe();
-  //  void printEventTypeMenu();		//Moved to functions.cpp, because we need it in Arrangementer as well
+ 
     
     bool compareVenueName(char query[]);
 	bool compareEventNameExact(char query[]);

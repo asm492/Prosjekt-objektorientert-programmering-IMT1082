@@ -11,13 +11,12 @@ using namespace std;
 class Sone : public TextElement {
 protected:
     char* zoneName;
-    int ticketsForSale;                 //    DO NOT INCREMENT!
+    int ticketsForSale;
     int ticketsSold, ticketPrice;
 	enum zoneType typeOfZone;
-    //List* seatList;                                        //    Stoler
-    //List* swarmList;                                    //    Vrimle
+  
 public:
-	Sone(char n[], enum zoneType type);						//	NEW
+	Sone(char n[], enum zoneType type);						
 	Sone(char n[], ifstream & inn, enum zoneType type);
 	Sone(Sone* s, enum zoneType type);
 	~Sone();

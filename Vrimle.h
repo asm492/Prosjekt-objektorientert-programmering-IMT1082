@@ -13,8 +13,7 @@ class Vrimle : public Sone {
 private:
     
     int* space = nullptr;
-	//enum zoneType type;
-    //int soldToCustNo[ticketsForSale + 1]; MŒ ha dynamic array eller liste
+	
 public:
     
 	Vrimle(char name[], enum zoneType type);

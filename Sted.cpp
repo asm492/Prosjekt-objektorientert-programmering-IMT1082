@@ -341,10 +341,9 @@ void Sted::changeDetails(int nr, char* zName) {
 	
 }
 void Sted::displayLayout() {
-	int layoutNo, seatOrSwarm;
+    int layoutNo;
 	Sone* tmpZone;
-	Stoler* tmpSeat;
-	Vrimle* tmpSwarm;
+	
 
 	
 	if (lastUsedLayout > 0)

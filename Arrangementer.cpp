@@ -26,8 +26,8 @@ void Arrangementer::eventsMenu() {
         switch (command)
     {
         case 'D':   searchChoice();		break;            //    Display
-        case 'N':   ny();			break;					
-		case 'S':	deleteAnEvent();		break;            //    Delete
+        case 'N':   ny();			    break;            //    New
+		case 'S':	deleteAnEvent();	break;            //    Delete
 		case 'K':   buyTickets();		break;            //    Purchase
 
             
@@ -48,11 +48,11 @@ void Arrangementer::searchChoice(){
 		switch (command) {
 		case 1: eventList->displayList();		break;				//	Displays all events
 		case 2: eventNameSearch();              break;				//	Search by event name
-		case 3: venueSearch();					break;				
+		case 3: venueSearch();					break;				//  Search by venue
 		case 4: dateSearch();					break;				//	Search by date
 		case 5: typeSearch();					break;				//	Search by event type
 		case 6: artistNameSearch();				break;				//	Search by artist name
-		case 7: allDataArrNr();                 break;		
+		case 7: allDataArrNr();                 break;		        //  Search by event name, then number
 		}
 	}
 	else
@@ -63,15 +63,15 @@ void Arrangementer::buyTickets() {
 	int evnr1;
 	Arrangement* tmp;
 
-	if (eventList->noOfElements() > 0)
+	if (eventList->noOfElements() > 0)              //Checks if list is empty
 	{
 		cout << "\nTICKET PURCHASE:" << endl;
 		evnr1 = findEvent();						//Used to find the a unique event without using event number
 		
-		if (evnr1 != 0)
+		if (evnr1 != 0)                             //Makes sure evnr1 has event
 		{
 			tmp = (Arrangement*)eventList->removeNo(evnr1);
-			tmp->purchaseTickets();
+			tmp->purchaseTickets();                  //Calls function in sted to purchase tickets
 			eventList->add(tmp);
 		}
 
@@ -206,14 +206,14 @@ void Arrangementer::typeSearch() { //For searching for an event by type
 
 }
 
-void Arrangementer::dateSearch() {
+void Arrangementer::dateSearch() {              //Search for event by date
 	
 	Arrangement* tempEvent;
 	int searchDate, dd, mm, yyyy;
 	bool searchResult;
 	int numberOfResults = 0;
 
-	do
+	do                                  //While date is valid
 	{
 		cout << "\nDATE SEARCH:";
 		dd = read("Type day", DAYMIN, DAYMAX);
@@ -233,7 +233,7 @@ void Arrangementer::dateSearch() {
 	{
 		tempEvent = (Arrangement*)eventList->removeNo(i);        //    Takes event out if list
 		eventList->add(tempEvent);
-		searchResult = tempEvent->compareEventDate(searchDate);
+		searchResult = tempEvent->compareEventDate(searchDate);  //    Compares dates with event
 		if (searchResult == 1)                                //    Displays if EXACT match
 		{
 			tempEvent->display();
@@ -246,7 +246,7 @@ void Arrangementer::dateSearch() {
 		<< " result(s)" << endl;
 }
 
-void Arrangementer::venueSearch() {
+void Arrangementer::venueSearch() {         //Search event by venue
     char venue[STRLEN];
     int searchResult = 0;
     
@@ -262,10 +262,10 @@ void Arrangementer::venueSearch() {
             searchResult++;
         }
     }
-    cout << "\n\nSearch results: " << searchResult << endl;
+    cout << "\n\nSearch results: " << searchResult << endl; // Displayes number of results
 }
 
-void Arrangementer::artistNameSearch() {
+void Arrangementer::artistNameSearch() {    //Artist name search
 	
     Arrangement* tempEvent;
 	char searchName[STRLEN];
@@ -286,11 +286,11 @@ void Arrangementer::artistNameSearch() {
 			numberOfResults++;
 		}
 	}
-
+                                                            //Displayes search results
 	cout << "\n\tSearch: '" << searchName << "' returned " << numberOfResults
 		<< " result(s)" << endl;
 }
-void Arrangementer::searchMenu() {
+void Arrangementer::searchMenu() {          //   Search menu
     cout << "\n\nEVENT MENU - Avalible commands:";
     cout << "\n\t(1) - Print all the events";
     cout << "\n\t(2) - Search for an event by event name";
@@ -304,7 +304,7 @@ void Arrangementer::searchMenu() {
 
 
 
-void Arrangementer::eventNameSearch() {
+void Arrangementer::eventNameSearch() {         //  Event name search
     
     Arrangement* tempEvent;
     char searchName[STRLEN];
@@ -325,17 +325,17 @@ void Arrangementer::eventNameSearch() {
             numberOfResults++;
         }   
     }
-       
+                                                    //Displayes serach results
     cout << "\n\tSearch: '" << searchName << "' returned " << numberOfResults
     << " result(s)" << endl;
 }
-void Arrangementer::writeEventsToFile() {
+void Arrangementer::writeEventsToFile() {       //    Writing events to file
     
     int noOfEvents;
     Arrangement* tempEvent;
     
     
-    ofstream out("ARRANGEMENTER.DTA");
+    ofstream out("ARRANGEMENTER.DTA");          //Opens file
     
     noOfEvents = eventList->noOfElements();
     
@@ -343,11 +343,11 @@ void Arrangementer::writeEventsToFile() {
     if (lastEvent > 0)
     {
         
-        out << noOfEvents << '\n';
+        out << noOfEvents << '\n';                       //Adds first number of events
         for (int i = 1; i <= noOfEvents; i++)
         {
             tempEvent = (Arrangement*)eventList->removeNo(i);
-            tempEvent->writeToFile(out);
+            tempEvent->writeToFile(out);                    //Calls the write to file in arrangement
             eventList->add(tempEvent);                      //    Puts the object back inn the list
         }
     }
@@ -355,7 +355,7 @@ void Arrangementer::writeEventsToFile() {
         printError("NO CUSTOMERS IN DATABASE!");
 }
 
-void Arrangementer::readEventsFromFile() {
+void Arrangementer::readEventsFromFile() {          // Reads events from file
     
     Arrangement* temp;
     char bufferName[STRLEN];
@@ -379,7 +379,7 @@ void Arrangementer::readEventsFromFile() {
 }
 
 
-void Arrangementer::ny() 
+void Arrangementer::ny()                //Create new event
 {
 	char eventName[STRLEN];
 	char venueN[STRLEN];
@@ -395,8 +395,8 @@ void Arrangementer::ny()
 
   if (ant > 0)
   {
-	  read("\n\tNEW EVENT NAME", eventName, STRLEN);
-	  layoutNr = read("LAYOUT NO", 1, ant);
+	  read("\n\tNEW EVENT NAME", eventName, STRLEN);            //  Reads event name
+	  layoutNr = read("LAYOUT NO", 1, ant);                     //  Reads which layout to use
 	  liste = venueDatabase.getVenue(venueN, layoutNr);						// Gets list from steder->sted	
 	  liste->displayList();													// Displays list
 	  evnt = new Arrangement(++lastEvent, eventName, venueN, layoutNr);
@@ -410,7 +410,7 @@ void Arrangementer::ny()
 	  printError("ERROR");
 
 }
-void Arrangementer::deleteAnEvent() {
+void Arrangementer::deleteAnEvent() {       //Deletes an event
 	char buffer[STRLEN];
 	Arrangement* eventPtr = NULL;
 
@@ -419,9 +419,9 @@ void Arrangementer::deleteAnEvent() {
 	if (eventList->inList(buffer))
 	{
 		eventPtr = (Arrangement*)eventList->remove(buffer);
-		eventPtr->deleteMe();
+		eventPtr->deleteMe();           //Calls function in arrangement
 		eventList->add(eventPtr);
-		eventList->destroy(buffer);
+		eventList->destroy(buffer);     //Destroyes object from list
 	}
 	else
 		printError("NOT IN LIST");

@@ -77,19 +77,19 @@ Arrangement::Arrangement(int eNr, char evntName[], char venName[], int layoutNo)
 }
 void Arrangement::getCopyOfList(List* zoneList) {
 
-	writeToARRXXFile(zoneList);
+	writeToARRXXFile(zoneList);         //Writes copy of list to arr_xx
 }
-void Arrangement::deleteMe()
+void Arrangement::deleteMe()        //File delete
 {
 	char fileName[STRLEN / 4] = "ARR_";
 	char evntNo[STRLEN / 16];
 
 	
 	sprintf(evntNo, "%d", eventNumber);								//	Tried using iota(), causes compiler error	
-	strcat(fileName, evntNo);
+	strcat(fileName, evntNo);                                       //  Gets the unique filename
 	strcat(fileName, ".DTA");
 
-	if (remove(fileName) == 0)
+	if (remove(fileName) == 0)                                  //  Deletes file
 	{
 		cout << "\n\nFILE '" << fileName << "' SUCCESSFULLY DELETED!\n";
 	}
@@ -114,7 +114,7 @@ void Arrangement::display(){         //Prints all data for one event
 	cout << "\tEvent Type:             "; cout << enumDisplay(eventType) << endl;
 	cout << "\tEvent date and time:    ";
     
-	if (day < 10)
+	if (day < 10)           //Adds zero on dates and time if number is under 10
 	{
 		cout << "0";
 	}
@@ -142,23 +142,19 @@ void Arrangement::display(){         //Prints all data for one event
 	
     
 }
-void Arrangement::displayAllData()
+void Arrangement::displayAllData()      //displayes all info of an event
 {
 	List* zones = NULL;
 
-	zones = readFromARRXXFile();
+	zones = readFromARRXXFile();        //  Reads from arr_xx
 	
-	zones->displayList();
+	zones->displayList();               // displayes zones for event
 
-	delete zones;
+	delete zones;                       // Delete zone copy
 
 
 }
-void Arrangement::printTicket() {
-	
-	
 
-}
 List* Arrangement::readFromARRXXFile() {
 	List* zoneList = NULL;
 	
@@ -173,7 +169,7 @@ List* Arrangement::readFromARRXXFile() {
 	zoneList = new List(Sorted);
 
 	sprintf(evntNo, "%d", eventNumber);								//	Tried using iota(), causes compiler error	
-	strcat(fileName, evntNo);
+	strcat(fileName, evntNo);                               //Makes unique filename
 	strcat(fileName, ".DTA");
 	
 	ifstream inn(fileName);
@@ -190,34 +186,34 @@ List* Arrangement::readFromARRXXFile() {
 		inn.ignore(STRLEN, '\n'); 
 		
 		
-		inn >> noOfZones; inn.ignore();
+		inn >> noOfZones; inn.ignore();             // Reads number of zones
 		
 		for (int i = 1; i <= noOfZones; i++)
 		{
-			//inn.ignore();
-			inn.getline(buffer, STRLEN);	//inn.ignore();
-			if (strcmp(buffer, "stoler") == 0)
+			
+			inn.getline(buffer, STRLEN);            //Reads zone type
+			if (strcmp(buffer, "stoler") == 0)      // If zone is stoler
 			{
 				typeOfZone = stoler;
-				inn.getline(nameOfZone, STRLEN); //inn.ignore(); 
-				seatTmp = new Stoler(nameOfZone, inn, typeOfZone);
-				zoneList->add(seatTmp);
+				inn.getline(nameOfZone, STRLEN);    //Reads name of zone
+				seatTmp = new Stoler(nameOfZone, inn, typeOfZone);  //Creates object
+				zoneList->add(seatTmp);                         //Adds it to zone list
 			}
-			if (strcmp(buffer, "vrimle") == 0)
+			if (strcmp(buffer, "vrimle") == 0)      //If zone is vrimle
 			{
 				typeOfZone = vrimle;
-				inn.getline(nameOfZone, STRLEN); //inn.ignore
-				swarmTmp = new Vrimle(nameOfZone, inn, typeOfZone);
-				zoneList->add(swarmTmp);
+				inn.getline(nameOfZone, STRLEN);    //Reads name of zone
+				swarmTmp = new Vrimle(nameOfZone, inn, typeOfZone); //Creates object
+				zoneList->add(swarmTmp);                //Adds it to zone list
 			}
 		}
 	}
 	else
 		cout << "\n\n\t\tCOULD NOT FIND FILE '" << fileName << "'!\n\n";
 
-	return zoneList;
+	return zoneList;            //Return zone list
 }
-void Arrangement::purchaseTickets()
+void Arrangement::purchaseTickets()         //Purchasing tickets
 {
 	Sone* zonePtr;
 	Stoler* seatPtr;
@@ -231,44 +227,44 @@ void Arrangement::purchaseTickets()
 	char eventCategory[STRLEN / 4];
 
 
-	lastCust = customerDatabase.returnLastCustomer();
-	zones = readFromARRXXFile(); 
+	lastCust = customerDatabase.returnLastCustomer();   //Gets number of customers
+	zones = readFromARRXXFile();                    //Reads event from file
 	
 
-	custNo = read("\nCUSTOMER NUMBER", 1, lastCust);
+	custNo = read("\nCUSTOMER NUMBER", 1, lastCust);    //Which customer who wants to buy
 	
-	if (customerDatabase.customerExists(custNo))
+	if (customerDatabase.customerExists(custNo))        // Checks if customer is in database
 	{ 
 		cout << "\n\nZONES LIST DISPLAY LIST";
-		zones->displayList();
+		zones->displayList();                           //Displayes zones
 		read("\nZONE NAME", selectedZone, STRLEN);
 		
-		if (zones->inList(selectedZone))
+		if (zones->inList(selectedZone))            //Checks if selected zone exists
 		{
 			zonePtr = (Sone*)zones->remove(selectedZone);
-			zoneType = zonePtr->returnZoneType();
-			ticketPrice = zonePtr->getPrice();
+			zoneType = zonePtr->returnZoneType();     //Zone type gets added to zoneType
+			ticketPrice = zonePtr->getPrice();        //Gets ticketprice
 			zones->add(zonePtr);
 
-			if (zoneType == 0)
+			if (zoneType == 0)                      //If zero, event type is stoler
 			{
 				
 				seatPtr = (Stoler*)zones->remove(selectedZone);
-				do
+				do                          //Ask which seat customer wants
 				{
 					cout << "\n\tSEAT: "; cin >> seat;
 					cout << "\tROW:  "; cin >> row;
-					reservationStatus = seatPtr->purchaseSeat(seat, row, custNo);
+					reservationStatus = seatPtr->purchaseSeat(seat, row, custNo);   //Cheks if seat is available
 
-				} while (reservationStatus != 1);
+				} while (reservationStatus != 1);       //loops till seat is valid
 				
 				zones->add(seatPtr);
 			}
-			if (zoneType == 1)
+			if (zoneType == 1)             //If 1, event type is vrimle
 			{
 				
 				swarmPtr = (Vrimle*)zones->remove(selectedZone);
-				reservationStatus = swarmPtr->purchaseSwarm(custNo);
+				reservationStatus = swarmPtr->purchaseSwarm(custNo);   //Checks if sold out
 				zones->add(swarmPtr);
 			}
 		}
@@ -292,18 +288,18 @@ void Arrangement::purchaseTickets()
 		year = temp % 10000;
 
 
-		writeCharToFile('*', 40, out); out << '\n';
+		writeCharToFile('*', 40, out); out << '\n';   //Star line
 
-		out << day << '/' << month << '-' << year << '\n';	
-		out << "TICKET NO.: " << (eventNumber * 100000) + custNo << '\n';
-		out << "Customer:   " << custNo << '\n';
+		out << day << '/' << month << '-' << year << '\n';	    //Writes date
+		out << "TICKET NO.: " << (eventNumber * 100000) + custNo << '\n';   //Writes ticketnumber
+		out << "Customer:   " << custNo << '\n';                    // Writes customer number
 		
-		out << "(" << enumDisplay(eventType) << ") ";
-		out << eventName << ", " << artistName << '\n';
-		out << venueName << '\n';
-		out << day << '/' << month << '-' << year << ' ';
-		
-		if (hour < 10)
+		out << "(" << enumDisplay(eventType) << ") ";           // Writes event type
+		out << eventName << ", " << artistName << '\n';         // Writes artist name
+		out << venueName << '\n';                               // Writes venue name
+		out << day << '/' << month << '-' << year << ' ';       // Writes Date
+        
+		if (hour < 10)                  //Makes an extra zero if hour or time is under 10
 			out << '0';
 
 		out << hour << ':';
@@ -312,16 +308,16 @@ void Arrangement::purchaseTickets()
 			out << '0';
 
 		out << min << '\n';
-		out << selectedZone << '\n';
-		if (zoneType == 0)
+		out << selectedZone << '\n';            // Writes selected zone
+		if (zoneType == 0)                      // if zone is stole
 			out << "SEAT/ROW: " << seat << "/" << row << '\n';
-		else
+		else                                    // if zones is vrimle
 			out << "Vrimle" << '\n';
 
-		out << "KR " << ticketPrice << ",-" << '\n';
-		writeCharToFile('*', 40, out); out << '\n';
+		out << "KR " << ticketPrice << ",-" << '\n';        // Writes ticketsprice
+		writeCharToFile('*', 40, out); out << '\n';         // Star line
 
-		writeToARRXXFile(zones);										//	Writes to file
+		writeToARRXXFile(zones);						//	Writes to file
 		
 		
 	}
@@ -390,38 +386,38 @@ void Arrangement::writeToARRXXFile(List * zones)
 
 	
 
-	sprintf(evntNo, "%d", eventNumber);						
+	sprintf(evntNo, "%d", eventNumber);				//Creates unique filename
 	strcat(filePrefix, evntNo);
 	strcat(filePrefix, ".DTA");
 	
-	ofstream out(filePrefix);
-	writeToFile(out);
+	ofstream out(filePrefix);                       //Opens file
+	writeToFile(out);                           //Calls write to file function
 	out << zones->noOfElements() << '\n';					//	Number of zones
-	for (int i = 1; i <= zones->noOfElements(); i++)
+	for (int i = 1; i <= zones->noOfElements(); i++)        //loops number of zones
 	{		
 		zonePtr = (Sone*)zones->removeNo(i);
 		zoneType = zonePtr->returnZoneType();
 		
 
-		if (zoneType == 0)
+		if (zoneType == 0)          //If zone type is zero = stoler
 		{
 			zones->add(zonePtr);
 			out << "stoler" << '\n';
 			seatPtr = (Stoler*)zones->removeNo(i);
-			seatPtr->writeToFile(out);
+			seatPtr->writeToFile(out);  //Writes seats to file
 			zones->add(seatPtr);
 		}
 		if (zoneType == 1)
 		{
-			zones->add(zonePtr);
+			zones->add(zonePtr);    //If zone type is 1 = vrimle
 			out << "vrimle" << '\n';
 			swarmPtr = (Vrimle*)zones->removeNo(i);
-			swarmPtr->writeToFile(out);
+			swarmPtr->writeToFile(out);  //Writes vimle to file
 			zones->add(swarmPtr);
 		}
 	}
 
-	 delete zones;
+	 delete zones;                  //Delete copy of zones
 }
 
 void Arrangement::writeToFile(ofstream & out) {  //Writes events to file

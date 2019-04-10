@@ -45,13 +45,13 @@ void Steder::newVenue() {
 
     } while (venueList->inList(tempName));
     
-    tempVenue = new Sted(tempName);
-    venueList->add(tempVenue);
+    tempVenue = new Sted(tempName);         //Creates a new venue
+    venueList->add(tempVenue);              //Adds it to list
     lastUsedVenue = venueList->noOfElements();
 	cout << "\n\n\t\tVENUE CREATED!\n";
     
 }
-void Steder::venueDisplay() {
+void Steder::venueDisplay() {       //Displayes all elements in list
 	
 	if ((venueList->noOfElements()) > 0)
 	{
@@ -76,8 +76,8 @@ void Steder::readVenuesFromFile() {
 
 		for (int i = 1; i <= lastUsedVenue; i++) {
 			inn.ignore();								//	Ignores \n before each venue name
-			inn.getline(bufferName, STRLEN);		
-			venueList->add(new Sted(bufferName, inn));
+			inn.getline(bufferName, STRLEN);		    //  Reads name from file
+			venueList->add(new Sted(bufferName, inn));  //  Adds it in list
 		}
 	}
 	else
@@ -92,16 +92,16 @@ void Steder::writeVenuesToFile() {
     
     lastUsedVenue = venueList->noOfElements();
     
-    out << lastUsedVenue << '\n';
+    out << lastUsedVenue << '\n';               //Number of venues
 	for (int i = 1; i <= lastUsedVenue; i++)
 	{
 		out << '\n';									//	New line before each venue name
 		tempVenue = (Sted*)venueList->removeNo(i);
-		tempVenue->writeToFile(out);
+		tempVenue->writeToFile(out);                    //Calls to sted writeToFile
 		venueList->add(tempVenue);
 	}
 }
-int Steder::display(char n[])
+int Steder::display(char n[])           //Displayes venue with given name
 {
 	Sted* tmp;
 	int layouts;
@@ -109,9 +109,9 @@ int Steder::display(char n[])
 	{
 		venueList->displayElement(n);
 		tmp = (Sted*)venueList->remove(n);
-		layouts = tmp->returnLastUsedLayout();
-		venueList->add(tmp);							//	THIS IS WHERE THE PROGRAM CRASHED, FORGOT TO ADD IT BACK
-		return layouts;
+		layouts = tmp->returnLastUsedLayout();          // Gets last used layout
+		venueList->add(tmp);
+		return layouts;             //Returns last used layout
 	}
 	else
         return 0;
@@ -127,10 +127,10 @@ void Steder::layoutDisplay()
 	tmpVenue = (Sted*)venueList->remove(buffer);
 	
 
-	if (tmpVenue->returnLastUsedLayout() > 0)
+	if (tmpVenue->returnLastUsedLayout() > 0)       //Cheks if layouts exist
 	{
 		
-		tmpVenue->displayLayout();					//	displayLayout is the new, displayLayoutS is the old
+        tmpVenue->displayLayout();					//	Displayes zones from sted::
 	}
 	else {
 		cout << "\n\n\t\t'" << buffer;
@@ -146,18 +146,18 @@ void Steder::layoutNew()
 
 	readAndUpcase("Which venue would you like to add layout to?", buffer, STRLEN);
 
-	if (venueList->inList(buffer))													//	Checks if 'buffer' exists
+	if (venueList->inList(buffer))								//	Checks if 'buffer' exists
 	{
-		tmpVenue = (Sted*)venueList->remove(buffer);								//	Takes out of list
-		venueList->displayElement(buffer);											//	Displays it
-		tmpVenue->newVenueLayout();													//	Makes new layout
-		venueList->add(tmpVenue);													//	Adds back to list			
+		tmpVenue = (Sted*)venueList->remove(buffer);			//	Takes out of list
+		venueList->displayElement(buffer);					    //	Displays it
+		tmpVenue->newVenueLayout();								//	Makes new layout
+		venueList->add(tmpVenue);							    //	Adds back to list
 	}
 	else
 		cout << "\n\n\t\t'" << buffer << "' IS NOT IN LIST!\n\n";
 	
 }
-void Steder::layoutEdit()
+void Steder::layoutEdit()       //Edits layout for venue
 {
 	
 	Sted* tmpVenue = nullptr;
@@ -165,16 +165,16 @@ void Steder::layoutEdit()
 
 	readAndUpcase("EDIT LAYOUT FOR?", buffer, STRLEN);
 
-	if (venueList->inList(buffer))
+	if (venueList->inList(buffer))          //Checks if venue exists
 	{
 		tmpVenue = (Sted*)venueList->remove(buffer);
 		
-		if (tmpVenue->returnLastUsedLayout() > 0)
+		if (tmpVenue->returnLastUsedLayout() > 0)       //Checks if venue has layouts
 		{
 			
 			
 			venueList->displayElement(buffer);
-			tmpVenue->editLayout();
+			tmpVenue->editLayout();             //Displayes layouts
 		}
 		else
 			printError("THIS VENUE DOESN'T HAVE ANY LAYOUTS YET!");
@@ -193,30 +193,27 @@ List* Steder::getVenue(char* venName, int layoutN)
 	if (tmpVenue)
 	{
 		
-		newList = tmpVenue->getLayout(layoutN);
+		newList = tmpVenue->getLayout(layoutN);     //Copies chosen layout
 		
 	}
 	
 	venueList->add(tmpVenue);
 
-	return newList;	
+	return newList;	                    //Returns layout
 
 }
-void Steder::layoutMenu() {		//	From main press 0
+void Steder::layoutMenu() {		//	Called from main, layout menu
 	char command;
 	
-	if ((venueList->noOfElements()) > 0)
+	if ((venueList->noOfElements()) > 0)        //Checks if venue list is empty
 	{
 		command = read();
 
 		switch (command)
 		{
-		case 'D': layoutDisplay();	break;
-		case 'N': layoutNew();		break;
-		case 'E': layoutEdit();		break;
-		
-		
-		
+		case 'D': layoutDisplay();	break;          //Display layout
+		case 'N': layoutNew();		break;          //Make new layout
+		case 'E': layoutEdit();		break;          //Edit layout
 		default:
 			break;
 		}
@@ -225,7 +222,7 @@ void Steder::layoutMenu() {		//	From main press 0
 		printError("VENUE LIST IS EMPTY. YOU MUST ADD A VENUE IN ORDER TO CONFIGURE OR DISPLAY A LAYOUT!");
 
 }
-int Steder::returnCurrentLayout(char venueName[])
+int Steder::returnCurrentLayout(char venueName[])   //Returns layout number for given venue
 {
 	
 	Sted* tempVenue;
@@ -233,10 +230,10 @@ int Steder::returnCurrentLayout(char venueName[])
 	if (venueList->inList(venueName))
 	{
 		tempVenue = (Sted*)venueList->remove(venueName);
-		nr = tempVenue->returnLastUsedLayout();
+		nr = tempVenue->returnLastUsedLayout();         //Gets number of layouts
 		venueList->add(tempVenue);
 
-		return nr;
+		return nr;                          //Return layout number
 	}
 	else
 	{
@@ -244,21 +241,21 @@ int Steder::returnCurrentLayout(char venueName[])
 		return 0;
 	}
 }
-int Steder::retLastUsedVenue() {
+int Steder::retLastUsedVenue() {            //Returns number of layouts
 	return lastUsedVenue;
 }
 
-bool Steder::venueExist(char text[]){
+bool Steder::venueExist(char text[]){           //Checks if venue exists
     Sted* tempVenue;
     
 	bool searchResult = false;
     lastUsedVenue = venueList->noOfElements();
     
-    for (int i = 1; i <= lastUsedVenue; i++)
+    for (int i = 1; i <= lastUsedVenue; i++)        //Loops thru all venues
     {
         
         tempVenue = (Sted*)venueList->removeNo(i);        
-		searchResult = tempVenue->compareVenueName(text);
+		searchResult = tempVenue->compareVenueName(text);   //Compares text with existing venues
 		venueList->add(tempVenue);
         
 

@@ -13,14 +13,14 @@ using namespace std;
 
 Sone::Sone(char n[], enum zoneType type) : TextElement(n){			
 																 
-																//	Total TicketsForSale must be equal to Stoler::seatPrRow * rows.
-    zoneName = new char[strlen(n) + 1]; //	NEW
+                                                    //	Total TicketsForSale must be equal to Stoler::seatPrRow * rows.
+    zoneName = new char[strlen(n) + 1];
     strcpy(zoneName, n);
 	typeOfZone = type;	
-	//ticketsForSale = sumSeats;
-	cout << "\nNO. OF TICKETS FOR SALE?:   "; cin >> ticketsForSale;
-	ticketsSold = 0;
-	ticketPrice = read("TICKET PRICE FOR ZONE", MINTICKETPRICE, MAXTICKETPRICE);
+	
+	cout << "\nNO. OF TICKETS FOR SALE?:   "; cin >> ticketsForSale;    //Number of wanted tickets for zone
+	ticketsSold = 0;                                                //Sets tickets sold to zero
+	ticketPrice = read("TICKET PRICE FOR ZONE", MINTICKETPRICE, MAXTICKETPRICE);    //reads ticket price
 
 }
 Sone::Sone(char n[], ifstream & inn, enum zoneType type) : TextElement(n)
@@ -29,7 +29,7 @@ Sone::Sone(char n[], ifstream & inn, enum zoneType type) : TextElement(n)
 	zoneName = new char[strlen(n) + 1];
 	strcpy(zoneName, n);
 
-	inn >> ticketsForSale >> ticketsSold >> ticketPrice; 
+	inn >> ticketsForSale >> ticketsSold >> ticketPrice;    //Reads tickets info
 	inn.ignore();
 }
 Sone::Sone(Sone* s, enum zoneType type) : TextElement(s->text) {
@@ -39,43 +39,43 @@ Sone::Sone(Sone* s, enum zoneType type) : TextElement(s->text) {
 	ticketPrice = s->ticketPrice;
 	
 }
-Sone::~Sone() {						
+Sone::~Sone() {			//Deconstructor
 	delete zoneName;
 }
-int Sone::returnZoneType() {
+int Sone::returnZoneType() {        //Returns type value
 	switch (typeOfZone)
 	{
 	case stoler: return 0; break;
 	case vrimle: return 1; break;
 	}
 }
-void Sone::display() {
+void Sone::display() {      //Display zones
 
 	cout << "\nZone type:             ";
 	
-	switch (typeOfZone)
+	switch (typeOfZone)  //Displayes zone type
 	{
 	case stoler: cout << "Stoler"; break;
 	case vrimle: cout << "Vrimle";  break;
 	}
 	
 	
-    cout << "\nZone name:             " << text << endl;
-	cout << "Total no. of tickets:  " << ticketsForSale << endl;
-    cout << "Tickets left for sale: " << ticketsForSale - ticketsSold << endl;
-    cout << "Ticket price:          " << ticketPrice << endl;
+    cout << "\nZone name:             " << text << endl;    //Zone name
+	cout << "Total no. of tickets:  " << ticketsForSale << endl; //Tickets for sale
+    cout << "Tickets left for sale: " << ticketsForSale - ticketsSold << endl; //Tickets left
+    cout << "Ticket price:          " << ticketPrice << endl;   //Ticket price
     
 }
 
-void Sone::writeToFile(ofstream & out)
+void Sone::writeToFile(ofstream & out)  //Writes zone info to file
 {
 	
-	out << text << '\n';
-	out << ticketsForSale << ' ' << ticketsSold << ' ' << ticketPrice << '\n';
+	out << text << '\n';        //Writes name
+	out << ticketsForSale << ' ' << ticketsSold << ' ' << ticketPrice << '\n'; //Writes ticket info
 }
-int Sone::getPrice() {
+int Sone::getPrice() {      //Returns ticketprice
 	return ticketPrice;
 }
-char* Sone::returnZoneName() {
+char* Sone::returnZoneName() {          //Returns zone name
 	return zoneName;
 }
