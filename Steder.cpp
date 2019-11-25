@@ -75,7 +75,7 @@ void Steder::readVenuesFromFile() {
 		inn >> lastUsedVenue; inn.ignore();		
 
 		for (int i = 1; i <= lastUsedVenue; i++) {
-			//inn.ignore();								//	Ignores \n before each venue name
+			//inn.ignore();								
 			inn.getline(bufferName, STRLEN);		    //  Reads name from file
 			venueList->add(new Sted(bufferName, inn));  //  Adds it in list
 		}
