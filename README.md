@@ -2,11 +2,11 @@
 Skrevet som en obligatorisk del av kurset i objektorientert programmering (IMT1082) ved NTNU Gjøvik våren 2019.
 
 # Hva?
-Program for å gjennomføre billettbestillinger for bl.a kultur-, musikk- og sportsarrangementer.
+Program for å gjennomføre billettbestillinger for bl.a kultur-, musikk- og sportsarrangementer.  [Trykk her for å gå til oppgavebeskrivelsen](https://github.com/asm492/Prosjekt-objektorientert-programmering-IMT1082/blob/master/Oppgavetekst.pdf)
 
 # Gruppemedlemmer:
 
-Avleen Singh Marjara | E-mail: avleensm@stud.ntnu.no
-Sindre Opskar Hjelle | E-Mail: sindrohj@stud.ntnu.no 
+Avleen Singh Marjara (avleensm@stud.ntnu.no) og
+Sindre Opskar Hjelle (sindrohj@stud.ntnu.no) 
 
 
