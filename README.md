@@ -1,5 +1,8 @@
-# Gruppe35
+# Prosjekt i objektorientert programmering (IMT1082) ved NTNU Gjøvik våren 2019 
 
-Sindre Opskar Hjelle tlf: 99498853 E-Mail: Sindrehjelle95@gmail.com 
-Avleen Singh Marjara tlf: 98066135 E-mail: asm492@gmail.com
+# Skrevet av:
+
+Avleen Singh Marjara | E-mail: avleensm@stud.ntnu.no
+Sindre Opskar Hjelle | E-Mail: sindrohj@stud.ntnu.no 
+
 
