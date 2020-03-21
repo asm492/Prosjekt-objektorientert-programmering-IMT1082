@@ -6,7 +6,7 @@ Program for å gjennomføre billettbestillinger for bl.a kultur-, musikk- og spo
 
 # Gruppemedlemmer:
 
-Avleen Singh Marjara (avleensm@stud.ntnu.no) og
-Sindre Opskar Hjelle (sindrohj@stud.ntnu.no) 
+* Avleen Singh Marjara (avleensm@stud.ntnu.no)
+* Sindre Opskar Hjelle (sindrohj@stud.ntnu.no) 
 
 
